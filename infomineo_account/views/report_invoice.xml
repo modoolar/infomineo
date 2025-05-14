@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <template id="tax_groups_totals" inherit_id="account.tax_groups_totals">
+        <!-- Section -->
+        <xpath expr="//t[@t-as='amount_by_group']" position="replace">
+            <t
+                t-foreach="tax_totals['groups_by_subtotal'][subtotal_to_show]"
+                t-as="amount_by_group"
+            >
+                <t t-set="obj" t-value="o if o else doc" />
+                <tr>
+                    <t t-if="not amount_by_group.get('tax_group_is_retention')">
+                        <t
+                            t-if="len(tax_totals['groups_by_subtotal'][subtotal_to_show]) > 1"
+                        >
+                            <td>
+                                <span t-esc="amount_by_group['tax_group_name']" />
+                                <span class="text-nowrap"> on
+                                    <t
+                                        t-esc="amount_by_group['formatted_tax_group_base_amount']"
+                                    />
+                                </span>
+                            </td>
+                            <td class="text-right o_price_total">
+                                <span
+                                    class="text-nowrap"
+                                    t-esc="amount_by_group['formatted_tax_group_amount']"
+                                />
+                            </td>
+                        </t>
+                        <t t-else="">
+                            <td><span
+                                    class="text-nowrap"
+                                    t-esc="amount_by_group['tax_group_name']"
+                                /></td>
+                            <td class="text-right o_price_total">
+                                <span
+                                    class="text-nowrap"
+                                    t-esc="amount_by_group['formatted_tax_group_amount']"
+                                />
+                            </td>
+                        </t>
+                    </t>
+                </tr>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="report_invoice_document" inherit_id="account.report_invoice_document">
+        <xpath expr="//p[@t-if='o.invoice_payment_term_id']" position="before">
+                <div
+                t-if="not is_html_empty(o.narration)"
+                name="comment"
+                position="move"
+            />
+        </xpath>
+        <xpath expr="//span[@id='line_tax_ids']" position="replace">
+            <t t-set="obj" t-value="o if o else doc" />
+            <t
+                t-if="obj and obj.partner_id and obj.partner_id.commercial_partner_id.remove_withholding_tax"
+            >
+                <span
+                    t-esc="', '.join(map(lambda x: (x.description or x.name), line.tax_ids.filtered(lambda t: not t.tax_group_id.is_retention)))"
+                    id="line_tax_ids"
+                />
+            </t>
+            <t t-else="">
+                <span
+                    t-esc="', '.join(map(lambda x: (x.description or x.name), line.tax_ids))"
+                    id="line_tax_ids"
+                />
+            </t>
+        </xpath>
+        <xpath expr="//p[@t-if='o.invoice_payment_term_id']" position="after">
+            <p style="page-break-inside:avoid;">
+                <span t-if="o.partner_bank_id.partner_id" name="bank_account_owner">
+                    <b>Bank account owner:</b> <span
+                        t-field="o.partner_bank_id.partner_id"
+                    />
+                    <br />
+                </span>
+                <span t-if="o.partner_bank_id.bank_id.name" name="bank_name">
+                    <b>Bank name:</b> <span t-field="o.partner_bank_id.bank_id.name" />
+                    <br />
+                </span>
+                <span t-if="o.partner_bank_id.acc_number" name="iban">
+                    <b>IBAN:</b> <span t-field="o.partner_bank_id.acc_number" />
+                    <br />
+                </span>
+                <span t-if="o.partner_bank_id.iban" name="account_number">
+                    <b>Account number:</b> <span t-field="o.partner_bank_id.iban" />
+                    <br />
+                </span>
+                <span t-if="o.partner_bank_id.bank_id.bic" name="swift_code">
+                    <b>SWIFT:</b> <span t-field="o.partner_bank_id.bank_id.bic" />
+                    <br />
+                </span>
+                <span t-if="o.partner_bank_id.currency_id.name" name="currency_name">
+                    <b>Currency:</b> <span
+                        t-field="o.partner_bank_id.currency_id.name"
+                    />
+                    <br />
+                </span>
+            </p>
+        </xpath>
+    </template>
+
+    <template id="document_tax_totals" inherit_id="account.document_tax_totals">
+        <xpath expr="//tr[hasclass('o_total')]/td/span" position="replace">
+            <span
+                t-if="'formatted_amount_retention_diff' in tax_totals"
+                t-esc="tax_totals['formatted_amount_retention_diff']"
+            />
+        </xpath>
+        <xpath expr="//tr[hasclass('o_total')]" position="after">
+            <t t-set="obj" t-value="o if o else doc" />
+            <t
+                t-if="obj and obj.partner_id and not obj.partner_id.commercial_partner_id.remove_withholding_tax"
+            >
+                <t t-call="infomineo_account.tax_groups_totals_retention" />
+                <tr class="border-black o_total_retention">
+                    <td><strong>Amount due</strong></td>
+                    <td class="text-right">
+                        <span t-esc="tax_totals['formatted_amount_total']" />
+                    </td>
+                </tr>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="tax_groups_totals_retention">
+        <t
+            t-foreach="tax_totals.get('groups_by_subtotal').get(subtotal_to_show)"
+            t-as="amount_by_group"
+        >
+                <tr>
+                    <t t-if="amount_by_group.get('tax_group_is_retention')">
+                        <t
+                        t-if="len(tax_totals.get('groups_by_subtotal').get(subtotal_to_show)) > 1 or (tax_totals.get('amount_untaxed') != amount_by_group.get('tax_group_base_amount'))"
+                    >
+                            <td>
+                                <span t-esc="amount_by_group.get('tax_group_name')" />
+                                <span class="text-nowrap"> on
+                                    <t
+                                    t-esc="amount_by_group.get('formatted_tax_group_base_amount')"
+                                />
+                                </span>
+                            </td>
+                            <td class="text-right o_price_total">
+                                <span
+                                class="text-nowrap"
+                                t-esc="amount_by_group.get('formatted_tax_group_amount')"
+                            />
+                            </td>
+                        </t>
+                        <t t-else="">
+                            <td><span
+                                class="text-nowrap"
+                                t-esc="amount_by_group.get('tax_group_name')"
+                            /></td>
+                            <td class="text-right o_price_total">
+                                <span
+                                class="text-nowrap"
+                                t-esc="amount_by_group.get('formatted_tax_group_amount')"
+                            />
+                            </td>
+                        </t>
+                    </t>
+                </tr>
+            </t>
+    </template>
+
+</odoo>

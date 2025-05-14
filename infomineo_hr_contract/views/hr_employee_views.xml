@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_employee_form" model="ir.ui.view">
+        <field name="name">hr.employee.form</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='has_work_permit']" position="after">
+                <field name="residency_number" />
+                <field name="residency_expiry_date" />
+            </xpath>
+            <xpath expr="//field[@name='company_id']" position="attributes">
+                <attribute name="readonly">1</attribute>
+            </xpath>
+            <field name="job_title" position="attributes">
+                <attribute name="readonly">True</attribute>
+                <attribute name="force_save">1</attribute>
+            </field>
+            <field name="job_id" position="attributes">
+                <attribute name="options">{'no_create': True}</attribute>
+            </field>
+        </field>
+    </record>
+    <record id="hr_employee_view_search" model="ir.ui.view">
+        <field name="name">hr.employee.view.search</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_filter" />
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//filter[@name='message_needaction']" position="after">
+                    <separator />
+                    <filter
+                        string="Freelancers"
+                        name="freelancer_employees"
+                        domain="[('employee_type', '=', 'freelance')]"
+                    />
+                </xpath>
+                <xpath
+                    expr="//searchpanel/field[@name='department_id']"
+                    position="after"
+                >
+                    <field name="employee_type" icon="fa-users" enable_counters="1" />
+                </xpath>
+                <xpath expr="//filter[@name='with_contract_warning']" position="after">
+                    <filter
+                        name="document_warning"
+                        string="Document Warning"
+                        domain="['|', ('visa_expire', '&lt;=', ((context_today()+relativedelta(days=30)).strftime('%Y-%m-%d'))), ('residency_expiry_date', '&lt;=', ((context_today()+relativedelta(days=30)).strftime('%Y-%m-%d')))]"
+                    />
+                </xpath>
+            </data>
+        </field>
+    </record>
+
+    <record id="hr_hr_employee_view_form2" model="ir.ui.view">
+        <field name="name">hr.hr.employee.view.form2</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr_contract.hr_hr_employee_view_form2" />
+        <field name="arch" type="xml">
+            <xpath
+                expr="//button[@name='action_open_contract_history']"
+                position="attributes"
+            >
+                <attribute
+                    name="attrs"
+                >{'invisible' : [('employee_type', 'not in', ['employee', 'student', 'trainee', 'freelance'])]}</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record model="ir.ui.view" id="e_bds_view_form">
+        <field name="name">e-BDS</field>
+        <field name="model">e_bds</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+        <form string="e-BDS">
+            <field invisible="1" name="state" />
+            <field name="name" invisible="1" />
+            <group states="choose" string="e-BDS">
+                <label for="date_from" string="Period" />
+                <div class="o_row">
+                    <field
+                            name="date_from"
+                            widget="daterange"
+                            nolabel="1"
+                            class="oe_inline"
+                            options="{'related_end_date': 'date_to'}"
+                        />
+                    <i
+                            class="fa fa-long-arrow-right mx-2"
+                            aria-label="Arrow icon"
+                            title="Arrow"
+                        />
+                    <field
+                            name="date_to"
+                            widget="daterange"
+                            nolabel="1"
+                            class="oe_inline"
+                            options="{'related_start_date': 'date_from'}"
+                        />
+                </div>
+                <field name="file_import" />
+            </group>
+            <div states="get">
+                <h2>File e-BDS</h2>
+                <p>You can download the e-BDS file created from this link:<field
+                            name="file_export"
+                            filename="name"
+                        /></p>
+            </div>
+            <footer states="choose">
+                <button
+                        string="Generate"
+                        type="object"
+                        name="generate"
+                        icon="fa-file-text"
+                    />
+                <button string="Cancel" special="cancel" icon="fa-times" />
+            </footer>
+        </form>
+        </field>
+    </record>
+
+    <record id="e_bds_action" model="ir.actions.act_window">
+        <field name="name">e-BDS</field>
+        <field name="res_model">e_bds</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+    <menuitem
+        name="e-BDS"
+        action="e_bds_action"
+        id="e_bds_menu"
+        parent="hr_payroll.menu_hr_payroll_payslips"
+        groups="hr.group_hr_manager"
+        sequence="100"
+    />
+</odoo>

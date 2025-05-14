@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo noupdate="1">
+    <record id="ir_cron_data_project_package_expiration" model="ir.cron">
+        <field name="name">Project: Package expiration</field>
+        <field name="model_id" ref="model_project_project" />
+        <field name="state">code</field>
+        <field name="code">model.cron_update_project_state_closing()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">hours</field>
+        <field name="numbercall">-1</field>
+    </record>
+</odoo>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="advanced_approval_category_approver_view_tree" model="ir.ui.view">
+        <field name="name">advanced.approval.category.approver.view.tree</field>
+        <field name="model">advanced.approval.category.approver</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="sequence" widget="handle" />
+                <field name="approval_authorization_level_id" />
+                <field name="minimum_approvals" />
+                <field name="use_employee_manager" />
+                <field
+                    name="use_employee_department"
+                    attrs="{'invisible': [('use_employee_tags', '=', True)]}"
+                />
+                <field name="use_employee_tags" invisible="1" />
+                <field
+                    name="other_department_ids"
+                    attrs="{'invisible': [('use_employee_tags', '=', True)]}"
+                    widget="many2many_tags"
+                    options="{'no_create': True}"
+                    context="{'department_with_country_code': True}"
+                    optional="hidden"
+                />
+                <field
+                    name="category_ids"
+                    widget="many2many_tags"
+                    options="{'no_create': True}"
+                    optional="hidden"
+                />
+                <field
+                    name="company_ids"
+                    widget="many2many_tags"
+                    options="{'no_create': True}"
+                    optional="hidden"
+                />
+            </tree>
+        </field>
+    </record>
+
+    <record id="advanced_approval_category_approver_view_form" model="ir.ui.view">
+        <field name="name">advanced.approval.category.approver.view.form</field>
+        <field name="model">advanced.approval.category.approver</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="category_id" invisible="1" />
+                            <field name="sequence" />
+                            <field name="approval_authorization_level_id" />
+                            <field name="minimum_approvals" />
+                        </group>
+                        <group>
+                            <field name="use_employee_manager" />
+                            <field name="use_employee_department" />
+                            <field
+                                name="other_department_ids"
+                                widget="many2many_tags"
+                                options="{'no_create': True}"
+                                context="{'department_with_country_code': True}"
+                            />
+                            <field
+                                name="company_ids"
+                                widget="many2many_tags"
+                                options="{'no_create': True}"
+                            />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+     <record id="res_config_settings_view_approvals_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.approvals.form</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="hr.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('settings')]" position="inside">
+                <div
+                    class="app_settings_block"
+                    data-string="Approvals"
+                    string="Approvals"
+                    data-key="approvals"
+                    groups="approvals.group_approval_manager"
+                >
+                    <h2>Advanced Approval Category</h2>
+                    <div
+                        class="row mt16 o_settings_container"
+                        name="approver_period_setting_container"
+                    >
+                        <div
+                            class="col-12 col-lg-6 o_setting_box"
+                            id="include_parent_departments_setting"
+                            title="Include Parent departments to Approval Rules."
+                        >
+                            <div class="o_setting_left_pane">
+                                <field name="include_parent_departments" />
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="include_parent_departments" />
+                                <span
+                                    class="fa fa-lg fa-building-o"
+                                    title="Values set here are company-specific."
+                                    role="img"
+                                    aria-label="Values set here are company-specific."
+                                    groups="base.group_multi_company"
+                                />
+                                <div class="text-muted">
+                                    Include Parent departments to Approval Rules
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            class="col-12 col-lg-6 o_setting_box"
+                            id="presence_reporting_setting12"
+                            title="Advanced presence of employees"
+                        >
+                            <div class="o_setting_right_pane">
+                                <span
+                                    class="o_form_label"
+                                >Additional Approver Buffer</span>
+                                <span
+                                    class="fa fa-lg fa-building-o"
+                                    title="Values set here are company-specific."
+                                    role="img"
+                                    aria-label="Values set here are company-specific."
+                                    groups="base.group_multi_company"
+                                />
+                                <div class="text-muted">
+                                    <field name="additional_approver_buffer" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        class="row mt16 o_settings_container"
+                        name="approver_period_setting_container"
+                    >
+                        <div
+                            class="col-12 col-lg-6 o_setting_box"
+                            id="presence_control_setting"
+                            title="Presence of employees"
+                        >
+                            <div class="o_setting_right_pane">
+                                <label for="approver_reminder" />
+                                <span
+                                    class="fa fa-lg fa-building-o"
+                                    title="Values set here are company-specific."
+                                    role="img"
+                                    aria-label="Values set here are company-specific."
+                                    groups="base.group_multi_company"
+                                />
+                                <div class="row">
+                                    <div class="text-muted col-lg-8">
+                                        Set default approver reminder period in days.
+                                    </div>
+                                </div>
+                                <div class="content-group">
+                                    <div class="mt16">
+                                        <field
+                                            name="approver_reminder"
+                                            class="o_light_label"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            class="col-12 col-lg-6 o_setting_box"
+                            id="presence_reporting_setting12"
+                            title="Advanced presence of employees"
+                        >
+                                <div class="o_setting_right_pane">
+                                <label for="approver_substitution" />
+                                <span
+                                    class="fa fa-lg fa-building-o"
+                                    title="Values set here are company-specific."
+                                    role="img"
+                                    aria-label="Values set here are company-specific."
+                                    groups="base.group_multi_company"
+                                />
+                                <div class="row">
+                                    <div class="text-muted col-lg-8">
+                                        Set default approver substitution period in days.
+                                    </div>
+                                </div>
+                                <div class="content-group">
+                                    <div class="mt16">
+                                        <field
+                                            name="approver_substitution"
+                                            class="o_light_label"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        class="row mt16 o_settings_container"
+                        name="communication_channel_setting_container"
+                    >
+                        <div
+                            class="col-12 col-lg-6 o_setting_box"
+                            id="presence_control_setting"
+                            title="Presence of employees"
+                        >
+                            <div class="o_setting_right_pane">
+                                <span
+                                    class="o_form_label"
+                                >HR communication channel</span>
+                                <span
+                                    class="fa fa-lg fa-building-o"
+                                    title="Values set here are company-specific."
+                                    role="img"
+                                    aria-label="Values set here are company-specific."
+                                    groups="base.group_multi_company"
+                                />
+                                <div class="text-muted">
+                                    <field name="hr_communication_channel_id" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="approvals_matrix_config_settings_action" model="ir.actions.act_window">
+        <field name="name">Settings</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+        <field name="context">{'module' : 'approvals_matrix', 'bin_size': False}</field>
+    </record>
+
+    <menuitem
+        name="Settings"
+        id="approvals_matrix_global_settings_menu"
+        parent="approvals.approvals_menu_config"
+        sequence="0"
+        action="approvals_matrix_config_settings_action"
+        groups="base.group_system"
+    />
+</odoo>

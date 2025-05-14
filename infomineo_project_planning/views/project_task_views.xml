@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="project_view_task_form2" model="ir.ui.view">
+        <field name="name">project.view.task.form2</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_form2" />
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <field name="is_available_for_assignment" invisible="1" />
+                <button
+                    name="action_self_assign"
+                    class="btn btn-primary"
+                    type="object"
+                    string="I Take It"
+                    attrs="{'invisible': [('is_available_for_assignment', '=', False)]}"
+                />
+            </xpath>
+        </field>
+    </record>
+</odoo>

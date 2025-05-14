@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_task_tree2" model="ir.ui.view">
+        <field name="name">view.task.tree2</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project_line_of_business.view_task_tree2" />
+        <field name="arch" type="xml">
+            <field name="project_id" position="after">
+                <field name="translated_words" optional="hide" />
+            </field>
+        </field>
+    </record>
+
+    <record id="project_task_view_tree_activity" model="ir.ui.view">
+        <field name="name">project.task.view.tree.activity</field>
+        <field name="model">project.task</field>
+        <field
+            name="inherit_id"
+            ref="project_line_of_business.project_task_view_tree_activity"
+        />
+        <field name="arch" type="xml">
+            <field name="project_id" position="after">
+                <field name="translated_words" optional="hide" />
+            </field>
+        </field>
+    </record>
+
+    <record id="view_task_form2" model="ir.ui.view">
+        <field name="name">view.task.form2</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project_line_of_business.view_task_form2" />
+        <field name="arch" type="xml">
+            <field name="parent_id" position="after">
+                <field name="translated_words" />
+            </field>
+        </field>
+    </record>
+</odoo>

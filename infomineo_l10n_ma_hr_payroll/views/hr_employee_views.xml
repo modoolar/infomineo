@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="hr_hr_employee_view_form2" model="ir.ui.view">
+        <field name="name">	hr.hr.employee.view.form2</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr_contract.hr_hr_employee_view_form2" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='contract_id']" position="after">
+                <field name="company_country_code" invisible="1" />
+            </xpath>
+
+            <notebook position="inside">
+                <page
+                    name="housing_loan"
+                    string="Housing Loan"
+                    groups="hr_payroll.group_hr_payroll_manager"
+                    attrs="{'invisible': [('company_country_code', '!=', 'MA')]}"
+                >
+                    <group>
+                        <group string="Housing Info">
+                            <field name="housing_type" />
+                            <field name="housing_surface" />
+                            <field name="buying_price" />
+                        </group>
+                        <group string="Amount">
+                            <field name="abatement_fr_housing" />
+                        </group>
+                    </group>
+                </page>
+                <page
+                    name="employee_pdf"
+                    string="PDF Values"
+                    groups="hr_payroll.group_hr_payroll_manager"
+                    attrs="{'invisible': [('company_country_code', '!=', 'MA')]}"
+                >
+                    <group>
+                        <field name="cumul_jours_travailles_pdf" />
+                        <field name="cumul_brut_pdf" />
+                        <field name="cumul_brut_imposable_pdf" />
+                        <field name="cumul_net_imposable_pdf" />
+                        <field name="cumul_ir_pdf" />
+                    </group>
+                </page>
+            </notebook>
+        </field>
+    </record>
+</odoo>

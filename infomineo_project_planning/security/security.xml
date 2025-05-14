@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="planning.planning_rule_user_is_published" model="ir.rule">
+            <field
+            name="domain_force"
+        >[('state', '=', 'published'), ("department_id", '=', user.employee_ids.department_id.id)]</field>
+        <field name="perm_write" eval="True" />
+    </record>
+
+    <record id="group_staffing_manager" model="res.groups">
+        <field name="name">Staffing Manager</field>
+        <field name="category_id" ref="base.module_category_human_resources_planning" />
+        <field name="implied_ids" eval="[(4, ref('planning.group_planning_user'))]" />
+    </record>
+
+    <record id="planning.group_planning_manager" model="res.groups">
+        <field
+            name="implied_ids"
+            eval="[(4, ref('infomineo_project_planning.group_staffing_manager'))]"
+        />
+    </record>
+
+    <record id="planning_rule_staffing_manager" model="ir.rule">
+        <field
+            name="name"
+        >Planning: Staffing manager can create/update/delete all planning entries within it's own team</field>
+        <field name="model_id" ref="planning.model_planning_slot" />
+        <field
+            name="domain_force"
+        >["|", ("project_hr_team_id", '=', user.employee_ids.hr_team_id.id), ("project_id.project_type", "in", ["internal", "internal_strategic"])]</field>
+        <field name="perm_read" eval="True" />
+        <field name="perm_write" eval="True" />
+        <field name="perm_create" eval="True" />
+        <field name="perm_unlink" eval="True" />
+        <field
+            name="groups"
+            eval="[(4,ref('infomineo_project_planning.group_staffing_manager'))]"
+        />
+    </record>
+
+    <record id="resource_resource_staffing_manager_read" model="ir.rule">
+        <field
+            name="name"
+        >Planning: Staffing manager can see all planning resources in it's own department</field>
+        <field name="model_id" ref="resource.model_resource_resource" />
+        <field
+            name="domain_force"
+        >['|', ('employee_id.department_id', 'in', user.employee_ids.department_id.ids), ('resource_type', '!=', 'material')]</field>
+        <field name="perm_read" eval="True" />
+        <field name="perm_write" eval="False" />
+        <field name="perm_create" eval="False" />
+        <field name="perm_unlink" eval="False" />
+        <field
+            name="groups"
+            eval="[(4,ref('infomineo_project_planning.group_staffing_manager'))]"
+        />
+    </record>
+    <record id="resource_resource_staffing_manager_cud" model="ir.rule">
+        <field
+            name="name"
+        >Planning: Staffing manager can create/update/delete all planning resources</field>
+        <field name="model_id" ref="resource.model_resource_resource" />
+        <field
+            name="domain_force"
+        >['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+        <field name="perm_read" eval="False" />
+        <field name="perm_write" eval="True" />
+        <field name="perm_create" eval="True" />
+        <field name="perm_unlink" eval="True" />
+        <field
+            name="groups"
+            eval="[(4,ref('infomineo_project_planning.group_staffing_manager'))]"
+        />
+    </record>
+    <record id="resource_resource_planning_user" model="ir.rule">
+        <field
+            name="name"
+        >Planning: User can create/update/delete all of his planning resources.</field>
+        <field name="model_id" ref="resource.model_resource_resource" />
+        <field
+            name="domain_force"
+        >['|', ('user_id', '=', user.id), ('resource_type', '=', 'material')]</field>
+        <field name="perm_read" eval="True" />
+        <field name="perm_write" eval="True" />
+        <field name="perm_create" eval="True" />
+        <field name="perm_unlink" eval="True" />
+        <field name="groups" eval="[(4,ref('planning.group_planning_user'))]" />
+    </record>
+
+    <record id="resource_resource_planning_manager" model="ir.rule">
+        <field
+            name="name"
+        >Planning: Admin can create/update/delete all of the resources.</field>
+        <field name="model_id" ref="resource.model_resource_resource" />
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="perm_read" eval="True" />
+        <field name="perm_write" eval="True" />
+        <field name="perm_create" eval="True" />
+        <field name="perm_unlink" eval="True" />
+        <field name="groups" eval="[(4,ref('planning.group_planning_manager'))]" />
+    </record>
+
+    <record id="staffing_manager_task_rule" model="ir.rule">
+        <field name="name">Staffing Manager Own Task Rule</field>
+        <field name="model_id" ref="project.model_project_task" />
+        <field
+            name="domain_force"
+        >['|', '|',('project_id.user_id', '=', user.id), ('project_id.user_id', '=', False), ('project_id.project_team_members_ids', 'in', user.ids)]</field>
+        <field
+            name="groups"
+            eval="[(4,ref('infomineo_project_planning.group_staffing_manager'))]"
+        />
+    </record>
+</odoo>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="project_task_view_form" model="ir.ui.view">
+        <field name="name">project.task.view.form</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="infomineo_project.project_task_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='qa_time']" position="before">
+                <field name="planned_hours" />
+            </xpath>
+        </field>
+    </record>
+</odoo>

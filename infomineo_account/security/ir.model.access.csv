@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+account.access_product_product_account_manager,product.product.account.manager,product.model_product_product,account.group_account_manager,1,0,0,0
+account.access_product_template_account_manager,product.template.account.manager,product.model_product_template,account.group_account_manager,1,0,0,0
+infomineo_account.access_account_move_company_switch_wizard,access.account.move.company.switch.wizard,infomineo_account.model_account_move_company_switch_wizard,account.group_account_manager,1,1,1,1

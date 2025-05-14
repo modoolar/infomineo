@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+purchase.access_product_product_purchase_manager,product.product purchase_manager,product.model_product_product,purchase.group_purchase_manager,1,0,0,0
+purchase.access_product_template_purchase_manager,product.template purchase_manager,product.model_product_template,purchase.group_purchase_manager,1,0,0,0
+infomineo_purchase.access_purchase_order_company_switch_wizard,access.purchase.order.switch.wizard,infomineo_purchase.model_purchase_order_company_switch_wizard,purchase.group_purchase_manager,1,1,1,1

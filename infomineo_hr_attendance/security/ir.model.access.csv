@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_hr_employee_group_hr_coach,hr.employee.group.hr.coach,hr.model_hr_employee,infomineo_hr_attendance.group_hr_coach,1,0,0,0
+access_hr_team_group_hr_attendance_manager,hr.team,infomineo_hr.model_hr_team,hr_attendance.group_hr_attendance_manager,1,1,1,1
+access_hr_team_group_hr_attendance_user,hr.team,infomineo_hr.model_hr_team,hr_attendance.group_hr_attendance_user,1,1,1,1
+access_hr_study_field_group_hr_attendance_manager,hr.study.field,infomineo_hr.model_hr_study_field,hr_attendance.group_hr_attendance_manager,1,1,1,1
+access_hr_study_field_group_hr_attendance_user,hr.study.field,infomineo_hr.model_hr_study_field,hr_attendance.group_hr_attendance_user,1,0,0,0
+access_employee_employment_history_group_hr_attendance_user,employee.employment.history.user,infomineo_hr.model_employee_employment_history,hr_attendance.group_hr_attendance_user,1,1,1,1

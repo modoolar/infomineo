@@ -1,0 +1,1 @@
+from . import account_move_company_switch_wizard

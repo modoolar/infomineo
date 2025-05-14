@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="approval_rule_action" model="ir.actions.act_window">
+        <field name="name">Approval Rules</field>
+        <field name="res_model">approval.rule</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        id="approval_rule_menu_config"
+        parent="approvals.approvals_menu_config"
+        name="Approval Rules"
+        action="approval_rule_action"
+        groups="approvals.group_approval_user"
+        sequence="11"
+    />
+
+    <record id="approval_rule_view_tree" model="ir.ui.view">
+        <field name="name">approval.rule.view.tree</field>
+        <field name="model">approval.rule</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="sequence" widget="handle" />
+                <field name="name" />
+                <field name="model_id" />
+                <field name="action_type" />
+                <field name="company_id" />
+                <field name="approval_category_id" />
+                <field name="group_ids" optional="hide" invisible="1" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="approval_rule_view_form" model="ir.ui.view">
+        <field name="name">approval.rule.view.form</field>
+        <field name="model">approval.rule</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field
+                                class="text-break"
+                                name="name"
+                                placeholder="Enter the Name of the Approval Rule"
+                            /></h1>
+                    </div>
+                    <group>
+                        <field name="model_name" invisible="1" />
+                        <field name="model_id" />
+                        <field name="action_type" />
+                        <field
+                            name="domain"
+                            widget="domain"
+                            options="{'model': 'model_name'}"
+                        />
+                    </group>
+                    <group>
+                        <field name="company_id" />
+                        <field
+                            name="automatic_document_confirmation"
+                            attrs='{"invisible": [("action_type", "!=", "confirm")]}'
+                        />
+                        <field
+                            name="approval_category_id"
+                            options="{'no_create': True}"
+                            string="Approval Type"
+                        />
+                        <field
+                            name="override_group_ids"
+                            options="{'no_create': True}"
+                            widget="many2many_tags"
+                        />
+                        <field
+                            name="group_ids"
+                            invisible="1"
+                            widget="many2many_tags"
+                            options="{'no_create': True}"
+                        />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

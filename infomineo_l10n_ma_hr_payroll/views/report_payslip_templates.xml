@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="external_layout_standard" inherit_id='web.external_layout_standard'>
+        <xpath
+            expr="//div[@t-if=&quot;report_type == 'pdf'&quot;]"
+            position="attributes"
+        >
+            <attribute
+                name="t-if"
+            >report_type == 'pdf' and not hide_pagination</attribute>
+       </xpath>
+    </template>
+
+    <template id="report_payslip" inherit_id='hr_payroll.report_payslip'>
+        <xpath
+            expr="//table[@t-if='o.struct_id not in [holiday_attest_n, holiday_attest_n1]']"
+            position="attributes"
+        >
+            <attribute name="style">display:none;</attribute>
+       </xpath>
+
+        <xpath expr="//span[@t-esc='worked_days.amount']" position="before">
+            <t
+                t-set="basic_salary_line"
+                t-value="o.line_ids.filtered(lambda x: x.code == 'BASIC')"
+            />
+            <t t-if="basic_salary_line">
+                <t t-set="basic_salary_total" t-value="basic_salary_line.total" />
+            </t>
+        </xpath>
+        <xpath expr="//span[@t-esc='worked_days.amount']" position="attributes">
+            <attribute name="t-esc">basic_salary_total</attribute>
+        </xpath>
+    </template>
+
+    <template id="report_payslip_ma">
+        <t t-call="web.external_layout">
+            <div class="page">
+                <table
+                    name="employee-infos"
+                    style="margin-top: -1em;"
+                    class="table table-borderless"
+                >
+                    <tbody>
+                        <tr class="m-0 p-0">
+                            <td style="width: 45%; border: none;" />
+                            <td style="width: 10%; border: none;" />
+                            <td style="width: 45%; border: none;">
+                                <h4>
+                                    <strong>Bulletin de paie</strong>
+                                    <t t-if="o.payslip_run_id">
+                                        <strong t-esc="o.payslip_run_id.name[:3]" />/
+                                        <strong t-esc="o.payslip_run_id.name[-4:]" />
+                                    </t>
+                                    <t t-else="">
+                                        <strong t-esc="o.number" />
+                                    </t>
+                                </h4>
+                                <h6>Période du
+                                    <t t-esc="o.date_from" />
+                                    au
+                                    <t t-esc="o.date_to" />
+                                </h6>
+                            </td>
+                        </tr>
+                        <tr style="font-size: 0.7em;">
+                            <td style="width: 45%; background-color: #D4D4D4;">
+                                <p class="m-0 p-0"><strong>Marticule:</strong>
+                                    <t t-esc="o.employee_id.registration_number" />
+                                </p>
+                                <p class="m-0 p-0"><strong>Date d'entrée:</strong>
+                                    <span
+                                        t-field="o.contract_id.date_start"
+                                        t-options="{'widget': 'date', 'format': 'd-MMM-YYYY'}"
+                                    />
+                                </p>
+                                <p class="m-0 p-0"><strong>Fonction:</strong>
+                                    <span t-field="o.job_id.name" />
+                                </p>
+                                <p class="m-0 p-0"><strong>Situation familiale:</strong>
+                                    <span t-field="o.employee_id.marital" />
+                                </p>
+                                <p class="m-0 p-0"><strong>No de CIN:</strong>
+                                    <t t-esc="o.employee_id.cin" />
+                                </p>
+                                <p class="m-0 p-0"><strong>Nbre de charges:  </strong><t
+                                        t-esc="get_number_of_charges(o.employee_id)"
+                                    /></p>
+                                <p class="m-0 p-0"><strong>No CNSS:</strong>
+                                    <t t-esc="o.employee_id.ssnid" />
+                                </p>
+                                <p class="m-0 p-0"><strong>Date naissance:</strong>
+                                    <span
+                                        t-field="o.employee_id.birthday"
+                                        t-options="{'widget': 'date', 'format': 'd-MMM-YYYY'}"
+                                    />
+                                </p>
+                                <p class="m-0 p-0"><strong>Compte bancaire:</strong>
+                                    <t
+                                        t-esc="o.employee_id.bank_account_id.acc_number"
+                                    />
+                                </p>
+                            </td>
+                            <td class="width: 10%; border: none;" />
+                            <td
+                                class="width: 45%; border: none;"
+                                style="background-color: #D4D4D4;"
+                            >
+                                <h6 class="text-center"><strong
+                                        t-field="o.employee_id.name"
+                                    /></h6>
+                                <h6 class="text-center"><strong
+                                        t-field="o.employee_id.address_home_id.street"
+                                    /></h6>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <t
+                    t-set="employee_salary_table"
+                    t-value="get_employee_salary_data(o)"
+                />
+
+                <t
+                    t-set="salary_totals"
+                    t-value="get_total_salary_values(employee_salary_table)"
+                />
+                <t
+                    t-set="total_salary_summary"
+                    t-value="get_yearly_salary_summary(o.employee_id)"
+                />
+                <t t-set="total_debit" t-value="salary_totals['debit']" />
+                <t t-set="total_credit" t-value="salary_totals['credit']" />
+                <t t-set="total_employer" t-value="salary_totals['employer_value']" />
+
+                <table
+                    name="payslip-infos"
+                    class="table table-sm"
+                    style="border: 1px solid black; font-size: 0.7em;"
+                >
+                    <tbody>
+                        <tr
+                            style="border: 1px solid black; background-color: #D4D4D4; font-size: 0.8em;"
+                        >
+                            <td
+                                class="w-33 text-center"
+                                rowspan="2"
+                                style="border: 1px solid black;"
+                            >
+                                <strong>Libélle</strong>
+                            </td>
+                            <td
+                                class="w-10 text-center"
+                                rowspan="2"
+                                style="border: 1px solid black;"
+                            >
+                                <strong>Base</strong>
+                            </td>
+                            <td
+                                class="w-33 text-center"
+                                colspan="3"
+                                style="border: 1px solid black;"
+                            >
+                                <strong>Salarié</strong>
+                            </td>
+                            <td
+                                class="w-24 text-center"
+                                colspan="2"
+                                style="border: 1px solid black;"
+                            >
+                                <strong>Employeur</strong>
+                            </td>
+                        </tr>
+                        <tr
+                            style="border: 1px solid black; background-color: #D4D4D4; font-size: 0.8em;"
+                        >
+                            <td
+                                class="w-11 text-center"
+                                style="border: 1px solid black;"
+                            >
+                                <strong>Taux</strong>
+                            </td>
+                            <td
+                                class="w-11 text-center"
+                                style="border: 1px solid black;"
+                            >
+                                <strong>Gains</strong>
+                            </td>
+                            <td
+                                class="w-11 text-center"
+                                style="border: 1px solid black;"
+                            >
+                                <strong>Retenues</strong>
+                            </td>
+                            <td
+                                class="w-12 text-center"
+                                style="border: 1px solid black;"
+                            >
+                                <strong>Taux</strong>
+                            </td>
+                            <td
+                                class="w-12 text-center"
+                                style="border: 1px solid black;"
+                            >
+                                <strong>Charges</strong>
+                            </td>
+                        </tr>
+                        <t t-foreach="employee_salary_table" t-as="salary_item">
+                            <tr style="font-size: 0.7em;">
+                                <td
+                                    class="w-33 text-left"
+                                    style="border: 1px solid black;"
+                                >
+                                    <t t-esc="salary_item['name']" />
+                                </td>
+                                <td
+                                    class="w-10 text-right"
+                                    style="border: 1px solid black;"
+                                >
+                                    <t t-esc="round(salary_item['base'], 2)" />
+                                </td>
+                                <td
+                                    class="w-11 text-right"
+                                    style="border: 1px solid black;"
+                                >
+                                    <t t-esc="round(salary_item['salary_tax'], 2)" />
+                                </td>
+                                <td
+                                    class="w-11 text-right"
+                                    style="border: 1px solid black;"
+                                >
+                                    <t t-esc="round(salary_item['debit'], 2)" />
+                                </td>
+                                <td
+                                    class="w-11 text-right"
+                                    style="border: 1px solid black;"
+                                >
+                                    <t t-esc="round(salary_item['credit'] ,2)" />
+                                </td>
+                                <td
+                                    class="w-12 text-right"
+                                    style="border: 1px solid black;"
+                                >
+                                    <t t-esc="round(salary_item['employer_tax'], 2)" />
+                                </td>
+                                <td
+                                    class="w-12 text-right"
+                                    style="border: 1px solid black;"
+                                >
+                                    <t
+                                        t-esc="round(salary_item['employer_value'], 2)"
+                                    />
+                                </td>
+                            </tr>
+                        </t>
+                        <tr
+                            style="border: 1px solid black; background-color: #D4D4D4; font-size: 0.8em;"
+                        >
+                            <td class="w-25 text-left" style="border: 1px solid black;">
+                                <strong>Total</strong>
+                            </td>
+                            <td
+                                class="w-15 text-right"
+                                style="border: 1px solid black;"
+                            />
+                            <td
+                                class="w-12 text-right"
+                                style="border: 1px solid black;"
+                            />
+                            <td
+                                class="w-12 text-right"
+                                style="border: 1px solid black;"
+                            >
+                                <strong><t t-esc="round(total_debit, 2)" /></strong>
+                            </td>
+                            <td
+                                class="w-12 text-right"
+                                style="border: 1px solid black;"
+                            >
+                                <t t-esc="round(total_credit, 2)" />
+                            </td>
+                            <td
+                                class="w-12 text-right"
+                                style="border: 1px solid black;"
+                            />
+                            <td
+                                class="w-12 text-right"
+                                style="border: 1px solid black;"
+                            >
+                                <strong><t t-esc="round(total_employer, 2)" /></strong>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table
+                    name="payslip-right-table"
+                    class="table table-sm text-center"
+                    style="border: 1px solid black; float: right; width: 49%; font-size: 0.8em;"
+                >
+                    <tr style="border: 1px solid black;">
+                        <td style="border: 1px solid black;"><strong
+                            >Réglé par</strong></td>
+                        <td style="border: 1px solid black;"><strong
+                            >Net à Payer</strong></td>
+                    </tr>
+                    <tr style="border: 1px solid black;">
+                        <td style="border: 1px solid black;"><strong
+                            >Virement Bancaire</strong></td>
+                        <td
+                            style="border: 1px solid black; background-color: #D4D4D4;"
+                        ><strong><t t-esc="get_employee_net_salary(o)" /></strong></td>
+                    </tr>
+                </table>
+                <table
+                    name="payslip-work-infos"
+                    class="table table-sm"
+                    style="border: 1px solid black; font-size: 0.6em;"
+                >
+                    <tr style="border: 1px solid black; background-color: #D4D4D4;">
+                        <td
+                            class="w-27 text-center"
+                            style="border: 1px solid black;"
+                        >JOURS TRAVAILLES</td>
+                        <td
+                            class="w-19 text-center"
+                            style="border: 1px solid black;"
+                        >SALAIRE BRUT</td>
+                        <td
+                            class="w-27 text-center"
+                            style="border: 1px solid black;"
+                        >SALAIRE BRUT IMPOSABLE</td>
+                        <td
+                            class="w-27 text-center"
+                            style="border: 1px solid black;"
+                        >SALAIRE NET IMPOSABLE</td>
+                    </tr>
+                    <tr style="border: 1px solid black;">
+                        <td class="w-27 text-center" style="border: 1px solid black;"><t
+                                t-esc="get_payslip_working_days(o)"
+                            /></td>
+                        <td class="w-19 text-center" style="border: 1px solid black;"><t
+                                t-esc="total_debit"
+                            /></td>
+                        <td class="w-27 text-center" style="border: 1px solid black;"><t
+                                t-esc="get_base_total(o)"
+                            /></td>
+                        <td class="w-27 text-center" style="border: 1px solid black;"><t
+                                t-esc="get_salary_net_impossible(o)"
+                            /></td>
+                    </tr>
+                </table>
+                <table
+                    name="payslip-work-additional-infos"
+                    class="table table-sm"
+                    style="border: 1px solid black; font-size: 0.6em;"
+                >
+                    <tr
+                        class="m-1 p-0"
+                        style="border: 1px solid black; background-color: #D4D4D4;"
+                    >
+                        <td
+                            class="w-16 text-center m-1 p-0"
+                            style="border: 1px solid black;"
+                        >CUMUL JOURS TRAVAILLES</td>
+                        <td
+                            class="w-14 text-center m-1 p-0"
+                            style="border: 1px solid black;"
+                        >CUMUL BRUT</td>
+                        <td
+                            class="w-10 text-center m-1 p-0"
+                            style="border: 1px solid black;"
+                        >CUMUL BRUT IMPOSABLE</td>
+                        <td
+                            class="w-15 text-center m-1 p-0"
+                            style="border: 1px solid black;"
+                        >CUMUL NET IMPOSABLE</td>
+                        <td
+                            class="w-15 text-center m-1 p-0"
+                            style="border: 1px solid black;"
+                        >CUMUL IR</td>
+                        <td
+                            class="w-15 text-center m-1 p-0"
+                            style="border: 1px solid black;"
+                        >CUMUL COTISATIONS SALARIALE</td>
+                        <td
+                            class="w-15 text-center m-1 p-0"
+                            style="border: 1px solid black;"
+                        >CUMUL COTISATIONS PATRONALE</td>
+                    </tr>
+                    <tr class="m-1 p-0" style="border: 1px solid black;">
+                        <td class="w-16 text-center" style="border: 1px solid black;"><t
+                                t-esc="round(total_salary_summary['cumul_jours_travailles'], 2)"
+                            /></td>
+                        <td class="w-14 text-center" style="border: 1px solid black;"><t
+                                t-esc="round(total_salary_summary['cumul_brut'], 2)"
+                            /></td>
+                        <td class="w-10 text-center" style="border: 1px solid black;"><t
+                                t-esc="round(total_salary_summary['cumul_brut_imposable'], 2)"
+                            /></td>
+                        <td class="w-15 text-center" style="border: 1px solid black;"><t
+                                t-esc="round(total_salary_summary['cumul_net_imposable'], 2)"
+                            /></td>
+                        <td class="w-15 text-center" style="border: 1px solid black;"><t
+                                t-esc="round(total_salary_summary['cumul_ir'] , 2)"
+                            /></td>
+                        <td class="w-15 text-center" style="border: 1px solid black;"><t
+                                t-esc="round(total_credit, 2)"
+                            /></td>
+                        <td class="w-15 text-center" style="border: 1px solid black;"><t
+                                t-esc="round(total_employer - total_debit, 2)"
+                            /></td>
+                    </tr>
+                </table>
+            </div>
+        </t>
+    </template>
+
+    <template id="hr_payroll.report_payslip_lang">
+        <t t-call="web.html_container">
+            <t t-set="hide_pagination" t-value="True" />
+            <t t-foreach="docs" t-as="o">
+                <t t-if="o.struct_id.country_id.code == 'MA'">
+                    <t t-set="o" t-value="o.with_context(lang='fr_FR')" />
+                    <t
+                        t-call="infomineo_l10n_ma_hr_payroll.report_payslip_ma"
+                        t-lang="o.env.lang"
+                    >
+                        <xpath expr="//header" position="before">
+                            <t t-set="no_header" t-value="True" />
+                            <t t-set="no_footer" t-value="True" />
+                        </xpath>
+                        <xpath expr="//header" position="after">
+                            <div id="wrap" class="oe_structure oe_empty" />
+                        </xpath>
+                    </t>
+                </t>
+                <t t-else="">
+                    <t
+                        t-set="o"
+                        t-value="o.with_context(lang=o.employee_id.sudo().address_home_id.lang or o.env.lang)"
+                    />
+                    <t t-call="hr_payroll.report_payslip" t-lang="o.env.lang" />
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

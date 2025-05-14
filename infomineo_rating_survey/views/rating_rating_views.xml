@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="rating_rating_view_form" model="ir.ui.view">
+        <field name="name">rating.rating.view.form</field>
+        <field name="model">rating.rating</field>
+        <field name="inherit_id" ref="rating.rating_rating_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//form/sheet/group" position="after">
+                <notebook>
+                    <page name="rating_feedback" string="Rating Feedback">
+                        <group name="survey_user_answers">
+                            <field
+                                name="survey_user_input_line_ids"
+                                readonly="1"
+                                nolabel="1"
+                            >
+                                <tree>
+                                    <field name="question_sequence" invisible="1" />
+                                    <field name="question_id" />
+                                    <field name="suggested_answer_id" string="Answer" />
+                                    <field name="create_date" />
+                                    <field name="skipped" />
+                                    <field name="surveyed_by" optional="hide" />
+                                    <field name="requestor_name" optional="hide" />
+                                    <field name="client_contact" optional="hide" />
+                                </tree>
+                            </field>
+                        </group>
+                    </page>
+                </notebook>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="rating_rating_view_tree" model="ir.ui.view">
+        <field name="name">rating.rating.view.tree</field>
+        <field name="model">rating.rating</field>
+        <field name="inherit_id" ref="rating.rating_rating_view_tree" />
+        <field name="arch" type="xml">
+            <field name="rated_partner_id" position="after">
+                <field
+                    name="rated_partner_ids"
+                    optional="show"
+                    widget="many2many_tags"
+                />
+            </field>
+        </field>
+    </record>
+</odoo>

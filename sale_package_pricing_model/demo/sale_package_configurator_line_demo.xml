@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo noupdate="1">
+    <record
+        id="sale_package_configurator_line_translation"
+        model="sale.package.configurator.line"
+    >
+        <field
+            name="sale_package_configurator_id"
+            ref="sale_package_pricing_model.sale_package_configurator_1"
+        />
+        <field name="package_line_of_business">other</field>
+        <field name="consumption_rate">200</field>
+        <field name="consumption_points">10</field>
+        <field name="reference_uom">words</field>
+    </record>
+</odoo>

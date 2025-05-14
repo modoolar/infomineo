@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo noupdate="1">
+    <record id="survey_rating_feedback" model="survey.survey">
+        <field name="title">Rating Feedback Form</field>
+        <field name="user_id" ref="base.user_admin" />
+        <field name="access_mode">public</field>
+        <field name="questions_layout">one_page</field>
+        <field name="description" type="html">
+<p>This survey allows you to give a feedback about your experience with our products.
+    Filling it helps us improving your experience.</p></field>
+    </record>
+</odoo>
