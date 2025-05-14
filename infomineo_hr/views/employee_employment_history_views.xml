@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="employee_employment_history_form_view" model="ir.ui.view">
+        <field name="name">employee.employment.history.form.view</field>
+        <field name="model">employee.employment.history</field>
+        <field name="groups_id" eval="[(4, ref('hr.group_hr_user'))]" />
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="employee_id" readonly="1" />
+                        <field name="job_title" readonly="1" invisible="1" />
+                        <field name="job_id" readonly="1" string="Job Title" />
+                        <field name="work_location_id" readonly="1" />
+                        <field name="department_id" readonly="1" />
+                        <field name="hr_team_id" readonly="1" />
+                        <field name="parent_id" readonly="1" />
+                        <field name="coach_id" readonly="1" />
+                    </group>
+                    <group>
+                        <field name="company_id" readonly="1" />
+                        <field name="effective_date_of_change" widget="date" />
+                        <field name="change_reason" />
+                        <field name="create_uid" string="User Who Made a Change" />
+                        <field name="create_date" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="employee_employment_history_tree_view" model="ir.ui.view">
+        <field name="name">employee.employment.history.tree.view</field>
+        <field name="model">employee.employment.history</field>
+        <field name="groups_id" eval="[(4, ref('hr.group_hr_user'))]" />
+        <field name="arch" type="xml">
+            <tree create="false" delete="false" edit="false">
+                <field name="effective_date_of_change" widget="date" />
+                <field name="employee_id" optional="hide" readonly="1" />
+                <field name="work_location_id" readonly="1" />
+                <field name="department_id" readonly="1" />
+                <field name="hr_team_id" readonly="1" />
+                <field name="job_title" invisible="1" />
+                <field name="job_id" readonly="1" string="Job Title" />
+                <field name="parent_id" readonly="1" />
+                <field name="coach_id" readonly="1" />
+                <field name="change_reason" />
+                <field name="company_id" optional="hide" readonly="1" />
+                <field
+                    name="write_uid"
+                    string="User Who Made a Change"
+                    optional="hide"
+                    readonly="1"
+                />
+                <field name="create_date" optional="hide" readonly="1" />
+            </tree>
+        </field>
+    </record>
+</odoo>

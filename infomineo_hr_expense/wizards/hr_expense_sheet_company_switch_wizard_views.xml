@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_hr_expense_sheet_company_switch_wizard" model="ir.ui.view">
+        <field name="name">Change Expense Sheet company</field>
+        <field name="model">hr.expense.sheet.company.switch.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Switch expense sheet company">
+                <group>
+                    <label for="company_id" />
+                    <div name="switch_companies">
+                        <field
+                            name="company_id"
+                            nolabel="1"
+                            domain="[('id', 'in', context.get('switch_company_ids', []))]"
+                            options="{'no_create': True}"
+                        />
+                    </div>
+                    <label for="currency_id" />
+                    <div name="switch_currency">
+                        <field
+                            name="currency_id"
+                            nolabel="1"
+                            domain="[('id', 'in', context.get('switch_currency_ids', []))]"
+                            options="{'no_create': True}"
+                        />
+                    </div>
+                </group>
+                <footer>
+                    <button
+                        name="switch_company"
+                        class="btn-primary"
+                        string="Switch"
+                        type="object"
+                    />
+                    <button string="Cancel" class="btn-secondary" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="action_hr_expense_sheet_company_switch" model="ir.actions.act_window">
+        <field name="name">Change Expense sheet company</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hr.expense.sheet.company.switch.wizard</field>
+        <field name="target">new</field>
+        <field name="view_mode">form</field>
+    </record>
+</odoo>

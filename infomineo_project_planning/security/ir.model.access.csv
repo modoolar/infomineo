@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_planning_slot_user,planning.slot.user,planning.model_planning_slot,planning.group_planning_user,1,1,0,0
+access_planning_slot_staffing_manager,planning.slot.staffing.manager,planning.model_planning_slot,infomineo_project_planning.group_staffing_manager,1,1,1,1
+access_planning_planning_staffing_manager,planning.planning.staffing.manager,planning.model_planning_planning,infomineo_project_planning.group_staffing_manager,1,1,1,1

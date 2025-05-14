@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<odoo>
+
+    <record id="edit_holiday_status_form_inherited" model="ir.ui.view">
+        <field name="name">hr.leave.type.form.inherited</field>
+        <field name="model">hr.leave.type</field>
+        <field name="inherit_id" ref="hr_holidays.edit_holiday_status_form" />
+        <field name="arch" type="xml">
+            <xpath
+                expr="//group[@name='allocation_validation']//field[@name='allocation_validation_type']"
+                position="after"
+            >
+                <field name="is_automated_leave_type" />
+                <field
+                    name="automated_number_of_days"
+                    attrs="{'invisible': ['|', ('is_automated_leave_type', '!=', True,), ('accrual_count', '>', 0)]}"
+                />
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

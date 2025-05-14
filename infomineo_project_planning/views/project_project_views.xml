@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="edit_project" model="ir.ui.view">
+        <field name="name">edit.project</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project" />
+        <field name="arch" type="xml">
+                <xpath expr="//div[@id='recurring_tasks_setting']" position="after">
+                <div
+                    class="col-lg-6 o_setting_box"
+                    id="project_plan_capacity_setting"
+                    groups="project.group_project_manager"
+                >
+                    <div class="o_setting_left_pane">
+                        <field name="project_plan_capacity" />
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <label for="project_plan_capacity" />
+                        <div class="text-muted">
+                            Automate shifts management and Project tasks
+                        </div>
+                    </div>
+                </div>
+                </xpath>
+        </field>
+    </record>
+</odoo>

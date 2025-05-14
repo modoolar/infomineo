@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_edbs_hr_manager,edbs.hr.manager,infomineo_e_bds.model_e_bds,hr.group_hr_manager,1,1,1,1
+access_edbs_sortant_hr_manager,edbs.sortant.hr.manager,infomineo_e_bds.model_e_bds_sortant,hr.group_hr_manager,1,1,1,1
+access_edbs_sortant_line_hr_manager,edbs.sortant.line.hr.manager,infomineo_e_bds.model_e_bds_sortant_line,hr.group_hr_manager,1,1,1,1

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="approval_authorization_level_action" model="ir.actions.act_window">
+        <field name="name">Approval Authorization Levels</field>
+        <field name="res_model">approval.authorization.level</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        id="approval_authorization_level_menu_config"
+        parent="approvals.approvals_menu_config"
+        name="Approval Authorization Levels"
+        action="approval_authorization_level_action"
+        groups="approvals.group_approval_user"
+        sequence="11"
+    />
+
+    <record id="approval_authorization_level_view_tree" model="ir.ui.view">
+        <field name="name">approval.authorization.level.view.tree</field>
+        <field name="model">approval.authorization.level</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field name="authorization_level" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="approval_authorization_level_view_form" model="ir.ui.view">
+        <field name="name">approval.authorization.level.view.form</field>
+        <field name="model">approval.authorization.level</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" />
+                            <field name="authorization_level" />
+                        </group>
+                        <group>
+                            <field
+                                name="user_ids"
+                                widget="many2many_avatar_user"
+                                readonly="1"
+                            />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

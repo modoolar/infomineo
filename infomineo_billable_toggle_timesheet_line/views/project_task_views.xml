@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="project_sharing_inherit_project_task_view_form" model="ir.ui.view">
+        <field name="name">project.sharing.inherit.project.task.view.form
+        </field>
+        <field name="model">project.task</field>
+        <field
+            name="inherit_id"
+            ref="billable_toggle_timesheet_line.project_sharing_inherit_project_task_view_form"
+        />
+        <field name="arch" type="xml">
+            <field name="is_billable" position="attributes">
+                <attribute
+                    name="groups"
+                >infomineo_project.group_infomineo_project_manager
+                </attribute>
+            </field>
+            <field name="so_line" position="attributes">
+                <attribute
+                    name="groups"
+                >infomineo_project.group_infomineo_project_manager
+                </attribute>
+            </field>
+        </field>
+    </record>
+
+    <record id="project_task_view_form_inherit_sale_timesheet" model="ir.ui.view">
+        <field name="name">project.task.view.form.inherit.sale.timesheet</field>
+        <field name="model">project.task</field>
+        <field
+            name="inherit_id"
+            ref="billable_toggle_timesheet_line.project_task_view_form_inherit_sale_timesheet"
+        />
+        <field name="arch" type="xml">
+            <field name="is_billable" position="attributes">
+                <attribute
+                    name="groups"
+                >infomineo_project.group_infomineo_project_manager
+                </attribute>
+            </field>
+            <field name="so_line" position="attributes">
+                <attribute
+                    name="groups"
+                >infomineo_project.group_infomineo_project_manager
+                </attribute>
+            </field>
+        </field>
+    </record>
+</odoo>

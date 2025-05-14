@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_account_analytic_line_group_hr_coach,account.analytic.line.group.hr.coach,hr_timesheet.model_account_analytic_line,infomineo_hr_attendance.group_hr_coach,1,0,0,0

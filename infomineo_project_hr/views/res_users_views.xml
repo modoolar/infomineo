@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="infomineo_view_users_tree" model="ir.ui.view">
+        <field name="name">infomineo.res.users.tree</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="infomineo_project.infomineo_view_users_tree" />
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="job_title" />
+                <field name="department_id" />
+                <field name="employee_parent_id" />
+            </field>
+        </field>
+    </record>
+
+</odoo>

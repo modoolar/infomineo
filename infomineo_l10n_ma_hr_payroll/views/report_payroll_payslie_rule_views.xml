@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="report_payroll_payslip_rule_form_view" model="ir.ui.view">
+        <field name="name">report.payroll.payslip.rule.form.view</field>
+        <field name="model">report.payroll.payslip.rule</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                     <div class="oe_title">
+                        <h1>
+                            <field name="name" />
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="code" />
+                            <field name="struct_id" />
+                            <field
+                                name="rule_id"
+                                domain="[('struct_id', '=', struct_id)]"
+                            />
+                            <field name="show_if_zero" />
+                            <field name="use_in_total" />
+                            <field name="company_id" readonly="1" />
+                        </group>
+                        <group>
+                            <field name="base_type" />
+                            <field
+                                name="base_value"
+                                attrs="{'invisible': [('base_type', 'not in', ['python_code', 'contract_amount'])]}"
+                            />
+
+                            <field name="salarie_taux_type" />
+                            <field
+                                name="salarie_taux_value"
+                                attrs="{'invisible': [('salarie_taux_type', 'not in', ['python_code', 'contract_amount'])]}"
+                            />
+                            <field name="salarie_gains_type" />
+                            <field
+                                name="salarie_gains_value"
+                                attrs="{'invisible': [('salarie_gains_type', 'not in', ['python_code', 'contract_amount'])]}"
+                            />
+                            <field name="salarie_retenue_type" />
+                            <field
+                                name="salarie_retenue_value"
+                                attrs="{'invisible': [('salarie_retenue_type', 'not in', ['python_code', 'contract_amount'])]}"
+                            />
+
+                            <field name="employeur_taux_type" />
+                            <field
+                                name="employeur_taux_value"
+                                attrs="{'invisible': [('employeur_taux_type', 'not in', ['python_code', 'contract_amount'])]}"
+                            />
+                            <field name="employeur_charge_type" />
+                            <field
+                                name="employeur_charge_value"
+                                attrs="{'invisible': [('employeur_charge_type', 'not in', ['python_code', 'contract_amount'])]}"
+                            />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="report_payroll_payslip_rule_tree_view" model="ir.ui.view">
+        <field name="name">report.payroll.payslip.rule.tree.view</field>
+        <field name="model">report.payroll.payslip.rule</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="sequence" widget="handle" />
+                <field name="name" />
+                <field name="code" />
+                <field name="struct_id" />
+                <field name="rule_id" />
+                <field name="company_id" readonly="1" />
+                <field name="show_if_zero" />
+                <field name="use_in_total" />
+                <field name="base_type" />
+                <field name="base_value" />
+                <field name="salarie_taux_type" />
+                <field name="salarie_taux_value" />
+                <field name="salarie_gains_type" />
+                <field name="salarie_gains_value" />
+                <field name="salarie_retenue_type" />
+                <field name="salarie_retenue_value" />
+                <field name="employeur_taux_type" />
+                <field name="employeur_taux_value" />
+                <field name="employeur_charge_type" />
+                <field name="employeur_charge_value" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="report_payroll_payslip_rule_action" model="ir.actions.act_window">
+        <field name="binding_type">action</field>
+        <field name="binding_view_types">list,form</field>
+        <field name="name">Report Payroll Payslip Rules</field>
+        <field name="res_model">report.payroll.payslip.rule</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="report_payroll_payslip_rule_menu" model="ir.ui.menu">
+        <field name="action" ref="report_payroll_payslip_rule_action" />
+        <field name="name">Report Payroll Payslip Rules</field>
+        <field name="parent_id" ref="hr_payroll.menu_hr_salary_configuration" />
+        <field name="sequence">31</field>
+    </record>
+</odoo>

@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!-- Main infomineo rating survey layout -->
+    <template
+        id="infomineo_rating_survey.layout"
+        name="Infomineo Rating Survey Layout"
+        inherit_id="web.frontend_layout"
+        primary="True"
+    >
+        <xpath expr="//head/t[@t-call-assets][last()]" position="after">
+            <t t-call-assets="survey.survey_assets" lazy_load="True" />
+            <t
+                t-call-assets="infomineo_rating_survey.rating_survey_assets"
+                lazy_load="True"
+            />
+        </xpath>
+        <xpath expr="//div[@id='footer']" position="replace">
+            <div id="footer" class="oe_structure oe_structure_solo" />
+        </xpath>
+    </template>
+
+    <template
+        id="infomineo_survey_fill_form_done"
+        name="Infomineo Rating Survey Fill Form Done"
+        inherit_id="survey.survey_fill_form_done"
+        primary="True"
+    >
+        <xpath expr="//t[@t-call='survey.survey_button_retake']" position="replace" />
+    </template>
+
+    <template id="survey_fill_form_in_progress" name="Survey: form with questions">
+        <div
+            class="o_survey_form_content_data d-none"
+            t-att-data-question-time-limit-reached="answer.question_time_limit_reached"
+            t-att-data-has-answered="bool(has_answered)"
+            t-att-data-is-page-description="bool(question and question.is_page and not is_html_empty(question.description))"
+            t-att-data-server-time="server_time"
+            t-att-data-timer="timer_start"
+            t-att-data-time-limit-minutes="time_limit_minutes"
+            t-att-data-email-sent-to="email_sent_to"
+        />
+        <t
+            t-set="minimized_display"
+            t-value="survey.questions_layout == 'page_per_question' and len(question.suggested_answer_ids) &lt;= 5 and not any(suggestion.value_image for suggestion in question.suggested_answer_ids)"
+        />
+        <t t-if="survey.questions_layout == 'one_page'">
+            <t t-foreach='survey.question_and_page_ids' t-as='question'>
+                <div
+                    t-attf-class="o_survey_page_per_question o_survey_#{question.question_type} #{'o_survey_minimized_display'}"
+                >
+                    <input type="hidden" name="question_id" t-att-value="question.id" />
+                        <div class="mt-5">
+                            <t t-call="survey.question_container" />
+                        </div>
+                </div>
+            </t>
+
+            <div class="text-center mt16 mb256">
+                <button type="submit" value="finish" class="btn btn-primary">
+                    Submit</button><span
+                    class="font-weight-bold text-muted ml-2 d-none d-md-inline"
+                >or press Enter</span>
+            </div>
+        </t>
+
+        <t t-if="survey.questions_layout == 'page_per_section'">
+            <h2 t-field='page.title' class="o_survey_title pb16 text-break" />
+            <div t-field='page.description' class="oe_no_empty text-break" />
+
+            <input type="hidden" name="page_id" t-att-value="page.id" />
+            <t t-foreach='page.question_ids' t-as='question'>
+                <t
+                    t-if="question in answer.predefined_question_ids"
+                    t-call="survey.question_container"
+                />
+            </t>
+
+            <div class="row">
+                <div class="col-12 text-center mt16">
+                    <button
+                        type="submit"
+                        t-att-value="'next' if not survey_last else 'finish'"
+                        class="btn btn-primary"
+                    >
+                        <t t-if="not survey_last">Continue</t>
+                        <t t-else="">Submit</t>
+                    </button><span
+                        class="font-weight-bold text-muted ml-2 d-none d-md-inline"
+                    > or press Enter</span>
+                </div>
+            </div>
+        </t>
+
+        <t
+            t-set="minimized_display"
+            t-value="survey.questions_layout == 'page_per_question' and len(question.suggested_answer_ids) &lt;= 5 and not any(suggestion.value_image for suggestion in question.suggested_answer_ids)"
+        />
+        <div
+            t-if="survey.questions_layout == 'page_per_question'"
+            t-attf-class="o_survey_page_per_question o_survey_#{question.question_type} #{'o_survey_minimized_display' if minimized_display else ''}"
+        >
+            <input type="hidden" name="question_id" t-att-value="question.id" />
+            <!-- User has already answered for this session -->
+            <t
+                t-if="answer.is_session_answer and (has_answered or answer.question_time_limit_reached)"
+            >
+                <fieldset disabled="disabled">
+                    <t t-set="survey_form_readonly" t-value="True" />
+                    <div class="mt-5">
+                        <t t-call="survey.question_container" />
+                    </div>
+                </fieldset>
+                <div
+                    t-if="answer.question_time_limit_reached and not has_answered"
+                    class="font-weight-bold"
+                >Sorry, you have not been fast enough.</div>
+                <div
+                    t-else=""
+                    class="font-weight-bold"
+                >We have registered your answer! Please wait for the host to go to the next question.</div>
+            </t>
+            <t
+                t-elif="answer.is_session_answer and question.is_page and not is_html_empty(question.description)"
+            >
+                <div
+                    class="font-weight-bold mt-5"
+                >Pay attention to the host screen until the next question.</div>
+            </t>
+            <t t-else="">
+                <div class="mt-5">
+                    <t t-call="survey.question_container" />
+                </div>
+
+                <div class="row">
+                    <div class="col-12 text-center mt16">
+                        <button
+                            type="submit"
+                            t-att-value="'next' if not survey_last else 'finish'"
+                            class="btn btn-primary"
+                        >
+                            <t t-if="answer.is_session_answer or survey_last">Submit</t>
+                            <t t-else="">Continue</t>
+                        </button>
+                        <span
+                            class="font-weight-bold text-muted ml-2 d-none d-md-inline"
+                        >
+                            <span
+                                t-if="question.question_type == 'text_box'"
+                            >or press CTRL+Enter</span>
+                            <span t-else="">or press Enter</span>
+                        </span>
+                    </div>
+                </div>
+            </t>
+        </div>
+    </template>
+
+    <template id="rating_survey_page_submit" name="Rating Survey Page Submit">
+        <t t-call="infomineo_rating_survey.layout">
+            <div class="wrap o_survey_wrap d-flex">
+                <div
+                    class="container o_survey_form o_rating_page_submit d-flex flex-column mb-5 "
+                >
+                    <div class="row text-center justify-content-center">
+                        <h1 class="col-12 mt-5">Thank you for rating our services!</h1>
+                    </div>
+                    <t t-set="survey_form_readonly" t-value="answer.state == 'done'" />
+                    <form
+                        role="form"
+                        method="post"
+                        t-att-name="survey.id"
+                        class="d-flex flex-grow-1 align-items-center"
+                        t-att-data-answer-token="answer.access_token"
+                        t-att-data-survey-token="survey.access_token"
+                        t-att-data-rating-token="token"
+                        t-att-data-users-can-go-back="survey.users_can_go_back and not answer.is_session_answer"
+                        t-att-data-session-in-progress="answer.is_session_answer"
+                        t-att-data-is-start-screen="answer.state == 'new'"
+                        t-att-data-readonly="survey_form_readonly"
+                        t-att-data-has-answered="bool(has_answered)"
+                        t-att-data-is-page-description="bool(question and question.is_page and not is_html_empty(question.description))"
+                        t-att-data-questions-layout="survey.questions_layout"
+                        t-att-data-triggered-questions-by-answer="json.dumps(triggered_questions_by_answer)"
+                        t-att-data-selected-answers="json.dumps(selected_answers)"
+                    >
+                        <input
+                            type="hidden"
+                            name="csrf_token"
+                            t-att-value="request.csrf_token()"
+                        />
+                        <input
+                            type="hidden"
+                            name="token"
+                            t-att-value="answer.access_token"
+                        />
+                        <div
+                            class="o_survey_error alert alert-danger d-none"
+                            role="alert"
+                        >
+                            <p
+                            >There was an error during the validation of the survey.</p>
+                        </div>
+
+                        <div class="o_survey_form_content w-100">
+                            <div class="row text-center justify-content-center pb-4">
+                                <div
+                                    class="o_survey_form_choice"
+                                    data-question-type="simple_choice_radio"
+                                    data-name="rate"
+                                >
+                                    <div
+                                        class="btn-group btn-group-toggle row flex-nowrap justify-content-center w-100 mt-5"
+                                        data-toggle="buttons"
+                                    >
+                                        <t t-foreach="rate_names" t-as="rate_name">
+                                            <label
+                                                t-attf-class="col p-4 btn o_rating_label shadow-none {{rate == rate_name and 'active' or ''}} {{rate == rate_name and 'o_survey_selected' or ''}}"
+                                            >
+                                                <input
+                                                    class="o_survey_form_choice_item"
+                                                    type="radio"
+                                                    name="rate"
+                                                    t-attf-id="rate_{{rate_name}}"
+                                                    t-att-value="rate_name"
+                                                    t-att-checked="rate == rate_name and 'checked' or None"
+                                                />
+                                                <a
+                                                    class="o_rating d-block bg-white rounded-circle"
+                                                    href="#"
+                                                >
+                                                    <img
+                                                        t-attf-src='/infomineo_rating/static/src/img/rating_#{rate_name}.png'
+                                                        width="75"
+                                                        height="75"
+                                                        t-att-alt="rate_name_value"
+                                                        t-att-title="rate_name_value"
+                                                    />
+                                                </a>
+                                            </label>
+                                        </t>
+                                    </div>
+                                </div>
+                            </div>
+                            <t
+                                t-if="answer.state == 'new'"
+                                t-call="survey.survey_fill_form_start"
+                            />
+                            <t
+                                t-elif="answer.state == 'in_progress'"
+                                t-call="infomineo_rating_survey.survey_fill_form_in_progress"
+                            />
+                            <t
+                                t-else=""
+                                t-call="infomineo_rating_survey.infomineo_survey_fill_form_done"
+                            />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

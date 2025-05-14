@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+        <record id="hr_timesheet_line_tree" model="ir.ui.view">
+            <field name="name">account.analytic.line.tree.hr_timesheet</field>
+            <field name="model">account.analytic.line</field>
+            <field name="inherit_id" ref="hr_timesheet.hr_timesheet_line_tree" />
+            <field name="arch" type="xml">
+                <field name="employee_id" position="after">
+                    <field name="hr_team_id" />
+                    <field name="hr_child_team_id" />
+                </field>
+                <xpath expr="//field[@name='task_id']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="hr_timesheet_line_search" model="ir.ui.view">
+            <field name="name">account.analytic.line.search</field>
+            <field name="model">account.analytic.line</field>
+            <field name="inherit_id" ref="hr_timesheet.hr_timesheet_line_search" />
+            <field name="arch" type="xml">
+                <xpath expr="//search//field[@name='employee_id']" position="after">
+                    <field
+                    name="hr_team_id"
+                    filter_domain="[('hr_team_id', 'ilike', self)]"
+                />
+                </xpath>
+                <filter name="groupby_employee" position="after">
+                    <filter
+                    string="HR Team"
+                    name="hr_team"
+                    context="{'group_by': 'hr_team_id'}"
+                />
+                </filter>
+            </field>
+        </record>
+
+</odoo>

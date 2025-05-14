@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template
+        id="rating_external_page_submit"
+        name="Rating Page Submit"
+        inherit_id="rating.rating_external_page_submit"
+    >
+        <xpath
+            expr="//img[@t-attf-src='/rating/static/src/img/rating_#{rate_name}.svg']"
+            position="replace"
+        >
+            <img
+                t-attf-src='/infomineo_rating/static/src/img/rating_#{rate_name}.png'
+                width="75"
+                height="75"
+                t-att-alt="rate_name_value"
+                t-att-title="rate_name_value"
+            />
+        </xpath>
+    </template>
+</odoo>

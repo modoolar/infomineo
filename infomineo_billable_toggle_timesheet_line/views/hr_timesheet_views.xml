@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="hr_timesheet_line_tree_inherit" model="ir.ui.view">
+        <field name="name">hr.timesheet.line.tree.inherit</field>
+        <field name="model">account.analytic.line</field>
+        <field
+            name="inherit_id"
+            ref="billable_toggle_timesheet_line.hr_timesheet_line_tree_inherit"
+        />
+        <field name="arch" type="xml">
+             <field name="so_line" position="attributes">
+                <attribute
+                    name="groups"
+                >infomineo_project.group_infomineo_project_manager</attribute>
+            </field>
+            <field name="is_billable" position="attributes">
+                <attribute
+                    name="groups"
+                >infomineo_project.group_infomineo_project_manager</attribute>
+            </field>
+        </field>
+    </record>
+
+     <record id="hr_timesheet_line_form_inherit" model="ir.ui.view">
+        <field name="name">hr.timesheet.line.form.inherit</field>
+        <field name="model">account.analytic.line</field>
+        <field
+            name="inherit_id"
+            ref="billable_toggle_timesheet_line.hr_timesheet_line_form_inherit"
+        />
+        <field name="arch" type="xml">
+            <field name="so_line" position="attributes">
+                <attribute
+                    name="groups"
+                >infomineo_project.group_infomineo_project_manager</attribute>
+            </field>
+            <field name="is_billable" position="attributes">
+                <attribute
+                    name="groups"
+                >infomineo_project.group_infomineo_project_manager</attribute>
+            </field>
+        </field>
+    </record>
+
+    <record id="timesheet_view_form_so_line_inherit" model="ir.ui.view">
+        <field name="name">timesheet.view.form.so.line.inherit</field>
+        <field name="model">account.analytic.line</field>
+        <field
+            name="inherit_id"
+            ref="billable_toggle_timesheet_line.timesheet_view_form_so_line_inherit"
+        />
+        <field name="arch" type="xml">
+            <field name="so_line" position="attributes">
+                <attribute
+                    name="groups"
+                >infomineo_project.group_infomineo_project_manager</attribute>
+            </field>
+            <field name="is_billable" position="attributes">
+                <attribute
+                    name="groups"
+                >infomineo_project.group_infomineo_project_manager</attribute>
+            </field>
+        </field>
+    </record>
+</odoo>

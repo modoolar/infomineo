@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="group_infomineo_sale_team_approver" model="res.groups">
+        <field name="name">Team Approver</field>
+        <field name="category_id" ref="base.module_category_sales_sales" />
+        <field name="implied_ids" eval="[(4, ref('sales_team.group_sale_salesman'))]" />
+    </record>
+
+    <record id="team_approver_so_line" model="ir.rule">
+        <field name="name">Team Approver SO Line</field>
+        <field name="model_id" ref="sale.model_sale_order_line" />
+        <field
+            name="domain_force"
+        >['|', '|', ('product_id.project_id.message_partner_ids', 'in', user.partner_id.ids), ('project_id.message_partner_ids', 'in', user.partner_id.ids), ('create_uid','=',user.id)]</field>
+        <field
+            name="groups"
+            eval="[(4, ref('infomineo_sale_project.group_infomineo_sale_team_approver'))]"
+        />
+    </record>
+
+    <record id="team_approver_so" model="ir.rule">
+        <field name="name">Team Approver SO</field>
+        <field name="model_id" ref="sale.model_sale_order" />
+        <field
+            name="domain_force"
+        >['|', '|', '|', ('order_line.product_id.project_id.message_partner_ids', 'in', user.partner_id.ids), ('order_line.project_id.message_partner_ids', 'in', user.partner_id.ids), ('project_id.message_partner_ids', 'in', user.partner_id.ids), ('create_uid', '=', user.id)]</field>
+        <field
+            name="groups"
+            eval="[(4, ref('infomineo_sale_project.group_infomineo_sale_team_approver'))]"
+        />
+    </record>
+
+</odoo>

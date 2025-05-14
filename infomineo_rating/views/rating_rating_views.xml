@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="rating_rating_view_tree" model="ir.ui.view">
+        <field name='name'>rating.rating.view.tree</field>
+            <field name="model">rating.rating</field>
+        <field name="inherit_id" ref="rating.rating_rating_view_tree" />
+        <field name="arch" type="xml">
+            <field name="rating_text" position="attributes" />
+            <field name="rating_text" position="attributes">
+                <attribute name="decoration-success">rating_text == 'top'</attribute>
+                <attribute name="decoration-info">rating_text == 'good'</attribute>
+                <attribute name="decoration-primary">rating_text == 'ok'</attribute>
+                <attribute name="decoration-warning">rating_text == 'bad'</attribute>
+                <attribute name="decoration-danger">rating_text == 'ko'</attribute>
+                <attribute name="class">font-weight-bold</attribute>
+                <attribute name="widget">badge</attribute>
+            </field>
+        </field>
+    </record>
+</odoo>
