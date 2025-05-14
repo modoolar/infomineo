@@ -1,0 +1,100 @@
+END USER LICENSE AGREEMENT (v1.0)
+BY MODOOLAR D.O.O. (https://modoolar.com)
+(hereinafter: Modoolar)
+
+This software and related files ("Software", and any other software produced by
+Modoolar, hereinafter referred to as "Applications" or "Modules") may be used
+for the purposes agreed with Modoolar (performed without modification except by
+Modoolar) only if you have (through Odoo Apps or through a contract with
+Modoolar) purchased a valid license from Modoolar who is the sole owner of the
+proprietary copyright in the Software. For the sake of clarity, everything
+that, regarding the right of use and limitation of rights in this license
+applies to the Software, also applies to the Applications or Modules.
+
+The Software is provided for use by Modoolar without warranty of any kind,
+express or implied, including but not limited to the warranties of
+merchantability, fitness for a particular purpose and non-infringement. In no
+event shall Modoolar or the authors be liable for any claim, damage or other
+liability related to the Software and its use.
+
+In order to legally use the Application, you must purchase a valid license for
+the Application either directly from Modoolar or from the Odoo Apps online
+store. One copy is purchased for each production database (purchase also grants
+rights to install the Application for unlimited development and staging
+environments).
+
+Copying, modifying, publishing, distributing, sublicensing or selling copies of
+the Software or modified copies of the Software without the express written
+consent of Modoolar is prohibited.
+
+It is prohibited to modify the source code of the Software (as well as of the
+Application and Modules) and share or sell such derivative solutions.
+
+It is forbidden to place the source code of Software, Applications or Modules
+produced by Modoolar on sites that allow public download of their source code.
+In particular, it is strictly forbidden to add any peace of the Software`s code
+to public repositories (use private repositories instead).
+
+This license allows anyone to develop their own modules based on Modoolar
+Software as a library, but exclusively for their own needs and without the
+right to further commercial distribution.
+
+Modoolar reserves the right, in order to protect its rights under this license,
+to take any legal action without any further notice.
+
+Violation of the terms of this License, whether intentional or unintentional,
+may result in severe sanctions and liability for actual and potential losses,
+as well as sanctions against your various accounts (including, but not limited
+to, sanctions against your Odoo.com and Git accounts).
+
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+LICENCA ZA KRAJNJEG KORISNIKA SOFTVERA (v1.0)
+PROIZVOĐAČA MODOOLAR D.O.O. (https://modoolar.com)
+(u daljem tekstu: Modoolar)
+
+Ovaj softver i povezane datoteke („Softver“, kao i svaki drugi softver
+proizveden od strane Modoolar, u daljem tekstu i kao “Aplikacije” ili “Moduli”)
+se mogu koristiti u svrhe ugovorene sa Modoolar (izvršavati bez modifikacija
+izuzev onih od strane Modoolar) samo ako ste (putem Odoo Apps ili putem ugovora
+sa Modoolar) kupili važeću licencu od Modoolar koji je isključivi vlasnik
+imovinskih autorskih prava na Softveru.  Radi jasnoće, sve što se, u pogledu
+prava korišćenja i ograničenja prava u ovoj licenci odnosi na Softver, odnosi
+se i na Aplikacije odnosno Module.
+
+Softver je dat na korišćenje od strane Modoolar bez bilo koje vrste garancije,
+izričite ili podrazumevane, uključujući, ali ne ograničavajući se na garancije
+za prodaju, prikladnost za određenu namenu i nekršenje prava. Ni u kom slučaju
+Modoolar ili autori neće biti odgovorni za bilo kakav zahtev, štetu ili imati
+drugu odgovornost vezano za Softver i njegovo korišćenje.
+
+Da biste legalno koristili Aplikaciju, morate kupiti važeću licencu za
+Aplikaciju bilo direktno od Modoolar, bilo u Odoo Apps internet prodavnici.
+Kupuje se po jedna kopija za svaku produkcionu bazu podataka (kupovina takođe
+daje prava za instaliranje Aplikacije za razvojna i testna okruženja bez
+ograničenja).
+
+Zabranjeno je kopiranje, modifikovanje, objavljivanje, distribucija,
+podlicenciranje ili prodaja kopija Softvera ili modifikovanih kopija Softvera
+bez izričite pisane saglasnosti Modoolar.
+
+Zabranjeno je menjati izvorni kod Softvera (kao i Aplikacija i Modula) i deliti
+ili prodavati takva izvedena rešenja.
+
+Zabranjeno je stavljati izvorni kod Softvera, Aplikacija ili Modula proizvođača
+Modoolar na lokacije koje omogućavaju javno preuzimanje njihovog izvornog
+koda. Posebno je strogo zabranjeno dodavanje bilo kojih Modula u javne
+repozitorijume koda (umesto toga koristite privatne repozitorije).
+
+Ova licenca dozvoljava svakome da razvija sopstvene module zasnovane na
+Modoolar - modulima kao biblioteku, ali isključivo za sopstvene potrebe i bez
+prava na njihovu dalju komercijalnu distribuciju.
+
+Modoolar zadržava pravo da, u cilju zaštite svojih prava po ovoj licenci,
+preduzme bilo koju pravnu radnju bez ikakvog daljeg obaveštenja.
+
+Kršenje pravila ove licence, sa ili bez namere, može dovesti do ozbiljnih
+sankcija i obaveze naknade stvarnih i potencijalnih gubitaka, kao i sankcija za
+vaše različite naloge (uključujući, ali ne ograničavajući se na sankcije za
+vaše Odoo.com i Git naloge).

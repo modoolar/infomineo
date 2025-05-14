@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="hr_salary_rule_form" model="ir.ui.view">
+        <field name="name">hr.salary.rule.view.form</field>
+        <field name="model">hr.salary.rule</field>
+        <field name="inherit_id" ref="hr_payroll.hr_salary_rule_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="PDF Values" name="pdf_printing">
+                    <group>
+                        <field name="print_on_pdf" />
+                        <field name="sequence_pdf" />
+                        <field name="hide_empty" />
+                        <field name="employee_tax_pdf" />
+                        <field name="employer_tax_pdf" />
+                    </group>
+                    <group>
+                        <field name="use_base_pdf" />
+                        <field name="is_salary_debit_pdf" />
+                        <field name="for_employee_pdf" />
+                        <field name="for_employer_pdf" />
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

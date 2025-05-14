@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="edit_project" model="ir.ui.view">
+        <field name="name">edit.project</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project" />
+        <field name="arch" type="xml">
+            <xpath
+                expr="//button[@name='%(project.act_project_project_2_project_task_all)d']"
+                position="after"
+            >
+                <button
+                    class="oe_stat_button"
+                    icon="fa-list"
+                    type="object"
+                    name="action_show_points"
+                    attrs="{'invisible': [('order_type', '!=', 'package')]}"
+                >
+                    <div class="o_field_widget o_stat_info mr4">
+                                <span class="o_stat_text">Consu.:</span>
+                                <span class="o_stat_text">Total:</span>
+                    </div>
+                    <div class="o_field_widget o_stat_info">
+                        <span class="o_stat_value"><field
+                                name="consumed_points_count"
+                            /></span>
+                        <span class="o_stat_value"><field name="package_size" /></span>
+                    </div>
+                </button>
+            </xpath>
+            <xpath expr="//field[@name='label_tasks']" position="after">
+                <field name="package_configuration_id" invisible="1" />
+                <field
+                    name="package_expiry_datetime"
+                    attrs="{'invisible': [('order_type', '!=', 'package')]}"
+                />
+                <field
+                    name="package_size"
+                    attrs="{'invisible': [('order_type', '!=', 'package')]}"
+                />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_project" model="ir.ui.view">
+        <field name="name">view.project</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.view_project" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="package_configuration_id" invisible="1" />
+                <field
+                    name="package_expiry_datetime"
+                    attrs="{'invisible': [('order_type', '!=', 'package')]}"
+                />
+                <field
+                    name="package_size"
+                    attrs="{'invisible': [('order_type', '!=', 'package')]}"
+                />
+            </xpath>
+        </field>
+    </record>
+</odoo>

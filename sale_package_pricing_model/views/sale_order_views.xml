@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_order_form" model="ir.ui.view">
+        <field name="name">sale.order.form</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale_order_template_type.view_order_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button
+                    class="oe_stat_button"
+                    icon="fa-list"
+                    type="object"
+                    name="action_show_points"
+                    attrs="{'invisible': [('order_type', '!=', 'package')]}"
+                >
+                    <field
+                        widget="statinfo"
+                        name="consumed_points_count"
+                        string="Points"
+                    />
+                </button>
+            </xpath>
+            <xpath expr="//field[@name='date_order']" position="after">
+                <field
+                    name="package_expiry_datetime"
+                    attrs="{'invisible': ['|',('order_type','!=','package'),('state','not in',['sale', 'done'])]}"
+                    readonly="1"
+                    force_save="1"
+                />
+                <field
+                    name="package_size"
+                    attrs="{'invisible': [('order_type','!=','package')]}"
+                    readonly="1"
+                    force_save="1"
+                />
+            </xpath>
+            <xpath
+                expr="//field[@name='order_line']//tree//field[@name='qty_delivered']"
+                position="after"
+            >
+                <field
+                    name="consumed_points"
+                    optional="show"
+                    attrs="{'column_invisible': [('parent.order_type', '!=', 'package')]}"
+                />
+            </xpath>
+        </field>
+    </record>
+    <record id="sale_order_view_search_inherit_quotation" model="ir.ui.view">
+        <field name="name">sale.order.view.search.inherit.quotation</field>
+        <field name="model">sale.order</field>
+        <field
+            name="inherit_id"
+            ref="sale_order_template_type.sale_order_view_search_inherit_quotation"
+        />
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='order_type_other']" position="before">
+                <filter
+                    string="Package"
+                    name="order_type_package"
+                    domain="[('order_type', '=', 'package')]"
+                />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="sale_order_view_search_inherit_sale" model="ir.ui.view">
+        <field name="name">sale.order.view.search.inherit.sale</field>
+        <field name="model">sale.order</field>
+        <field
+            name="inherit_id"
+            ref="sale_order_template_type.sale_order_view_search_inherit_sale"
+        />
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='order_type_other']" position="after">
+                <filter
+                    string="Package"
+                    name="order_type_package"
+                    domain="[('order_type', '=', 'package')]"
+                />
+            </xpath>
+        </field>
+    </record>
+</odoo>

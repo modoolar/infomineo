@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="hr_leave_allocation_view_form_inherited" model="ir.ui.view">
+        <field name="name">hr.leave.allocation.view.form.inherited</field>
+        <field name="model">hr.leave.allocation</field>
+        <field name="inherit_id" ref="hr_holidays.hr_leave_allocation_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='employee_id']" position="after">
+                <field name="is_automated_leave_allocation" invisible="True" />
+                <field name="number_of_days_in_first_period" invisible="True" />
+            </xpath>
+        </field>
+    </record>
+</odoo>

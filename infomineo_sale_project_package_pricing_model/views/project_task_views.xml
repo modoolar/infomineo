@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_task_form2" model="ir.ui.view">
+        <field name="name">view.task.form2</field>
+        <field name="model">project.task</field>
+        <field
+            name="inherit_id"
+            ref="sale_project_package_pricing_model.view_task_form2"
+        />
+        <field name="arch" type="xml">
+             <field name="translated_words" position="attributes">
+                <attribute
+                    name="attrs"
+                >{'invisible': [('line_of_business', '!=', 'translation')]}</attribute>
+             </field>
+            <field name="consumed_points" position="after">
+                <field name="is_closed" invisible="1" />
+                <field name="is_cancelling" invisible="1" />
+            </field>
+            <field name="consumed_points" position="attributes">
+                <attribute
+                    name="attrs"
+                >{'invisible': ['|', '|',('order_type', '!=', 'package'),('is_closed', '!=', True),('is_cancelling', '=', True)]}</attribute>
+            </field>
+        </field>
+    </record>
+
+    <record id="project_task_consumed_points_search_view" model="ir.ui.view">
+        <field name="name">project.task.consumed.points.search.view</field>
+        <field name="model">project.task</field>
+        <field name="arch" type="xml">
+             <search string="Project Task Consumed Points">
+                 <group expand="1" string="Group By">
+                     <filter
+                        string="Date Assign"
+                        name='group_by_date_assign'
+                        context="{'group_by':'date_assign:month'}"
+                    />
+                 </group>
+             </search>
+        </field>
+    </record>
+</odoo>

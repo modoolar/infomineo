@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_e_bds_sortant_form" model="ir.ui.view">
+        <field name="name">e_bds.sortant.form</field>
+        <field name="model">e_bds.sortant</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="E-BDS Sortants">
+                <sheet>
+                <group>
+                    <label for="date_from" string="Period" />
+                    <div class="o_row">
+                        <field
+                                name="date_from"
+                                widget="daterange"
+                                nolabel="1"
+                                class="oe_inline"
+                                options="{'related_end_date': 'date_to'}"
+                            />
+                        <i
+                                class="fa fa-long-arrow-right mx-2"
+                                aria-label="Arrow icon"
+                                title="Arrow"
+                            />
+                        <field
+                                name="date_to"
+                                widget="daterange"
+                                nolabel="1"
+                                class="oe_inline"
+                                options="{'related_start_date': 'date_from'}"
+                            />
+                    </div>
+                </group>
+                <notebook>
+                    <page string="Status of employees">
+                        <field name="e_bds_sortant_line_ids">
+                        <tree string="E-BDS Sortants" editable="bottom">
+                            <field name="employee_id" />
+                            <field name="situation" />
+                        </tree>
+                        </field>
+                    </page>
+                </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" groups="base.group_user" />
+                    <field name="message_ids" />
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="view_e_bds_sortant_tree" model="ir.ui.view">
+        <field name="name">e_bds.sortant.tree</field>
+        <field name="model">e_bds.sortant</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="E-BDS Sortants">
+                <field name="date_from" />
+                <field name="date_to" />
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="action_e_bds_sortant" model="ir.actions.act_window">
+        <field name="name">E-BDS Sortants</field>
+        <field name="res_model">e_bds.sortant</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+   <menuitem
+        name="e-BDS Sortants"
+        action="action_e_bds_sortant"
+        id="action_e_bds_sortant_menu"
+        parent="hr_payroll.menu_hr_payroll_payslips"
+        groups="hr.group_hr_manager"
+        sequence="110"
+    />
+
+</odoo>

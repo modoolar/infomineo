@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="payslip_header_paper_format" model="report.paperformat">
+        <field name="name">Payslip Header Paper Format</field>
+        <field name="default" eval="False" />
+        <field name="format">A4</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">45</field>
+        <field name="margin_bottom">32</field>
+        <field name="margin_left">7</field>
+        <field name="margin_right">7</field>
+        <field name="dpi">90</field>
+        <field name="header_line" eval="False" />
+        <field name="header_spacing">47</field>
+    </record>
+
+    <record id="hr_payroll.action_report_payslip" model="ir.actions.report">
+        <field name="paperformat_id" ref="payslip_header_paper_format" />
+    </record>
+
+</odoo>

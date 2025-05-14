@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="contract_employee_report_view_pivot_inherit" model="ir.ui.view">
+        <field name="name">contract.employee.report.view.inherit.pivot</field>
+        <field name="model">hr.contract.employee.report</field>
+        <field
+            name="inherit_id"
+            ref="hr_contract_reports.contract_employee_report_view_pivot"
+        />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='employee_id']" position="after">
+                <field name="job_title" type="row" />
+                <field name="mobile_phone" type="measure" />
+                <field name="parent_id" type="measure" />
+                <field name="first_contract_date" type="measure" />
+                <field name="departure_date" type="measure" />
+                <field name="departure_reason_id" type="measure" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="contract_employee_report_view_search" model="ir.ui.view">
+        <field name="name">contract.employee.report.view.search</field>
+        <field name="model">hr.contract.employee.report</field>
+         <field
+            name="inherit_id"
+            ref="hr_contract_reports.contract_employee_report_view_search"
+        />
+         <field name="arch" type="xml">
+             <xpath expr="//group" position="inside">
+                 <filter
+                    string="Manager"
+                    name="parent_id"
+                    context="{'group_by':'parent_id'}"
+                />
+                 <filter
+                    string="Job Title"
+                    name="job_title"
+                    context="{'group_by':'job_title'}"
+                />
+                 <filter
+                    string="Departure Reason"
+                    name="departure_reason_id"
+                    context="{'group_by':'departure_reason_id'}"
+                />
+             </xpath>
+         </field>
+     </record>
+</odoo>

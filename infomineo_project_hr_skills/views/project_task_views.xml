@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_task_form2" model="ir.ui.view">
+        <field name="name">view.task.form2</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="infomineo_project.view_task_form2" />
+        <field name="arch" type="xml">
+            <field name='expert_cost' position="before">
+                <field
+                    name="special_language_skill_id"
+                    widget="many2many_tags"
+                    attrs="{'invisible': [('line_of_business', '!=', 'expert_network')]}"
+                />
+            </field>
+        </field>
+    </record>
+</odoo>

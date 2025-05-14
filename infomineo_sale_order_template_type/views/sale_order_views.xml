@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_order_form" model="ir.ui.view">
+        <field name="name">sale.order.form</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale_order_template_type.view_order_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='order_type']" position="attributes">
+                <attribute name="readonly">1</attribute>
+                <attribute name="force_save">1</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="sale_order_view_search_inherit_quotation" model="ir.ui.view">
+        <field name="name">sale.order.view.search.inherit.quotation</field>
+        <field name="model">sale.order</field>
+        <field
+            name="inherit_id"
+            ref="sale_order_template_type.sale_order_view_search_inherit_quotation"
+        />
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='order_type_other']" position="before">
+                <filter
+                    string="Retainer"
+                    name="order_type_retainer"
+                    domain="[('order_type', '=', 'retainer')]"
+                />
+                <filter
+                    string="Project"
+                    name="order_type_project"
+                    domain="[('order_type', '=', 'project')]"
+                />
+                <filter
+                    string="Flexible"
+                    name="order_type_flexible"
+                    domain="[('order_type', '=', 'flexible')]"
+                />
+                <filter
+                    string="Mixed"
+                    name="order_type_mixed"
+                    domain="[('order_type', '=', 'mixed')]"
+                />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="sale_order_view_search_inherit_sale" model="ir.ui.view">
+        <field name="name">sale.order.view.search.inherit.sale</field>
+        <field name="model">sale.order</field>
+        <field
+            name="inherit_id"
+            ref="sale_order_template_type.sale_order_view_search_inherit_sale"
+        />
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='order_type_other']" position="after">
+                <filter
+                    string="Retainer"
+                    name="order_type_retainer"
+                    domain="[('order_type', '=', 'retainer')]"
+                />
+                <filter
+                    string="Project"
+                    name="order_type_project"
+                    domain="[('order_type', '=', 'project')]"
+                />
+                <filter
+                    string="Flexible"
+                    name="order_type_flexible"
+                    domain="[('order_type', '=', 'flexible')]"
+                />
+                <filter
+                    string="Mixed"
+                    name="order_type_mixed"
+                    domain="[('order_type', '=', 'mixed')]"
+                />
+            </xpath>
+        </field>
+    </record>
+</odoo>

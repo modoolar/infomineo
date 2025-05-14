@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="time_off_officer_view_hr_team_leave_calendar" model="ir.rule">
+        <field name="name">Time Off Officer - View Leave Report for HR Team</field>
+        <field name="model_id" ref="hr_holidays.model_hr_leave_report_calendar" />
+        <field
+            name="domain_force"
+        >[('employee_id.hr_team_id', '=', user.employee_id.hr_team_id.id)]</field>
+        <field name="groups" eval="[(4, ref('hr_holidays.group_hr_holidays_user'))]" />
+        <field name="perm_read" eval="True" />
+        <field name="perm_write" eval="False" />
+        <field name="perm_create" eval="False" />
+        <field name="perm_unlink" eval="False" />
+    </record>
+
+</odoo>

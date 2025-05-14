@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_move_form" model="ir.ui.view">
+        <field name='name'>view.move.form</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button
+                    name="action_change_company"
+                    string="Change company"
+                    type="object"
+                    groups="account.group_account_manager"
+                    attrs="{'invisible': [('state', '!=', 'draft')]}"
+                />
+            </xpath>
+            <xpath
+                expr="//group[@name='accounting_info_group']/field[@name='company_id']"
+                position="attributes"
+            >
+                <attribute name="readonly">1</attribute>
+            </xpath>
+            <field name="to_check" position="after">
+                <field name="tax_declared" />
+            </field>
+            <field name="partner_bank_id" position="after">
+                <field name="show_additional_bill_fields" invisible="1" />
+                <field
+                    name="serie"
+                    attrs="{'invisible': [('show_additional_bill_fields', '=', False)]}"
+                />
+                <field
+                    name="uuid"
+                    attrs="{'invisible': [('show_additional_bill_fields', '=', False)]}"
+                />
+                <field
+                    name="voucher_type"
+                    attrs="{'invisible': [('show_additional_bill_fields', '=', False)]}"
+                />
+
+            </field>
+            <xpath expr="//group[@id='header_right_group']" position="inside">
+                <field
+                    name="payment_method"
+                    attrs="{'invisible': [('show_additional_bill_fields', '=', False)]}"
+                />
+            </xpath>
+        </field>
+    </record>
+    <record id="view_in_invoice_bill_tree" model="ir.ui.view">
+        <field name='name'>view.in.invoice.bill.tree</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_in_invoice_bill_tree" />
+        <field name="arch" type="xml">
+            <field name="amount_total_in_currency_signed" position="after">
+                <field name="tax_declared" optional="hide" />
+            </field>
+        </field>
+    </record>
+
+    <record id="view_move_line_tree_grouped_general" model="ir.ui.view">
+        <field name='name'>view.move.line.tree.grouped.general</field>
+        <field name="model">account.move.line</field>
+        <field name="inherit_id" ref="account.view_move_line_tree_grouped_general" />
+        <field name="arch" type="xml">
+            <field name="cumulated_balance" position="after">
+                <field name="serie" optional="hide" />
+                <field name="uuid" optional="hide" />
+                <field name="voucher_type" optional="hide" />
+                <field name="payment_method" optional="hide" />
+            </field>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="rating_ticket_request_email_template" model="mail.template">
+        <field
+            name="name"
+        >Ticket: Rating Request (requires rating enabled on team)</field>
+        <field name="model_id" ref="helpdesk.model_helpdesk_ticket" />
+        <field
+            name="subject"
+        >{{ object.company_id.name or object.user_id.company_id.name or 'Helpdesk' }}: Service Rating Request</field>
+        <field
+            name="email_from"
+        >{{ object.rating_get_rated_partner_id().email_formatted }}</field>
+        <field
+            name="partner_to"
+        >{{ object.create_uid and object.create_uid.partner_id and object.create_uid.partner_id.id or '' }}</field>
+        <field name="body_html" type="html">
+<div>
+    <t t-set="access_token" t-value="object.rating_get_access_token()" />
+    <t
+                    t-set="survey_id"
+                    t-value="object.stage_id.rating_mail_template_id and object.stage_id.rating_mail_template_id.survey_id and object.stage_id.rating_mail_template_id.survey_id.id or ''"
+                />
+    <t t-set="partner" t-value="object.rating_get_partner_id()" />
+    <table border="0" cellpadding="0" cellspacing="0" style="width:100%; margin:0;">
+    <tbody>
+        <tr><td valign="top" style="font-size: 14px;">
+            <t t-if="partner.name">
+                Hello <t t-out="partner.name or ''">Brandon Freeman</t>,<br />
+            </t>
+            <t t-else="">
+                Hello,<br />
+            </t>
+            Please take a moment to rate our services related to the ticket "<strong
+                                    t-out="object.name or ''"
+                                >Table legs are unbalanced</strong>"
+            <t t-if="object.rating_get_rated_partner_id().name">
+                assigned to <strong
+                                        t-out="object.rating_get_rated_partner_id().name or ''"
+                                    >Mitchell Admin</strong>.<br />
+            </t>
+            <t t-else="">
+                .<br />
+            </t>
+        </td></tr>
+        <tr><td style="font-size: 13px;">
+            <table style="width:100%;text-align:center;margin-top:2rem;">
+                <tr>
+                    <td>
+                        <a t-attf-href="/rate/{{ access_token }}/{{ survey_id }}/5">
+                            <img
+                                                    alt="Satisfied"
+                                                    src="/infomineo_rating/static/src/img/rating_5.png"
+                                                    width="100"
+                                                    height="100"
+                                                    title="Satisfied"
+                                                />
+                        </a>
+                    </td>
+                    <td>
+                        <a t-attf-href="/rate/{{ access_token }}/{{ survey_id }}/4">
+                            <img
+                                                    alt="Satisfied"
+                                                    src="/infomineo_rating/static/src/img/rating_4.png"
+                                                    width="100"
+                                                    height="100"
+                                                    title="Good"
+                                                />
+                        </a>
+                    </td>
+                    <td>
+                        <a t-attf-href="/rate/{{ access_token }}/{{ survey_id }}/3">
+                            <img
+                                                    alt="Okay"
+                                                    src="/infomineo_rating/static/src/img/rating_3.png"
+                                                    width="100"
+                                                    height="100"
+                                                    title="Okay"
+                                                />
+                        </a>
+                    </td>
+                    <td>
+                        <a t-attf-href="/rate/{{ access_token }}/{{ survey_id }}/2">
+                            <img
+                                                    alt="Satisfied"
+                                                    src="/infomineo_rating/static/src/img/rating_2.png"
+                                                    width="100"
+                                                    height="100"
+                                                    title="Dissatisfied"
+                                                />
+                        </a>
+                    </td>
+                    <td>
+                        <a t-attf-href="/rate/{{ access_token }}/{{ survey_id }}/1">
+                            <img
+                                                    alt="Dissatisfied"
+                                                    src="/infomineo_rating/static/src/img/rating_1.png"
+                                                    width="100"
+                                                    height="100"
+                                                    title="Bad"
+                                                />
+                        </a>
+                    </td>
+                </tr>
+            </table>
+        </td></tr>
+        <tr><td valign="top" style="font-size: 14px;">
+            We appreciate your feedback. It helps us to improve continuously.
+            <br /><span
+                                    style="margin: 0px 0px 0px 0px; font-size: 12px; opacity: 0.5; color: #454748;"
+                                >This customer survey has been sent because your ticket has been moved to the stage <b
+                                        t-out="object.stage_id.name or ''"
+                                    >In Progress</b></span>
+        </td></tr>
+    </tbody>
+    </table>
+</div>
+        </field>
+        <field
+            name="lang"
+        >{{ object.partner_id.lang or object.user_id.lang or user.lang }}</field>
+        <field name="auto_delete" eval="True" />
+    </record>
+
+    <record id="ticket_rating_result_notification" model="mail.template">
+        <field name="name">Ticket: Rating Result</field>
+        <field name="model_id" ref="helpdesk.model_helpdesk_ticket" />
+        <field name="subject">Infomineo: Satisfaction Survey: {{ object.name }}</field>
+        <field name="email_from">{{ object.create_uid.partner_id.email or '' }}</field>
+        <field name="email_to">{{ object._context.get("email_to") }}</field>
+        <field name="lang">{{ object.rating_get_partner_id().lang }}</field>
+        <field name="auto_delete" eval="False" />
+        <field name="body_html" type="html">
+            <div
+                style="background:#F0F0F0;color:#515166;padding:10px 0px;font-family:Arial,Helvetica,sans-serif;font-size:14px;"
+            >
+                <t t-set="partner" t-value="object.rating_get_partner_id()" />
+                <t t-set="requestor_name" t-value="ctx.get('rating_name', '')" />
+                <table style="width:600px;margin:5px auto;">
+                    <tbody>
+                        <tr><td>
+                            <a href="/"><img
+                                        src="/web/binary/company_logo"
+                                        style="vertical-align:baseline;max-width:100px;"
+                                    /></a>
+                        </td><td style="text-align:right;vertical-align:middle;">
+                                Satisfaction Survey - Ticket rating notification
+                        </td></tr>
+                    </tbody>
+                </table>
+                <table
+                    style="width:600px;margin:0px auto;background:white;border:1px solid #e1e1e1;"
+                >
+                    <tbody>
+                        <tr><td style="padding:15px 20px 10px 20px;">
+                            <p>Hello ,</p>
+                            <p>we have received ticket rating for "<strong
+                                        t-out="object.name or ''"
+                                    >Office Cleaning Service"</strong>
+                                <t
+                                        t-set="rating_image_path"
+                                        t-value="object._get_image_path()"
+                                    />
+                                <a href="/"><img
+                                            t-att-src="rating_image_path"
+                                            style="width:18px;height:18px;float:left;margin-right: 5px;"
+                                        /></a>
+                               assigned to <strong
+                                        t-out="object.rating_get_rated_partner_id().name or ''"
+                                    >Mitchell Admin</strong>.</p>
+                            <p>Please review it on next link: </p>
+                            <div
+                                    style="text-align: center; padding: 16px 0px 16px 0px;"
+                                >
+                                <a
+                                        style="background-color: #875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;"
+                                        t-att-href="object.get_portal_url()"
+                                    >View the task</a><br />
+                            </div>
+                        </td></tr>
+                    </tbody>
+                </table>
+                <table
+                    style="width:600px;margin:auto;text-align:center;font-size:12px;"
+                >
+                    <tbody>
+                        <tr><td style="padding-top:10px;color:#afafaf;">
+                            <p>Email automatically sent by <a
+                                        target="_blank"
+                                        href="https://www.odoo.com/app/subscriptions"
+                                        style="color:#875A7B;text-decoration:none;"
+                                    >Odoo Satisfaction Survey</a> for <a
+                                        t-att-href="object.company_id.website"
+                                        style="color:#875A7B;text-decoration:none;"
+                                        t-out="object.company_id.name or ''"
+                                    >YourCompany</a></p>
+                        </td></tr>
+                    </tbody>
+                </table>
+            </div>
+            </field>
+    </record>
+
+</odoo>

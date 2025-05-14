@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="document_tax_subscription_totals">
+        <!--Total amount with all taxes in first year -->
+        <t t-if="'is_recurring' in tax_totals and tax_totals['is_recurring']">
+            <tr>
+                <td>
+                    <strong>Total net amount in first year</strong>
+                </td>
+                <td class="text-right">
+                    <span t-esc="tax_totals['amount_total_net_first_year']" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <strong>Total gross amount in first year</strong>
+                </td>
+                <td class="text-right">
+                    <span t-esc="tax_totals['amount_total_gross_first_year']" />
+                </td>
+            </tr>
+        </t>
+    </template>
+
+    <template id="document_tax_totals" inherit_id="account.document_tax_totals">
+        <xpath expr="//strong[contains(text(), 'Total')]" position="replace">
+            <t t-if="'is_recurring' in tax_totals and tax_totals['is_recurring']">
+                <strong>First time / Recurring</strong>
+            </t>
+            <t t-else="">
+                <strong>Total</strong>
+            </t>
+        </xpath>
+    </template>
+</odoo>

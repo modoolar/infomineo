@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="approval_category_view_form" model="ir.ui.view">
+        <field name="name">approval.category.view.form</field>
+        <field name="model">approval.category</field>
+        <field name="inherit_id" ref="approvals.approval_category_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='description']" position="before">
+                <field name="is_advanced" widget="boolean_toggle" />
+                <field name="advanced_approval_minimum" invisible="1" />
+            </xpath>
+            <xpath expr="//field[@name='company_id']" position="attributes">
+                <attribute
+                    name="attrs"
+                >{'invisible': [('is_advanced', '!=', True)]}</attribute>
+            </xpath>
+            <xpath expr="//page[@name='options']" position="attributes">
+                <attribute
+                    name="attrs"
+                >{'invisible': [('is_advanced', '=', True)]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='approval_type']" position="attributes">
+                <attribute
+                    name="attrs"
+                >{'invisible': [('is_advanced', '=', True)]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='automated_sequence']" position="attributes">
+                <attribute
+                    name="attrs"
+                >{'invisible': [('is_advanced', '=', True)]}</attribute>
+            </xpath>
+            <xpath expr="//page[@name='options']" position="after">
+                <page
+                    string="Advanced Options"
+                    name="advanced_options"
+                    attrs="{'invisible': [('is_advanced', '!=', True)]}"
+                >
+                    <field
+                        name="advanced_approver_ids"
+                        context="{'tree_view_ref': 'approvals_matrix.advanced_approval_category_approver_view_tree'}"
+                    />
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="approval_category_view_tree" model="ir.ui.view">
+        <field name="name">approval.category.view.tree</field>
+        <field name="model">approval.category</field>
+        <field name="inherit_id" ref="approvals.approval_category_view_tree" />
+        <field name="arch" type="xml">
+            <field name="company_id" position="after">
+                <field name="is_advanced" optional="show" />
+            </field>
+        </field>
+    </record>
+
+    <record id="approval_category_view_search" model="ir.ui.view">
+        <field name="name">approval.category.search</field>
+        <field name="model">approval.category</field>
+        <field name="inherit_id" ref="approvals.approval_category_view_search" />
+        <field name="arch" type="xml">
+            <filter name="archived" position="before">
+                <filter
+                    name="is_advanced"
+                    string="Advanced"
+                    domain="[('is_advanced', '=', True)]"
+                />
+            </filter>
+        </field>
+    </record>
+</odoo>

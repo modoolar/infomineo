@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.project</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="project.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+                <xpath expr="//div[@id='log_time_tasks_setting']" position="after">
+                        <div
+                    class="col-12 col-lg-6 o_setting_box"
+                    name="project_planning_management"
+                    groups="base.group_system"
+                >
+                            <div class="o_setting_left_pane">
+                                <field
+                            name="project_plan_capacity"
+                            widget="upgrade_boolean"
+                        />
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="project_plan_capacity" />
+                                <div
+                            class="text-muted"
+                            name="project_plan_capacity_msg"
+                        >
+                                    Automate shifts management and Project tasks
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                    class="col-12 col-lg-6 o_setting_box"
+                    name="task_internal_planned_hours"
+                    groups="base.group_system"
+                >
+                            <div class="o_setting_right_pane">
+                                <label for="task_internal_planned_hours" />
+                                <div class="text-muted">
+                                    <field name="task_internal_planned_hours" />
+                                </div>
+                            </div>
+                        </div>
+                </xpath>
+        </field>
+    </record>
+</odoo>

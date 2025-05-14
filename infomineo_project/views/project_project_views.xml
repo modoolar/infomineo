@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="edit_project" model="ir.ui.view">
+        <field name="name">project.project.form</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='user_id']" position="after">
+                <field name="project_director_id" />
+                <field name="other_project_managers_ids" widget="many2many_tags" />
+                <field
+                    name="project_users_ids"
+                    widget="many2many_tags"
+                    attrs="{'required': [('privacy_visibility', '=', 'followers')]}"
+                />
+                <field name="customer_recipient_id" />
+            </xpath>
+            <xpath expr="//notebook" position="inside">
+                <page
+                    name="team_members"
+                    string="Team Members"
+                    attrs="{'invisible': [('privacy_visibility', '!=', 'followers')]}"
+                >
+                    <field
+                        name="project_team_members_ids"
+                        context="{'tree_view_ref': 'infomineo_project.infomineo_view_users_tree'}"
+                    />
+                </page>
+            </xpath>
+            <xpath expr="//field[@name='label_tasks']" position="after">
+                <field name="project_type" />
+                <field
+                    name="prevent_task_creation"
+                    groups="infomineo_project.group_infomineo_project_manager"
+                />
+            </xpath>
+            <xpath
+                expr="//button[@name='%(project.action_project_task_burndown_chart_report)d']"
+                position="attributes"
+            >
+                <attribute
+                    name="groups"
+                >infomineo_project.group_infomineo_project_manager</attribute>
+            </xpath>
+            <xpath
+                expr="//button[@name='%(project.project_collaborator_action)d']"
+                position="attributes"
+            >
+                <attribute
+                    name="groups"
+                >infomineo_project.group_infomineo_project_manager</attribute>
+            </xpath>
+            <xpath
+                expr="//button[@name='%(project.project_update_all_action)d']"
+                position="attributes"
+            >
+                <attribute
+                    name="groups"
+                >infomineo_project.group_infomineo_project_manager</attribute>
+            </xpath>
+            <field name="name" position="attributes">
+                <attribute name="required">0</attribute>
+            </field>
+            <field name="company_id" position="before">
+                <field name="actual_end_date" />
+            </field>
+            <field name="tag_ids" position="after">
+                <field name="next_task_number" groups="base.group_system" />
+            </field>
+            <xpath expr="//div[@id='rating_settings']" position="after">
+                <div class="col-lg-6 o_setting_box" id="description_mandatory_settings">
+                    <div class="o_setting_left_pane">
+                        <field name="description_mandatory" />
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <label for="description_mandatory" />
+                        <div class="text-muted">
+                            Require description on timesheets
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_project_project_filter" model="ir.ui.view">
+        <field name="name">project.project.select</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.view_project_project_filter" />
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='groupby_stage']" position="after">
+                <filter
+                    string="Type"
+                    name="groupby_type"
+                    context="{'group_by': 'project_type'}"
+                    groups="base.group_user"
+                />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_project_kanban" model="ir.ui.view">
+        <field name="name">project.project.kanban</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.view_project_kanban" />
+        <field name="arch" type="xml">
+            <xpath
+                expr="//div[hasclass('o_kanban_manage_reporting')]"
+                position="attributes"
+            >
+                <attribute
+                    name="groups"
+                >infomineo_project.group_infomineo_project_manager</attribute>
+            </xpath>
+            <xpath expr="//kanban" position="attributes">
+                <attribute name="on_create" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="project_view_kanban_inherit_project" model="ir.ui.view">
+        <field name="name">project.project.inherit.kanban</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.project_view_kanban_inherit_project" />
+        <field name="arch" type="xml">
+            <xpath
+                expr="//div[@role='menuitem' and @groups='project.group_project_manager']"
+                position="attributes"
+            >
+                <attribute
+                    name="groups"
+                >infomineo_project.group_infomineo_project_manager</attribute>
+            </xpath>
+            <xpath
+                expr="//div[hasclass('o_kanban_card_manage_settings') and @groups='project.group_project_manager']"
+                position="attributes"
+            >
+                <attribute
+                    name="groups"
+                >infomineo_project.group_infomineo_project_manager</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <menuitem
+        id="project.rating_rating_menu_project"
+        action="infomineo_rating_survey.rating_rating_action_project_report"
+        parent="project.menu_project_report"
+        groups="project.group_project_rating"
+        sequence="40"
+    />
+    <menuitem
+        id="project.rating_rating_menu_project_task"
+        action="rating_rating_action_project_task"
+        parent="project.menu_project_report"
+        groups="project.group_project_rating"
+        sequence="40"
+    />
+</odoo>

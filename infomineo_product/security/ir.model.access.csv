@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_product_product_catalog_manager,product.product.catalog.manager,product.model_product_product,infomineo_product.group_product_catalog_manager,1,1,1,1
+access_product_template_product_catalog_manager,product.template.product.catalog.manager,product.model_product_template,infomineo_product.group_product_catalog_manager,1,1,1,1
+product.access_product_product_manager,product.product manager,product.model_product_product,base.group_system,1,0,0,0
+product.access_product_template_manager,product.template.manager,product.model_product_template,base.group_system,1,0,0,0

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="external_layout_standard" inherit_id='web.external_layout_standard'>
+        <xpath
+            expr="//t[@t-call='web.address_layout']/parent::div[hasclass('pt-5')]"
+            position="attributes"
+        >
+            <attribute name="class" />
+       </xpath>
+    </template>
+</odoo>

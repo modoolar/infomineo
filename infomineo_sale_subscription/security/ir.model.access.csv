@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+sale_subscription.access_product_product_sale_subscription_manager,product.product.sale.subscription.manager,product.model_product_product,sale_subscription.group_sale_subscription_manager,1,0,0,0
+sale_subscription.access_product_template_sale_subscription_manager,product.template.sale.subscription.manager,product.model_product_template,sale_subscription.group_sale_subscription_manager,1,0,0,0

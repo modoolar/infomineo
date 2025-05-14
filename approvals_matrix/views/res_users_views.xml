@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_users_form" model="ir.ui.view">
+        <field name="name">res.users.form</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form" />
+        <field name="arch" type="xml">
+            <xpath
+                expr="//div[hasclass('oe_title')]//field[@name='partner_id']"
+                position="before"
+            >
+                <field name="is_manager_missing" invisible="1" />
+                <field
+                    name="approval_authorization_level_id"
+                    attrs="{'readonly': [('employee_count', '=', 0)]}"
+                    force_save="1"
+                />
+            </xpath>
+            <xpath expr="//header" position="after">
+                <div class="clearfix" />
+                <div
+                    widget=""
+                    class="alert alert-warning mb-0 text-center w-100"
+                    role="alert"
+                    attrs="{'invisible': ['|', ('is_manager_missing', '=', False), ('employee_count', '=', 0)]}"
+                >
+                    <strong
+                    >The user is associated with an employee, but no approval manager has been set for one or more of the associated employees.</strong>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="res_users_view_simple_form" model="ir.ui.view">
+        <field name="name">res.users.simple.form.inherit</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_simple_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='phone']" position="after">
+                <field name="is_manager_missing" invisible="1" />
+                <field name="employee_count" invisible="1" />
+                <field
+                    name="approval_authorization_level_id"
+                    attrs="{'readonly': [('employee_count', '=', 0)]}"
+                    force_save="1"
+                />
+            </xpath>
+        </field>
+    </record>
+</odoo>

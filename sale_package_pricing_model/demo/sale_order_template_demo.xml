@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo noupdate="1">
+    <record id="sale_order_template_package" model="sale.order.template">
+        <field name="name">SO Template Other</field>
+        <field name="order_type">package</field>
+        <field name="package_duration">12</field>
+        <field name="package_size">1000</field>
+        <field
+            name="package_configuration_id"
+            ref="sale_package_pricing_model.sale_package_configurator_1"
+        />
+    </record>
+</odoo>
