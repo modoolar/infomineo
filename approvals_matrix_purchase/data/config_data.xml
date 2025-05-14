@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo noupdate="1">
+    <record id="purchase.model_purchase_order" model="ir.model">
+        <field
+            name="blacklisted_fields"
+        >partner_id,requisition_id,currency_id,amount_total,payment_term_id,order_line</field>
+    </record>
+</odoo>

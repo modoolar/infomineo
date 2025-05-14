@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_partner_form" model="ir.ui.view">
+        <field name="name">view.partner.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="arch" type="xml">
+            <field name="category_id" position="after">
+                <field name="contact_certificate_id">
+                    <form string="Contact Certificate">
+                        <group name="cert-content">
+                            <group name="left">
+                                <field name="active" />
+                            </group>
+                            <group name="right">
+                                <field name="name" />
+                                <field name="expiry_date" />
+                            </group>
+                        </group>
+                    </form>
+                </field>
+            </field>
+        </field>
+    </record>
+</odoo>

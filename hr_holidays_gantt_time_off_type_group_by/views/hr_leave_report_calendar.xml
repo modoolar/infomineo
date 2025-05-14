@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="hr_leave_report_calendar_view_search" model="ir.ui.view">
+        <field name="name">hr.leave.report.calendar.view.search</field>
+        <field name="model">hr.leave.report.calendar</field>
+        <field
+            name="inherit_id"
+            ref="hr_holidays.hr_leave_report_calendar_view_search"
+        />
+        <field name="arch" type="xml">
+            <filter name="groupby_department_id" position="after">
+                <filter
+                    name="groupby_holiday_status_id"
+                    context="{'group_by': 'holiday_status_id'}"
+                />
+            </filter>
+        </field>
+    </record>
+</odoo>

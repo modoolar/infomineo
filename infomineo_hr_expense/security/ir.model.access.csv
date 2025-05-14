@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+hr_expense.access_product_product_hr_expense_user,product.product.hr.expense.user,product.model_product_product,hr_expense.group_hr_expense_manager,1,0,0,0
+hr_expense.access_product_template_hr_expense_user,product.template.hr.expense.user,product.model_product_template,hr_expense.group_hr_expense_manager,1,0,0,0
+infomineo_hr_expense.access_hr_expense_Sheet_company_switch_wizard,access.hr.expense.sheet.company.switch.wizard,infomineo_hr_expense.model_hr_expense_sheet_company_switch_wizard,account.group_account_manager,1,1,1,1

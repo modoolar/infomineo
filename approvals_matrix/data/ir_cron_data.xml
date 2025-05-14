@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo noupdate="1">
+    <record id="ir_cron_send_approver_reminder" model="ir.cron">
+        <field name="name">Approvals: send reminder notifications to Approvers</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">hours</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False" />
+        <field name="model_id" ref="approvals.model_approval_approver" />
+        <field name="code">model._send_approver_reminder_cron()</field>
+        <field name="state">code</field>
+    </record>
+
+    <record id="ir_cron_send_approver_manager_reminder" model="ir.cron">
+        <field
+            name="name"
+        >Approvals: send reminder notifications to Mananger Approvers</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">hours</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False" />
+        <field name="model_id" ref="approvals.model_approval_approver" />
+        <field name="code">model._send_manager_reminder_cron()</field>
+        <field name="state">code</field>
+    </record>
+
+    <record id="ir_cron_send_approver_substitute" model="ir.cron">
+        <field name="name">Approvals: substitute Approvers on Requests</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">hours</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False" />
+        <field name="model_id" ref="approvals.model_approval_approver" />
+        <field name="code">model.substitute_approvers_cron()</field>
+        <field name="state">code</field>
+    </record>
+
+    <record id="ir_cron_check_employee_manager" model="ir.cron">
+        <field name="name">Approvals: check if every employee has a Manager</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">hours</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False" />
+        <field name="model_id" ref="hr.model_hr_employee" />
+        <field name="code">model.check_employee_manager()</field>
+        <field name="state">code</field>
+    </record>
+</odoo>

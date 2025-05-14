@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+     <record id="hr_accrual_plan_view_form_inherited" model="ir.ui.view">
+        <field name="name">hr.leave.accrual.plan.form.inherited</field>
+        <field name="model">hr.leave.accrual.plan</field>
+        <field name="inherit_id" ref="hr_holidays.hr_accrual_plan_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//group//field[@name='transition_mode']" position="after">
+                <field name="is_automated_leave_accrual_plan" />
+            </xpath>
+        </field>
+     </record>
+</odoo>

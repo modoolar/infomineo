@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="change_coach_action" model="ir.actions.act_window">
+        <field name="name">Change PDC</field>
+        <field name="res_model">change.coach.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+    <record id="view_employee_tree" model="ir.ui.view">
+        <field name="name">view.employee.tree</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_tree" />
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="full_name" optional="hide" />
+            </field>
+            <field name="work_phone" position="after">
+                <field name="hr_team_id" />
+                <field name="hr_child_team_id" />
+            </field>
+        </field>
+    </record>
+    <record id="view_employee_form" model="ir.ui.view">
+        <field name="name">hr.employee.form</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form" />
+        <field name="arch" type="xml">
+            <header position="inside">
+                <button
+                    name="%(change_coach_action)d"
+                    string="Change Manager/PDC"
+                    type="action"
+                />
+            </header>
+            <xpath expr="//field[@name='coach_id']" position="after">
+                <field name="reference" />
+                <field name="field_of_study_id" />
+            </xpath>
+            <xpath expr="//field[@name='job_title']/.." position="before">
+                <h2>
+                    <field name="hr_team_id" placeholder="HR Team" />
+                </h2>
+                <h5>
+                    <field
+                        name="hr_child_team_id"
+                        placeholder="HR Subteam"
+                        domain="[('parent_id', '=', hr_team_id)]"
+                    />
+                </h5>
+            </xpath>
+            <xpath expr="//field[@name='study_field']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//notebook" position="inside">
+                <page name="private_notes" string="Private Notes">
+                    <field name="private_notes" placeholder="Private notes" />
+                </page>
+            </xpath>
+            <xpath expr="//field[@name='country_of_birth']" position="after">
+                <field name="medical_number" />
+                <field name="retirement_account_number" />
+                <field name="sinid" />
+            </xpath>
+            <notebook position="inside">
+                <page name="employment_history" string="Employment History">
+                    <field
+                        name="employment_history_ids"
+                        context="{'tree_view_ref': 'infomineo_hr.employee_employment_history_tree_view'}"
+                    />
+                </page>
+            </notebook>
+            <field name="visa_no" position="after">
+                <field name="visa_expire" position="move" />
+            </field>
+            <field name="has_work_permit" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <xpath
+                expr="//page[@name='personal_information']/group/group/field[@name='address_home_id']"
+                position="before"
+            >
+                <field name="full_name" />
+            </xpath>
+            <xpath
+                expr="//page[@name='hr_settings']/group/group/field[@name='user_id']"
+                position="after"
+            >
+                <field
+                    name="probability_of_rehire"
+                    widget="percentage"
+                    attrs="{'invisible': [('active', '=', True)]}"
+                />
+            </xpath>
+            <field name="company_id" position="after">
+                <field name="buddy_id" />
+            </field>
+        </field>
+    </record>
+
+     <record id="view_employee_filter" model="ir.ui.view">
+        <field name="name">hr.employee.search</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_filter" />
+        <field name="arch" type="xml">
+            <field name="name" position="attributes">
+                <attribute name="filter_domain">[
+                    '|', '|',
+                    ('work_email', 'ilike', self),
+                    ('name', 'ilike', self),
+                    ('reference', 'ilike', self)
+                    ]
+                </attribute>
+            </field>
+            <xpath expr="//search//field[@name='name']" position="after">
+                <field
+                    name="hr_team_id"
+                    filter_domain="[('hr_team_id', 'ilike', self)]"
+                />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="hr_hr_employee_view_form2" model="ir.ui.view">
+        <field name="name">	hr.hr.employee.view.form2</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr_contract.hr_hr_employee_view_form2" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='job_id']" position="before">
+                <field name="tenure" />
+                <field name="previous_years_of_experience" />
+            </xpath>
+        </field>
+    </record>
+</odoo>

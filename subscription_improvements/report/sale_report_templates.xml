@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+        id="sale_order_portal_content_totals_table"
+        inherit_id="sale.sale_order_portal_content_totals_table"
+    >
+        <xpath expr="//t[@t-call='account.document_tax_totals']" position="after">
+            <t t-if="sale_order.subscription_management != 'upsell'">
+                <t
+                    t-call="subscription_improvements.document_tax_subscription_totals"
+                />
+            </t>
+        </xpath>
+    </template>
+
+    <template
+        id="report_saleorder_document"
+        inherit_id="sale.report_saleorder_document"
+    >
+        <xpath expr="//t[@t-call='account.document_tax_totals']" position="after">
+            <t t-if="doc.subscription_management != 'upsell'">
+                <t
+                    t-call="subscription_improvements.document_tax_subscription_totals"
+                />
+            </t>
+        </xpath>
+
+        <xpath
+            expr="//t[@t-if=&quot;not (env.context.get('proforma', False) or is_pro_forma)&quot;]"
+            position="before"
+        >
+            <t t-if="doc.subscription_management == 'upsell'">
+                <span>Upsell</span>
+            </t>
+        </xpath>
+
+        <xpath expr="//h2[hasclass('mt16')]" position="after">
+            <div class="row">
+                <t
+                    t-if="doc.subscription_management == 'upsell' and doc.upsell_subscription_id"
+                >
+                    <div
+                    >By accepting this quotation, we will alter your existing subscription  </div>
+                    <t t-esc="doc.upsell_subscription_id.display_name" />
+                </t>
+            </div>
+        </xpath>
+    </template>
+</odoo>

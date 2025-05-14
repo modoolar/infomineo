@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="report_invoice_document" inherit_id="l10n_ae.report_invoice_document">
+        <xpath expr="//span[@id='line_tax_amount']" position="replace">
+            <span
+                t-field="line.l10n_ae_vat_amount_no_retenetion"
+                id="line_tax_amount"
+            />
+        </xpath>
+        <xpath expr="//div[@name='aed_vat_amount']" position="replace">
+            <t t-set="tax_totals" t-value="json.loads(o.tax_totals_json)" />
+            <div name="aed_vat_amount" class="col-auto">
+                <strong>VAT Amount (AED)</strong>
+                <p
+                    class="m-0"
+                    t-esc="o.currency_id._convert(tax_totals['amount_no_retention'], o.company_id.currency_id, o.company_id, o.invoice_date or datetime.date.today())"
+                    t-options='{"widget": "monetary", "display_currency": o.company_currency_id}'
+                />
+            </div>
+        </xpath>
+        <xpath expr="//div[@name='aed_total']" position="replace">
+            <t t-set="obj" t-value="o if o else doc" />
+            <div name="aed_total" class="col-auto">
+                <strong>Total (AED)</strong>
+                <t
+                    t-if="obj and obj.partner_id and obj.partner_id.commercial_partner_id.remove_withholding_tax"
+                >
+                    <t t-set="tax_totals" t-value="json.loads(o.tax_totals_json)" />
+                    <p
+                        class="m-0"
+                        t-esc="o.currency_id._convert(tax_totals['amount_retention_diff'], o.company_id.currency_id, o.company_id, o.invoice_date or datetime.date.today())"
+                        t-options='{"widget": "monetary", "display_currency": o.company_currency_id}'
+                    />
+                </t>
+                <t t-else="">
+                    <p
+                        class="m-0"
+                        t-esc="o.amount_total_signed"
+                        t-options='{"widget": "monetary", "display_currency": o.company_currency_id}'
+                    />
+                </t>
+            </div>
+        </xpath>
+    </template>
+</odoo>

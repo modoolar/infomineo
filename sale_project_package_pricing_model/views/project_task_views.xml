@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_task_tree2" model="ir.ui.view">
+        <field name="name">view.task.tree2</field>
+        <field name="model">project.task</field>
+        <field name="priority">1000</field>
+        <field name="inherit_id" ref="project.view_task_tree2" />
+        <field name="arch" type="xml">
+            <field name="project_id" position="after">
+                <field name="consumed_points" optional="hide" />
+                <field name="forecasted_consumed_points" optional="hide" />
+            </field>
+            <field name="line_of_business" position="attributes">
+                <attribute
+                    name="attrs"
+                >{'required': [('order_type', '=', 'package')]}</attribute>
+            </field>
+        </field>
+    </record>
+
+    <record id="project_task_view_tree_activity" model="ir.ui.view">
+        <field name="name">project.task.view.tree.activity</field>
+        <field name="model">project.task</field>
+        <field name="priority">1000</field>
+        <field name="inherit_id" ref="project.project_task_view_tree_activity" />
+        <field name="arch" type="xml">
+            <field name="project_id" position="after">
+                <field name="consumed_points" optional="hide" />
+                <field name="forecasted_consumed_points" optional="hide" />
+            </field>
+            <field name="line_of_business" position="attributes">
+                <attribute
+                    name="attrs"
+                >{'required': [('order_type', '=', 'package')]}</attribute>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_task_form2" model="ir.ui.view">
+        <field name="name">view.task.form2</field>
+        <field name="model">project.task</field>
+        <field name="priority">1000</field>
+        <field name="inherit_id" ref="project.view_task_form2" />
+        <field name="arch" type="xml">
+            <field name="translated_words" position="attributes">
+                <attribute
+                    name="attrs"
+                >{'invisible': ['|', ('order_type', '!=', 'package'), ('line_of_business', '!=', 'translation')]}</attribute>
+            </field>
+            <field name="parent_id" position="after">
+                <field
+                    name="consumed_points"
+                    attrs="{'invisible': [('order_type', '!=', 'package')]}"
+                />
+                <field
+                    name="forecasted_consumed_points"
+                    attrs="{'invisible': [('order_type', '!=', 'package')]}"
+                />
+            </field>
+            <field name="line_of_business" position="attributes">
+                <attribute name="required">1</attribute>
+            </field>
+        </field>
+    </record>
+
+    <record id="project_task_consumed_points_tree_view" model="ir.ui.view">
+        <field name="name">projecttask.consumed.points.tree.view</field>
+        <field name="model">project.task</field>
+        <field name="arch" type="xml">
+            <tree create="false" delete="false" edit="false">
+                <field name="line_of_business" />
+                <field name="name" />
+                <field name="stage_id" />
+                <field name="user_ids" widget="many2many_tags" />
+                <field name="consumed_points" />
+                <field name="forecasted_consumed_points" />
+                <field name="date_assign" />
+            </tree>
+        </field>
+    </record>
+</odoo>

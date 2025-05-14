@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_hr_leave_group_hr_coach,hr.leave.group.hr.coach,hr_holidays.model_hr_leave,infomineo_hr_attendance.group_hr_coach,1,0,0,0

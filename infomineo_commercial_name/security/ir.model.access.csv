@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_partner_commercial_name_user,partner.commercial.name.user,model_partner_commercial_name,base.group_user,1,1,1,0

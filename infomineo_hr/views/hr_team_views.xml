@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="hr_team_form" model="ir.ui.view">
+        <field name="name">hr.team.form</field>
+        <field name="model">hr.team</field>
+        <field name="arch" type="xml">
+            <form string="HR Team">
+                <sheet>
+                    <group>
+                        <field name="name" />
+                        <field name="is_active" />
+                        <field
+                            name="child_id"
+                            domain="[('id', '!=', id), ('is_active', '=', True)]"
+                            widget="many2many"
+                        />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="hr_team_tree" model="ir.ui.view">
+        <field name="name">hr.team.tree</field>
+        <field name="model">hr.team</field>
+        <field name="arch" type="xml">
+            <tree string="HR Team">
+                <field name="name" />
+                <field name="is_active" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="hr_team_action" model="ir.actions.act_window">
+        <field name="name">HR Team</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hr.team</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create new Hr team
+            </p>
+        </field>
+    </record>
+
+    <menuitem
+        id="menu_hr_team"
+        name="HR Team"
+        action="hr_team_action"
+        parent="hr.menu_hr_employee_payroll"
+        sequence="1"
+    />
+</odoo>

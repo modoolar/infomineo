@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates>
+    <div t-inherit="account.TaxTotalsField" t-inherit-mode="extension" owl="1">
+        <xpath expr="//tbody" position="inside">
+            <t
+                t-if="totals.value.is_recurring and totals.value.subscription_management != 'upsell'"
+            >
+                <tr>
+                    <td class="o_td_label">
+                        <label
+                            class="o_form_label o_tax_total_label"
+                        >Total Net amount in first year</label>
+                    </td>
+
+                    <td>
+                        <span
+                            name="amount_total_net_first_year"
+                            t-att-class="Object.keys(totals.value.groups_by_subtotal).length > 0 ? 'oe_subtotal_footer_separator' : ''"
+                            t-esc="totals.value.amount_total_net_first_year"
+                            style="white-space: nowrap; font-weight: bold; font-size: 1.3em;"
+                        />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="o_td_label">
+                        <label
+                            class="o_form_label o_tax_total_label"
+                        >Total Gross amount in first year</label>
+                    </td>
+
+                    <td>
+                        <span
+                            name="amount_total_gross_first_year"
+                            t-esc="totals.value.amount_total_gross_first_year"
+                            style="white-space: nowrap; font-weight: bold; font-size: 1.3em;"
+                        />
+                    </td>
+                </tr>
+            </t>
+        </xpath>
+
+        <xpath expr="//span[@name='amount_total']" position="replace">
+            <t t-if="totals.value.subscription_management != 'upsell'">
+                <span
+                    name="amount_total"
+                    t-esc="totals.value.formatted_amount_total"
+                    style="white-space: nowrap; font-weight: bold; font-size: 1.3em;"
+                />
+            </t>
+            <t t-else="">
+                <span
+                    name="amount_total"
+                    t-att-class="Object.keys(totals.value.groups_by_subtotal).length > 0 ? 'oe_subtotal_footer_separator' : ''"
+                    t-esc="totals.value.formatted_amount_total"
+                    style="white-space: nowrap; font-weight: bold; font-size: 1.3em;"
+                />
+            </t>
+        </xpath>
+
+        <xpath
+            expr="//span[@name='amount_total']/ancestor::td/preceding-sibling::td[contains(@class, 'o_td_label')]/label[contains(@class, 'o_form_label') and contains(@class, 'o_tax_total_label')]"
+            position="replace"
+        >
+            <t
+                t-if="totals.value.is_recurring and totals.value.subscription_management != 'upsell'"
+            >
+                <label
+                    class="o_form_label o_tax_total_label"
+                >First time / Recurring</label>
+            </t>
+            <t t-else="">
+                <label class="o_form_label o_tax_total_label">Total</label>
+            </t>
+        </xpath>
+    </div>
+</templates>

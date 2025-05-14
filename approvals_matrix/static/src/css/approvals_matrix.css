@@ -1,0 +1,9 @@
+.alert-pending {
+    background-color: yellowgreen;
+    color: rgba(255, 255, 255, 0.84);
+    display: inline-block;
+    *display: block;
+    width: 100% !important;
+    min-height: 28px !important;
+    box-sizing: border-box !important;
+}

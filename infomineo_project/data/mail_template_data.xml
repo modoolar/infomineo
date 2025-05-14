@@ -1,0 +1,642 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <function name="write" model="ir.model.data">
+        <function name="search" model="ir.model.data">
+            <value
+                eval="[('name', '=', 'Task: Rating Request'), ('module', '=', 'infomineo_project')]"
+            />
+        </function>
+        <value eval="{'noupdate': False}" />
+    </function>
+    <record id="rating_project_request_email_template" model="mail.template">
+        <field name="name">Task: Rating Request</field>
+        <field name="model_id" ref="project.model_project_task" />
+        <field name="subject">Infomineo: Satisfaction Survey: {{ object.name }}</field>
+        <field
+            name="email_from"
+        >{{ (object.rating_get_rated_partner_id().email_formatted if object.rating_get_rated_partner_id() else user.email_formatted) }}</field>
+        <field name="email_to">{{ ctx.get('rating_email', '') }}</field>
+        <field name="lang">{{ object.rating_get_partner_id().lang }}</field>
+        <field name="body_html" type="html">
+        <div
+                style="background:#F0F0F0;color:#515166;padding:10px 0px;font-family:Arial,Helvetica,sans-serif;font-size:14px;"
+            >
+            <t t-set="access_token" t-value="object.rating_get_access_token()" />
+            <t
+                    t-set="survey_id"
+                    t-value="object.stage_id.rating_template_id and object.stage_id.rating_template_id.survey_id and object.stage_id.rating_template_id.survey_id.id"
+                />
+            <t t-set="partner" t-value="object.rating_get_partner_id()" />
+            <t t-set="requestor_name" t-value="ctx.get('rating_name', '')" />
+            <table style="width:600px;margin:5px auto;">
+                <tbody>
+                    <tr><td>
+                        <a href="/"><img
+                                        src="/web/binary/company_logo"
+                                        style="vertical-align:baseline;max-width:100px;"
+                                    /></a>
+                    </td><td style="text-align:right;vertical-align:middle;">
+                            Satisfaction Survey
+                    </td></tr>
+                </tbody>
+            </table>
+            <table
+                    style="width:600px;margin:0px auto;background:white;border:1px solid #e1e1e1;"
+                >
+                <tbody>
+                    <tr><td style="padding:15px 20px 10px 20px;">
+                        <p>Dear <t t-out="requestor_name or ''">Brandon Freeman</t>,</p>
+                        <p
+                                >It was a pleasure to assist you with the request associated to the file "<strong
+                                        t-out="object.file_link or ''"
+                                    />"
+                           .</p>
+                        <p
+                                >At Infomineo, we are always looking to improve further and would really appreciate your feedback.</p>
+                    </td></tr>
+                    <tr><td style="padding:10px 20px">
+                        <table
+                                    summary="o_mail_notification"
+                                    style="width:100%;border-top:1px solid #e1e1e1;border-bottom:1px solid #e1e1e1;"
+                                >
+                            <tr>
+                                <td style="text-align:center;">
+                                    <h2
+                                                style="font-weight:300;font-size:18px;padding:10px;"
+                                            >
+                                        Please tell us how satisfied you are with our service:
+                                    </h2>
+                                    <div
+                                                style="text-color: #888888"
+                                            >(click on one of the corresponding smiley below)</div>
+                                </td>
+                            </tr>
+                            <tr><td style="font-size: 13px;">
+                            <table
+                                                style="width:100%;text-align:center;margin-top:2rem;"
+                                            >
+                                <tr style="padding-bottom:10px;">
+                                    <td>
+                                        <a
+                                                            t-attf-href="/rate/{{ access_token }}/{{ survey_id }}/5"
+                                                        >
+                                            <img
+                                                                alt="1- very satisfied"
+                                                                src="/infomineo_rating/static/src/img/rating_5.png"
+                                                                width="100"
+                                                                height="100"
+                                                                title="1- very satisfied"
+                                                            />
+                                            <br /><span
+                                                                style="color: green"
+                                                            >1- very satisfied</span>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a
+                                                            t-attf-href="/rate/{{ access_token }}/{{ survey_id }}/4"
+                                                        >
+                                            <img
+                                                                alt="2- satisfied"
+                                                                src="/infomineo_rating/static/src/img/rating_4.png"
+                                                                width="100"
+                                                                height="100"
+                                                                title="2- satisfied"
+                                                            />
+                                            <br /><span
+                                                                style="color: lightgreen"
+                                                            >2- satisfied</span>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a
+                                                            t-attf-href="/rate/{{ access_token }}/{{ survey_id }}/3"
+                                                        >
+                                            <img
+                                                                alt="3- neutral
+"
+                                                                src="/infomineo_rating/static/src/img/rating_3.png"
+                                                                width="100"
+                                                                height="100"
+                                                                title="3- neutral
+"
+                                                            />
+                                            <br /><span style="color: yellow">3- neutral
+</span>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a
+                                                            t-attf-href="/rate/{{ access_token }}/{{ survey_id }}/2"
+                                                        >
+                                            <img
+                                                                alt="4- dissatisfied
+"
+                                                                src="/infomineo_rating/static/src/img/rating_2.png"
+                                                                width="100"
+                                                                height="100"
+                                                                title="4- dissatisfied
+"
+                                                            />
+                                            <br /><span
+                                                                style="color: orange"
+                                                            >4- dissatisfied
+</span>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a
+                                                            t-attf-href="/rate/{{ access_token }}/{{ survey_id }}/1"
+                                                        >
+                                            <img
+                                                                alt="5- very dissatisfied
+"
+                                                                src="/infomineo_rating/static/src/img/rating_1.png"
+                                                                width="100"
+                                                                height="100"
+                                                                title="5- very dissatisfied
+"
+                                                            />
+                                            <br /><span
+                                                                style="color: red"
+                                                            >5- very dissatisfied
+</span>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </table>
+            </td></tr>
+                        </table>
+                    </td></tr>
+                    <tr><td
+                                style="padding:15px 20px 10px 20px;"
+                            >Thank you very much for the useful input.
+                        <br />--<br />Infomineo Team</td></tr>
+                </tbody>
+            </table>
+        </div>
+            </field>
+    </record>
+    <function name="write" model="ir.model.data">
+        <function name="search" model="ir.model.data">
+            <value
+                eval="[('name', '=', 'Task: Rating Request'), ('module', '=', 'infomineo_project')]"
+            />
+        </function>
+        <value eval="{'noupdate': True}" />
+    </function>
+
+    <record id="new_rating_project_request_email_template" model="mail.template">
+        <field name="name">Task: Rating Request New</field>
+        <field name="model_id" ref="project.model_project_task" />
+        <field name="subject">Infomineo: Satisfaction Survey: {{ object.name }}</field>
+        <field
+            name="email_from"
+        >{{ (object.rating_get_rated_partner_id().email_formatted if object.rating_get_rated_partner_id() else user.email_formatted) }}</field>
+        <field name="email_to">{{ ctx.get('rating_email', '') }}</field>
+        <field name="lang">{{ object.rating_get_partner_id().lang }}</field>
+        <field name="body_html" type="html">
+        <div
+                style="background:#F0F0F0;color:#515166;padding:10px 0px;font-family:Arial,Helvetica,sans-serif;font-size:14px;"
+            >
+            <t t-set="access_token" t-value="object.rating_get_access_token()" />
+            <t
+                    t-set="survey_id"
+                    t-value="object.stage_id.rating_template_id and object.stage_id.rating_template_id.survey_id and object.stage_id.rating_template_id.survey_id.id"
+                />
+            <t t-set="partner" t-value="object.rating_get_partner_id()" />
+            <t t-set="requestor_name" t-value="ctx.get('rating_name', '')" />
+            <table style="width:600px;margin:5px auto;">
+                <tbody>
+                    <tr><td>
+                        <a href="/"><img
+                                        src="/web/binary/company_logo"
+                                        style="vertical-align:baseline;max-width:100px;"
+                                    /></a>
+                    </td><td style="text-align:right;vertical-align:middle;">
+                            Satisfaction Survey
+                    </td></tr>
+                </tbody>
+            </table>
+            <table
+                    style="width:600px;margin:0px auto;background:white;border:1px solid #e1e1e1;"
+                >
+                <tbody>
+                    <tr><td style="padding:15px 20px 10px 20px;">
+                        <p>Dear <t t-out="requestor_name or ''">Brandon Freeman</t>,</p>
+                        <t t-set="assignee" t-value="object.user_ids.mapped('name')" />
+                        <p>It was a pleasure to assist you with the request "<strong
+                                        t-out="object.name or ''"
+                                    >Office Cleaning Service"</strong>"
+                           assigned to <strong
+                                        t-out="', '.join(assignee) or ''"
+                                    >Mitchell Admin</strong>.</p>
+                        <p
+                                >At Infomineo, we are always looking to improve further and would really appreciate your feedback.</p>
+                    </td></tr>
+                    <tr><td style="padding:10px 20px">
+                        <table
+                                    summary="o_mail_notification"
+                                    style="width:100%;border-top:1px solid #e1e1e1;border-bottom:1px solid #e1e1e1;"
+                                >
+                            <tr>
+                                <td style="text-align:center;">
+                                    <h2
+                                                style="font-weight:300;font-size:18px;padding:10px;"
+                                            >
+                                        Please tell us how satisfied you are with our service:
+                                    </h2>
+                                    <div
+                                                style="text-color: #888888"
+                                            >(click on one of the corresponding smiley below)</div>
+                                </td>
+                            </tr>
+                            <tr><td style="font-size: 13px;">
+                            <table
+                                                style="width:100%;text-align:center;margin-top:2rem;"
+                                            >
+                                <tr style="padding-bottom:10px;">
+                                    <td>
+                                        <a
+                                                            t-attf-href="/rate/{{ access_token }}/{{ survey_id }}/5"
+                                                        >
+                                            <img
+                                                                alt="1- very satisfied"
+                                                                src="/infomineo_rating/static/src/img/rating_5.png"
+                                                                width="100"
+                                                                height="100"
+                                                                title="1- very satisfied"
+                                                            />
+                                            <br /><span
+                                                                style="color: green"
+                                                            >1- very satisfied</span>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a
+                                                            t-attf-href="/rate/{{ access_token }}/{{ survey_id }}/4"
+                                                        >
+                                            <img
+                                                                alt="2- satisfied"
+                                                                src="/infomineo_rating/static/src/img/rating_4.png"
+                                                                width="100"
+                                                                height="100"
+                                                                title="2- satisfied"
+                                                            />
+                                            <br /><span
+                                                                style="color: lightgreen"
+                                                            >2- satisfied</span>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a
+                                                            t-attf-href="/rate/{{ access_token }}/{{ survey_id }}/3"
+                                                        >
+                                            <img
+                                                                alt="3- neutral
+"
+                                                                src="/infomineo_rating/static/src/img/rating_3.png"
+                                                                width="100"
+                                                                height="100"
+                                                                title="3- neutral
+"
+                                                            />
+                                            <br /><span style="color: yellow">3- neutral
+</span>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a
+                                                            t-attf-href="/rate/{{ access_token }}/{{ survey_id }}/2"
+                                                        >
+                                            <img
+                                                                alt="4- dissatisfied
+"
+                                                                src="/infomineo_rating/static/src/img/rating_2.png"
+                                                                width="100"
+                                                                height="100"
+                                                                title="4- dissatisfied
+"
+                                                            />
+                                            <br /><span
+                                                                style="color: orange"
+                                                            >4- dissatisfied
+</span>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a
+                                                            t-attf-href="/rate/{{ access_token }}/{{ survey_id }}/1"
+                                                        >
+                                            <img
+                                                                alt="5- very dissatisfied
+"
+                                                                src="/infomineo_rating/static/src/img/rating_1.png"
+                                                                width="100"
+                                                                height="100"
+                                                                title="5- very dissatisfied
+"
+                                                            />
+                                            <br /><span
+                                                                style="color: red"
+                                                            >5- very dissatisfied
+</span>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </table>
+            </td></tr>
+                        </table>
+                    </td></tr>
+                    <tr><td
+                                style="padding:15px 20px 10px 20px;"
+                            >Thank you very much for the useful input.
+                        <br />--<br />Infomineo Team</td></tr>
+                </tbody>
+            </table>
+        </div>
+            </field>
+    </record>
+
+    <function name="write" model="ir.model.data">
+        <function name="search" model="ir.model.data">
+            <value
+                eval="[('name', '=', 'Task: Bad Rating Request'), ('module', '=', 'infomineo_project')]"
+            />
+        </function>
+        <value eval="{'noupdate': False}" />
+    </function>
+    <record id="bad_task_rating_notification" model="mail.template">
+        <field name="name">Task: Bad Rating Request</field>
+        <field name="model_id" ref="project.model_project_task" />
+        <field
+            name="subject"
+        >Infomineo: Satisfaction Survey: {{ object.name }} - Bad rating request</field>
+        <field
+            name="email_from"
+        >{{ (object.rating_get_rated_partner_id().email_formatted if object.rating_get_rated_partner_id() else user.email_formatted) }}</field>
+        <field name="partner_to" />
+        <field name="email_to">{{ ctx.get('rating_email', '') }}</field>
+        <field name="lang">{{ object.rating_get_partner_id().lang }}</field>
+        <field name="auto_delete" eval="False" />
+        <field name="body_html" type="html">
+            <div
+                style="background:#F0F0F0;color:#515166;padding:10px 0px;font-family:Arial,Helvetica,sans-serif;font-size:14px;"
+            >
+                <t t-set="partner" t-value="object.rating_get_partner_id()" />
+                <t t-set="requestor_name" t-value="ctx.get('rating_name', '')" />
+                <table style="width:600px;margin:5px auto;">
+                    <tbody>
+                        <tr><td>
+                            <a href="/"><img
+                                        src="/web/binary/company_logo"
+                                        style="vertical-align:baseline;max-width:100px;"
+                                    /></a>
+                        </td><td style="text-align:right;vertical-align:middle;">
+                                Satisfaction Survey - Bad task rating notification
+                        </td></tr>
+                    </tbody>
+                </table>
+                <table
+                    style="width:600px;margin:0px auto;background:white;border:1px solid #e1e1e1;"
+                >
+                    <tbody>
+                        <tr><td style="padding:15px 20px 10px 20px;">
+                            <p>Dear <t
+                                        t-out="requestor_name or ''"
+                                    >Brandon Freeman</t>,</p>
+                            <p>we have recieved bad task rating for "<strong
+                                        t-out="object.name or ''"
+                                    >Office Cleaning Service"</strong>"
+                               assigned to <strong
+                                        t-out="object.rating_get_rated_partner_id().name or ''"
+                                    >Mitchell Admin</strong>.</p>
+                            <p>Please review it on next link: </p>
+                            <div
+                                    style="text-align: center; padding: 16px 0px 16px 0px;"
+                                >
+                                <a
+                                        style="background-color: #875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;"
+                                        t-att-href="object.url"
+                                    >View the task</a><br />
+                            </div>
+                        </td></tr>
+                    </tbody>
+                </table>
+                <table
+                    style="width:600px;margin:auto;text-align:center;font-size:12px;"
+                >
+                    <tbody>
+                        <tr><td style="padding-top:10px;color:#afafaf;">
+                            <p>Email automatically sent by <a
+                                        target="_blank"
+                                        href="https://www.odoo.com/app/subscriptions"
+                                        style="color:#875A7B;text-decoration:none;"
+                                    >Odoo Satisfaction Survey</a> for <a
+                                        t-att-href="object.company_id.website"
+                                        style="color:#875A7B;text-decoration:none;"
+                                        t-out="object.company_id.name or ''"
+                                    >YourCompany</a></p>
+                        </td></tr>
+                    </tbody>
+                </table>
+            </div>
+            </field>
+    </record>
+
+    <function name="write" model="ir.model.data">
+        <function name="search" model="ir.model.data">
+            <value
+                eval="[('name', '=', 'Task: Bad Rating Request'), ('module', '=', 'infomineo_project')]"
+            />
+        </function>
+        <value eval="{'noupdate': True}" />
+    </function>
+
+    <function name="write" model="ir.model.data">
+        <function name="search" model="ir.model.data">
+            <value
+                eval="[('name', '=', 'Project: Rating Request'), ('module', '=', 'infomineo_project')]"
+            />
+        </function>
+        <value eval="{'noupdate': False}" />
+    </function>
+    <record id="rating_project_project_request_email_template" model="mail.template">
+        <field name="name">Project: Rating Request</field>
+        <field name="model_id" ref="project.model_project_project" />
+        <field name="subject">Infomineo: Satisfaction Survey: {{ object.name }}</field>
+        <field
+            name="email_from"
+        >{{ (object.customer_recipient_id and object.customer_recipient_id.email) }}</field>
+        <field name="email_to">{{ ctx.get('rating_email', '') }}</field>
+        <field name="lang">{{ object.rating_get_partner_id().lang }}</field>
+        <field name="body_html" type="html">
+        <div
+                style="background:#F0F0F0;color:#515166;padding:10px 0px;font-family:Arial,Helvetica,sans-serif;font-size:14px;"
+            >
+            <t t-set="access_token" t-value="object.rating_get_access_token()" />
+            <t
+                    t-set="survey_id"
+                    t-value="object.stage_id.rating_mail_template_id and object.stage_id.rating_mail_template_id.survey_id and object.stage_id.rating_mail_template_id.survey_id.id"
+                />
+            <t t-set="partner" t-value="object.rating_get_partner_id()" />
+            <t t-set="requestor_name" t-value="ctx.get('rating_name', '')" />
+            <table style="width:600px;margin:5px auto;">
+                <tbody>
+                    <tr><td>
+                        <a href="/"><img
+                                        src="/web/binary/company_logo"
+                                        style="vertical-align:baseline;max-width:100px;"
+                                    /></a>
+                    </td><td style="text-align:right;vertical-align:middle;">
+                            Satisfaction Survey
+                    </td></tr>
+                </tbody>
+            </table>
+            <table
+                    style="width:600px;margin:0px auto;background:white;border:1px solid #e1e1e1;"
+                >
+                <tbody>
+                    <tr><td style="padding:15px 20px 10px 20px;">
+                        <p>Dear <t t-out="requestor_name or ''">Brandon Freeman</t>,</p>
+                        <p>It was a pleasure to assist you with the request "<strong
+                                        t-out="object.name or ''"
+                                    >Office Cleaning Service"</strong>"
+                           assigned to <strong
+                                        t-out="object.rating_get_rated_partner_id().name or ''"
+                                    >Mitchell Admin</strong>.</p>
+                        <p
+                                >At Infomineo, we are always looking to improve further and would really appreciate your feedback.</p>
+                    </td></tr>
+                    <tr><td style="padding:10px 20px">
+                        <table
+                                    summary="o_mail_notification"
+                                    style="width:100%;border-top:1px solid #e1e1e1;border-bottom:1px solid #e1e1e1;"
+                                >
+                            <tr>
+                                <td style="text-align:center;">
+                                    <h2
+                                                style="font-weight:300;font-size:18px;padding:10px;"
+                                            >
+                                        Please tell us how satisfied you are with our service:
+                                    </h2>
+                                    <div
+                                                style="text-color: #888888"
+                                            >(click on one of the corresponding smiley below)</div>
+                                </td>
+                            </tr>
+                            <tr><td style="font-size: 13px;">
+                            <table
+                                                style="width:100%;text-align:center;margin-top:2rem;"
+                                            >
+                                <tr style="padding-bottom:10px;">
+                                    <td>
+                                        <a
+                                                            t-attf-href="/rate/{{ access_token }}/{{ survey_id }}/5"
+                                                        >
+                                            <img
+                                                                alt="1- very satisfied"
+                                                                src="/infomineo_rating/static/src/img/rating_5.png"
+                                                                width="100"
+                                                                height="100"
+                                                                title="1- very satisfied"
+                                                            />
+                                            <br /><span
+                                                                style="color: green"
+                                                            >1- very satisfied</span>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a
+                                                            t-attf-href="/rate/{{ access_token }}/{{ survey_id }}/4"
+                                                        >
+                                            <img
+                                                                alt="2- satisfied"
+                                                                src="/infomineo_rating/static/src/img/rating_4.png"
+                                                                width="100"
+                                                                height="100"
+                                                                title="2- satisfied"
+                                                            />
+                                            <br /><span
+                                                                style="color: lightgreen"
+                                                            >2- satisfied</span>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a
+                                                            t-attf-href="/rate/{{ access_token }}/{{ survey_id }}/3"
+                                                        >
+                                            <img
+                                                                alt="3- neutral
+"
+                                                                src="/infomineo_rating/static/src/img/rating_3.png"
+                                                                width="100"
+                                                                height="100"
+                                                                title="3- neutral
+"
+                                                            />
+                                            <br /><span style="color: yellow">3- neutral
+</span>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a
+                                                            t-attf-href="/rate/{{ access_token }}/{{ survey_id }}/2"
+                                                        >
+                                            <img
+                                                                alt="4- dissatisfied
+"
+                                                                src="/infomineo_rating/static/src/img/rating_2.png"
+                                                                width="100"
+                                                                height="100"
+                                                                title="4- dissatisfied
+"
+                                                            />
+                                            <br /><span
+                                                                style="color: orange"
+                                                            >4- dissatisfied
+</span>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a
+                                                            t-attf-href="/rate/{{ access_token }}/{{ survey_id }}/1"
+                                                        >
+                                            <img
+                                                                alt="5- very dissatisfied
+"
+                                                                src="/infomineo_rating/static/src/img/rating_1.png"
+                                                                width="100"
+                                                                height="100"
+                                                                title="5- very dissatisfied
+"
+                                                            />
+                                            <br /><span
+                                                                style="color: red"
+                                                            >5- very dissatisfied
+</span>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </table>
+            </td></tr>
+                        </table>
+                    </td></tr>
+                    <tr><td
+                                style="padding:15px 20px 10px 20px;"
+                            >Thank you very much for the useful input.
+                        <br />--<br />Infomineo Team</td></tr>
+                </tbody>
+            </table>
+        </div>
+            </field>
+    </record>
+    <function name="write" model="ir.model.data">
+        <function name="search" model="ir.model.data">
+            <value
+                eval="[('name', '=', 'Project: Rating Request'), ('module', '=', 'infomineo_project')]"
+            />
+        </function>
+        <value eval="{'noupdate': True}" />
+    </function>
+</odoo>

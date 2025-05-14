@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates>
+
+    <tr t-name='m2mWidgetTableRow'>
+        <td class="o_td_label">
+            <label class="o_form_label" t-esc="field.label" />
+        </td>
+        <td t-att-id="'commercial_names_field'" style="min-width:200px;" />
+    </tr>
+
+</templates>

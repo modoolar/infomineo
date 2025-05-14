@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="edit_project" model="ir.ui.view">
+        <field name="name">project.project.form</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='tag_ids']" position="after">
+                <field name="sale_line_id" invisible="1" />
+            </xpath>
+            <xpath expr="//field[@name='partner_id']" position="attributes">
+                <attribute name="attrs">{
+                    'required': [('project_type', '=', 'client')]}
+                </attribute>
+            </xpath>
+            <xpath expr="//field[@name='privacy_visibility']" position="after">
+                    <field name="specific_conditions" />
+            </xpath>
+            <xpath expr="//field[@name='name']" position="after">
+                <field
+                    name="deal_name"
+                    force_save="1"
+                    attrs="{'readonly': [('sale_line_id', '!=', False)]}"
+                />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_project_project_filter" model="ir.ui.view">
+        <field name="name">project.project.select</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.view_project_project_filter" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="attributes">
+                <attribute name="filter_domain">[
+                    '|',
+                    ('name', 'ilike', self),
+                    ('deal_name', 'ilike', self)
+                    ]
+                </attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_project_kanban" model="ir.ui.view">
+        <field name="name">project.project.kanban</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.view_project_kanban" />
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="deal_name" />
+            </field>
+            <xpath expr="//t[@t-esc='record.name.value']" position="after">
+                <t t-esc="record.deal_name.value" />
+            </xpath>
+        </field>
+    </record>
+</odoo>

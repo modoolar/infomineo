@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="project_view_task_form2" model="ir.ui.view">
+        <field name="name">project.view.task.form2</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_form2" />
+        <field name="arch" type="xml">
+                <xpath
+                expr="//field[hasclass('o_project_task_project_field')]"
+                position="attributes"
+            >
+                    <attribute
+                    name="attrs"
+                >{'readonly': [('project_id', '!=', False)]}</attribute>
+                    <attribute name="force_save">1</attribute>
+                </xpath>
+            <field name="recurring_task" position="after">
+                <field name="quest_link" widget="url" />
+                <field name="file_link" />
+            </field>
+            <xpath
+                expr="//button[@name='%(project.rating_rating_action_task)d']"
+                position="attributes"
+            >
+                <attribute name="name">get_task_related_ratings</attribute>
+                <attribute name="type">object</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_task_form2" model="ir.ui.view">
+        <field name="name">view.task.form2</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project_line_of_business.view_task_form2" />
+        <field name="arch" type="xml">
+            <field name='line_of_business' position="after">
+                <field name='translated_words' position="move" />
+                <field
+                    name='hours_flipping'
+                    attrs="{'invisible': [('line_of_business', '!=', 'translation')]}"
+                />
+                <field
+                    name='hours_template_review'
+                    attrs="{'invisible': [('line_of_business', '!=', 'translation')]}"
+                />
+
+                <field
+                    name='invoicing_office'
+                    attrs="{'invisible': [('line_of_business', '!=', 'business_research')]}"
+                />
+                <field
+                    name='industry_sector'
+                    attrs="{'invisible': [('line_of_business', '!=', 'business_research')]}"
+                />
+
+                <field
+                    name='expert_cost'
+                    attrs="{'invisible': [('line_of_business', '!=', 'expert_network')]}"
+                />
+                <field
+                    name='client_interface_analyst'
+                    attrs="{'invisible': [('line_of_business', '!=', 'expert_network')]}"
+                />
+                <field
+                    name='number_of_calls_delivered'
+                    attrs="{'invisible': [('line_of_business', '!=', 'expert_network')]}"
+                />
+
+                <field
+                    name='number_of_slides'
+                    attrs="{'invisible': [('line_of_business', '!=', 'graphic_design')]}"
+                />
+                <field
+                    name='design_type'
+                    attrs="{'invisible': [('line_of_business', '!=', 'graphic_design')]}"
+                />
+                <field name='code' readonly="1" force_save="1" />
+            </field>
+        </field>
+    </record>
+
+    <record id="line_of_business_view_task_form2" model="ir.ui.view">
+        <field name="name">view.task.form2</field>
+        <field name="model">project.task</field>
+        <field name="priority">9999</field>
+        <field name="inherit_id" ref="infomineo_line_of_business.view_task_form2" />
+        <field name="groups_id" eval="[(6, 0, [ref('project.group_project_user')])]" />
+        <field name="arch" type="xml">
+            <field name='line_of_business' position="attributes">
+                <attribute name="readonly">0</attribute>
+            </field>
+        </field>
+    </record>
+
+    <record id="project_task_view_form" model="ir.ui.view">
+        <field name="name">view.task.form2</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project_enterprise.project_task_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="after">
+                <field name="is_overdue" invisible="1" />
+                <widget
+                    name="web_ribbon"
+                    title="Overdue"
+                    bg_color="bg-danger"
+                    attrs="{'invisible': [('is_overdue', '=', True)]}"
+                />
+            </xpath>
+            <field name="planned_date_begin" position="attributes">
+                <attribute name="widget">datetime</attribute>
+            </field>
+            <field name="planned_date_end" position="attributes">
+                <attribute name="widget">datetime</attribute>
+            </field>
+            <field name="partner_id" position="after">
+                <field name="project_type" invisible="1" />
+                <field name="requestor_name" />
+                <field name="client_contact" />
+                <field name="manager_qa_id" />
+                <field name="vp_representative_id" />
+                <field
+                    name="client_charge_code"
+                    attrs="{'invisible': [('project_type', '!=', 'client')]}"
+                />
+                <field name="client_planned_hours" widget="timesheet_uom_no_toggle" />
+                <field name="date_deadline" position="move" />
+                <field
+                    name="qa_time"
+                    string="QA Time (Hours)"
+                    widget="timesheet_uom_no_toggle"
+                />
+            </field>
+        </field>
+    </record>
+
+    <record id="view_task_search_form" model="ir.ui.view">
+        <field name="name">view.task.search.form</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_search_form" />
+        <field name="arch" type="xml">
+            <field name="display_project_id" position="after">
+                <field name="code" force_save="1" />
+            </field>
+        </field>
+    </record>
+
+    <record id="view_task_tree2" model="ir.ui.view">
+        <field name="name">view.task.tree2</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_tree2" />
+        <field name="arch" type="xml">
+            <field name="name" position="before">
+                <field name="code" />
+            </field>
+        </field>
+    </record>
+
+    <record id="view_task_kanban" model="ir.ui.view">
+        <field name="name">view.task.kanban</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_kanban" />
+        <field name="arch" type="xml">
+            <field name="color" position="after">
+                <field name="code" />
+            </field>
+            <xpath expr="//strong[hasclass('o_kanban_record_title')]" position="before">
+                <div>
+                    <field name="code" />
+                </div>
+            </xpath>
+        </field>
+    </record>
+    <record id="quick_create_task_form" model="ir.ui.view">
+        <field name="name">project.task.form.quick_create</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.quick_create_task_form" />
+        <field name="arch" type="xml">
+            <field name="user_ids" position="after">
+                <field name="planned_hours" />
+            </field>
+        </field>
+    </record>
+
+    <template
+        id="mail_notification_light"
+        name="Infomineo Rating Survey Fill Form Done"
+        inherit_id="mail.mail_notification_light"
+        primary="True"
+    >
+        <xpath expr="//b[@t-esc='company.name']" position="replace">
+            <b>INFOMINEO</b>
+        </xpath>
+    </template>
+</odoo>

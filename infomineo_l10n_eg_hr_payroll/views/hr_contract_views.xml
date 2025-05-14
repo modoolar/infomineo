@@ -1,0 +1,58 @@
+<odoo>
+    <record id="hr_contract_view_form" model="ir.ui.view">
+        <field name="name">View Contract Form</field>
+        <field name="model">hr.contract</field>
+        <field name="inherit_id" ref="hr_contract.hr_contract_view_form" />
+        <field name="arch" type="xml">
+            <group name="salary" position="inside">
+                <label
+                    for="l10n_eg_housing_allowance"
+                    attrs="{'invisible': [('country_code', '!=', 'EG')]}"
+                />
+                <div
+                    class="o_row"
+                    name="l10n_eg_housing_allowance"
+                    attrs="{'invisible': [('country_code', '!=', 'EG')]}"
+                >
+                    <field name="l10n_eg_housing_allowance" nolabel="1" />
+                    <span>/ month</span>
+                </div>
+                <label
+                    for="l10n_eg_language_allowance"
+                    attrs="{'invisible': [('country_code', '!=', 'EG')]}"
+                />
+                <div
+                    class="o_row"
+                    name="l10n_eg_language_allowance"
+                    attrs="{'invisible': [('country_code', '!=', 'EG')]}"
+                >
+                    <field name="l10n_eg_language_allowance" nolabel="1" />
+                    <span>/ month</span>
+                </div>
+                <label
+                    for="insured_salary"
+                    attrs="{'invisible': [('country_code', '!=', 'EG')]}"
+                />
+                <div
+                    class="o_row"
+                    name="insured_salary"
+                    attrs="{'invisible': [('country_code', '!=', 'EG')]}"
+                >
+                    <field name="insured_salary" nolabel="1" />
+                </div>
+                <field name="show_contract_exchange_rate" invisible="1" />
+                <label
+                    for="contract_exchange_rate"
+                    attrs="{'invisible': [('show_contract_exchange_rate', '=', False)]}"
+                />
+                <div
+                    class="o_row"
+                    name="contract_exchange_rate"
+                    attrs="{'invisible': [('show_contract_exchange_rate', '=', False)]}"
+                >
+                    <field name="contract_exchange_rate" no_label="1" />
+                </div>
+            </group>
+        </field>
+    </record>
+</odoo>
