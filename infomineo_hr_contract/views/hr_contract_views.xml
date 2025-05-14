@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="hr_contract_view_form" model="ir.ui.view">
+        <field name="name">hr.contract.form</field>
+        <field name="model">hr.contract</field>
+        <field name="inherit_id" ref="hr_contract.hr_contract_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='contract_details']" position="inside">
+                <field name="work_permit_number" />
+                <field name="work_permit_expiry_date" />
+                <field name="residency_number" />
+                <field name="residency_expiry_date" />
+                <field name="is_freelance" />
+            </xpath>
+
+            <xpath expr="//group[@name='salary']" position="inside">
+                <field name="gross_medical_allowance" />
+            </xpath>
+
+            <group name="salary" position="inside">
+                <label
+                    for="transportation_allowance"
+                    attrs="{'invisible': [('country_code', '==', 'AE')]}"
+                />
+                <div
+                    class="o_row"
+                    name="transportation_allowance"
+                    attrs="{'invisible': [('country_code', '==', 'AE')]}"
+                >
+                    <field name="transportation_allowance" nolabel="1" />
+                    <span>/ month</span>
+                </div>
+                <label
+                    for="other_allowances"
+                    attrs="{'invisible': [('country_code', '==', 'AE')]}"
+                />
+                <div
+                    class="o_row"
+                    name="other_allowances"
+                    attrs="{'invisible': [('country_code', '==', 'AE')]}"
+                >
+                    <field name="other_allowances" nolabel="1" />
+                    <span>/ month</span>
+                </div>
+            </group>
+            <field name="job_id" position="attributes">
+                <attribute name="readonly">True</attribute>
+                <attribute name="force_save">1</attribute>
+            </field>
+            <field name="employee_id" position="attributes">
+                <attribute name="required">1</attribute>
+            </field>
+        </field>
+    </record>
+
+    <record id="hr_contract_view_search" model="ir.ui.view">
+        <field name="name">hr.contract.search</field>
+        <field name="model">hr.contract</field>
+        <field name="inherit_id" ref="hr_contract.hr_contract_view_search" />
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='current_employee']" position="after">
+                <filter
+                    string="Freelanced"
+                    name="freelanced_employee"
+                    domain="[('is_freelance', '=', True)]"
+                />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="hr_contract_history_view_form" model="ir.ui.view">
+        <field name="name">hr.contract.form</field>
+        <field name="model">hr.contract.history</field>
+        <field name="inherit_id" ref="hr_contract.hr_contract_history_view_form" />
+        <field name="arch" type="xml">
+            <field name="job_id" position="attributes">
+                <attribute name="readonly">True</attribute>
+                <attribute name="force_save">1</attribute>
+            </field>
+        </field>
+    </record>
+</odoo>

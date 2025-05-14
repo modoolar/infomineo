@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="approval_request_view_form" model="ir.ui.view">
+        <field name="name">approval.request.view.form</field>
+        <field name="model">approval.request</field>
+        <field name="inherit_id" ref="approvals.approval_request_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="attributes">
+                <attribute
+                    name="attrs"
+                >{'readonly': [('is_advanced', '=', True)]}</attribute>
+                <attribute name="force_save">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='request_owner_id']" position="after">
+                <field
+                    name="source_document"
+                    readonly="1"
+                    force_save="1"
+                    attrs="{'invisible': [('is_advanced','!=', True)]}"
+                />
+                 <field
+                    name="approval_rule_id"
+                    readonly="1"
+                    force_save="1"
+                    attrs="{'invisible':[('can_user_see_companies','!=', True)]}"
+                />
+                <field name="res_id" invisible="1" />
+                <field name="res_model" invisible="1" />
+                <field name="approval_method_name" invisible="1" />
+                <field name="approval_model_state" invisible="1" />
+            </xpath>
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <label
+                    for="active_approval_line"
+                    string="Approval progress"
+                    attrs="{'invisible': [('is_advanced','!=', True)]}"
+                />
+                <div attrs="{'invisible': [('is_advanced','!=', True)]}">
+                    <field name="active_approval_line" class="oe_inline" />
+                    <span class="oe_inline"> / </span>
+                    <field
+                        name="max_approval_line"
+                        class="oe_inline"
+                        readonly="1"
+                        force_save="1"
+                    />
+                </div>
+                <field name="is_advanced" invisible="1" />
+                <field name="is_override_button_visible" invisible="1" />
+            </xpath>
+            <xpath
+                expr="//field[@name='approver_ids']/tree/field[@name='status']"
+                position="after"
+            >
+                <field
+                    name="matrix_line_id"
+                    attrs="{'column_invisible': ['|', ('parent.is_advanced','!=', True), ('parent.can_user_see_companies','!=', True)]}"
+                />
+                <field
+                    name="warning_level"
+                    attrs="{'column_invisible': [('parent.is_advanced','!=', True)]}"
+                />
+                 <field
+                    name="overridden_by_id"
+                    attrs="{'column_invisible': [('parent.is_advanced','!=', True)]}"
+                />
+            </xpath>
+            <button name="action_confirm" position="attributes">
+                <attribute
+                    name="attrs"
+                >{'invisible': ['|', '|', ('approver_ids', '=', []), ('request_status','!=','new'), ('is_advanced','=', True)]}</attribute>
+            </button>
+            <field name="category_id" position="attributes">
+                <attribute
+                    name="attrs"
+                >{'invisible':[('can_user_see_companies','!=', True)], 'readonly':['|', ('request_status','!=','new'), ('is_advanced','=', True)], 'domain':[('is_advanced','!=', True)]}</attribute>
+            </field>
+            <xpath expr="//header[1]" position="inside">
+                <button
+                    name="action_override_approvers"
+                    string="Override Approvers"
+                    type="object"
+                    attrs="{'invisible': [('is_override_button_visible','!=',True)]}"
+                    class="btn-primary"
+                />
+            </xpath>
+            <xpath expr="//field[@name='category_id']" position="before">
+                <field name="can_user_see_companies" invisible="1" />
+            </xpath>
+        </field>
+    </record>
+</odoo>

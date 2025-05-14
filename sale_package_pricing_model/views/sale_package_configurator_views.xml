@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="sale_package_configurator_form_view" model="ir.ui.view">
+        <field name="name">sale.package.configurator.form.view</field>
+        <field name="model">sale.package.configurator</field>
+        <field name="arch" type="xml">
+            <form string="Sale Package Configurator">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" />
+                        <h1>
+                            <field name="name" placeholder="Title" />
+                        </h1>
+                    </div>
+                    <notebook>
+                        <page
+                            string="Package Configurator Lines"
+                            name="package_configurator_lines"
+                        >
+                            <field
+                                name="package_configurator_line_ids"
+                                mode="tree, form"
+                                context="{
+                            'tree_view_ref': 'sale_package_pricing_model.sale_package_configurator_line_tree_view',
+                            'form_view_ref': 'sale_package_pricing_model.sale_package_configurator_line_form_view',
+                             }"
+                            />
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="sale_package_configurator_tree_view" model="ir.ui.view">
+        <field name="name">sale.package.configurator.tree.view</field>
+        <field name="model">sale.package.configurator</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="sale_package_configurator_search_view" model="ir.ui.view">
+        <field name="name">sale.package.configurator.search.view</field>
+        <field name="model">sale.package.configurator</field>
+        <field name="arch" type="xml">
+            <search string="ModelTitle">
+                <field name="name" />
+            </search>
+        </field>
+    </record>
+
+    <record id="sale_package_configurator_action_view" model="ir.actions.act_window">
+        <field name="name">Sale Package Configurator</field>
+        <field name="res_model">sale.package.configurator</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        id="sale_package_configurator_menu_item"
+        name="Sale Package Configurator"
+        parent="sale.menu_sales_config"
+        action="sale_package_configurator_action_view"
+        sequence="2"
+    />
+</odoo>

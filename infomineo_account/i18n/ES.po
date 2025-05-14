@@ -1,0 +1,315 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* infomineo_account
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 15.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-03-18 15:40+0000\n"
+"PO-Revision-Date: 2024-03-18 15:40+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: infomineo_account
+#: model_terms:ir.ui.view,arch_db:infomineo_account.report_invoice_document
+msgid "<b>Account number:</b>"
+msgstr ""
+
+#. module: infomineo_account
+#: model_terms:ir.ui.view,arch_db:infomineo_account.report_invoice_document
+msgid "<b>Bank account owner:</b>"
+msgstr ""
+
+#. module: infomineo_account
+#: model_terms:ir.ui.view,arch_db:infomineo_account.report_invoice_document
+msgid "<b>Bank name:</b>"
+msgstr ""
+
+#. module: infomineo_account
+#: model_terms:ir.ui.view,arch_db:infomineo_account.report_invoice_document
+msgid "<b>Currency:</b>"
+msgstr ""
+
+#. module: infomineo_account
+#: model_terms:ir.ui.view,arch_db:infomineo_account.report_invoice_document
+msgid "<b>IBAN:</b>"
+msgstr ""
+
+#. module: infomineo_account
+#: model_terms:ir.ui.view,arch_db:infomineo_account.report_invoice_document
+msgid "<b>SWIFT:</b>"
+msgstr ""
+
+#. module: infomineo_account
+#: model_terms:ir.ui.view,arch_db:infomineo_account.document_tax_totals
+msgid "<strong>Amount due</strong>"
+msgstr ""
+
+#. module: infomineo_account
+#: model:ir.model,name:infomineo_account.model_account_move_company_switch_wizard
+msgid "Account Move Comopany Switch Wizard"
+msgstr ""
+
+#. module: infomineo_account
+#: model:ir.model.fields,field_description:infomineo_account.field_account_setup_bank_manual_config__iban
+#: model:ir.model.fields,field_description:infomineo_account.field_res_partner_bank__iban
+msgid "Account Number"
+msgstr ""
+
+#. module: infomineo_account
+#: model:ir.model.fields,field_description:infomineo_account.field_account_setup_bank_manual_config__acc_number
+#: model:ir.model.fields,field_description:infomineo_account.field_res_partner_bank__acc_number
+msgid "Account Number - IBAN"
+msgstr ""
+
+#. module: infomineo_account
+#: model:ir.model,name:infomineo_account.model_account_analytic_default
+msgid "Analytic Distribution"
+msgstr ""
+
+#. module: infomineo_account
+#: model:ir.model,name:infomineo_account.model_res_partner_bank
+msgid "Bank Accounts"
+msgstr ""
+
+#. module: infomineo_account
+#: model:ir.model,name:infomineo_account.model_account_bank_statement_line
+msgid "Bank Statement Line"
+msgstr ""
+
+#. module: infomineo_account
+#: model:ir.model.fields,help:infomineo_account.field_res_config_settings__show_additional_bill_fields
+msgid ""
+"By enabling this setting, fields 'Serie', 'UUID' and 'Voucher type' will be "
+"shown on bills. Currently this is set and only used for Mexico company."
+msgstr ""
+
+#. module: infomineo_account
+#: model_terms:ir.ui.view,arch_db:infomineo_account.view_account_move_company_switch_wizard
+msgid "Cancel"
+msgstr ""
+
+#. module: infomineo_account
+#: model:ir.actions.act_window,name:infomineo_account.action_account_move_company_switch
+msgid "Change Invoice company"
+msgstr ""
+
+#. module: infomineo_account
+#: model_terms:ir.ui.view,arch_db:infomineo_account.view_move_form
+msgid "Change company"
+msgstr ""
+
+#. module: infomineo_account
+#: model:ir.model,name:infomineo_account.model_res_company
+msgid "Companies"
+msgstr ""
+
+#. module: infomineo_account
+#: model:ir.model.fields,field_description:infomineo_account.field_account_bank_statement_line__company_id
+#: model:ir.model.fields,field_description:infomineo_account.field_account_move__company_id
+#: model:ir.model.fields,field_description:infomineo_account.field_account_payment__company_id
+msgid "Company"
+msgstr ""
+
+#. module: infomineo_account
+#: model:ir.model.fields,help:infomineo_account.field_account_bank_statement_line__company_id
+msgid "Company related to this journal"
+msgstr ""
+
+#. module: infomineo_account
+#: model:ir.model,name:infomineo_account.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: infomineo_account
+#: model:ir.model,name:infomineo_account.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: infomineo_account
+#: model:ir.model.fields,field_description:infomineo_account.field_account_move_company_switch_wizard__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: infomineo_account
+#: model:ir.model.fields,field_description:infomineo_account.field_account_move_company_switch_wizard__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: infomineo_account
+#: model:ir.model.fields,field_description:infomineo_account.field_account_analytic_default__department_id
+#: model:ir.model.fields,field_description:infomineo_account.field_account_move_line__analytic_tag_ids
+msgid "Department"
+msgstr ""
+
+#. module: infomineo_account
+#: model:ir.model.fields,field_description:infomineo_account.field_account_move_company_switch_wizard__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: infomineo_account
+#: model_terms:ir.ui.view,arch_db:infomineo_account.res_config_settings_view_form
+msgid ""
+"Enable to show additional fields -Serie, UUID and Voucher Type-. Currently "
+"only used for Mexico."
+msgstr ""
+
+#. module: infomineo_account
+#: model:ir.model.fields,field_description:infomineo_account.field_account_move_company_switch_wizard__id
+msgid "ID"
+msgstr ""
+
+#. module: infomineo_account
+#: model:ir.model.fields,field_description:infomineo_account.field_account_tax_group__is_retention
+msgid "Is Retention"
+msgstr ""
+
+#. module: infomineo_account
+#: model:ir.model,name:infomineo_account.model_account_move
+msgid "Journal Entry"
+msgstr ""
+
+#. module: infomineo_account
+#: model:ir.model,name:infomineo_account.model_account_move_line
+msgid "Journal Item"
+msgstr ""
+
+#. module: infomineo_account
+#: model:ir.model.fields,field_description:infomineo_account.field_account_move_company_switch_wizard____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: infomineo_account
+#: model:ir.model.fields,field_description:infomineo_account.field_account_move_company_switch_wizard__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: infomineo_account
+#: model:ir.model.fields,field_description:infomineo_account.field_account_move_company_switch_wizard__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: infomineo_account
+#: model:ir.model.fields,field_description:infomineo_account.field_account_move_line__analytic_account_id
+msgid "Project Code"
+msgstr ""
+
+#. module: infomineo_account
+#: model:ir.model.fields,field_description:infomineo_account.field_res_partner__remove_withholding_tax
+#: model:ir.model.fields,field_description:infomineo_account.field_res_users__remove_withholding_tax
+msgid "Remove Withholding Tax"
+msgstr ""
+
+#. module: infomineo_account
+#: model:ir.model.fields,field_description:infomineo_account.field_account_bank_statement_line__serie
+#: model:ir.model.fields,field_description:infomineo_account.field_account_move__serie
+#: model:ir.model.fields,field_description:infomineo_account.field_account_payment__serie
+msgid "Serie"
+msgstr ""
+
+#. module: infomineo_account
+#: model:ir.model.fields,field_description:infomineo_account.field_account_bank_statement_line__show_additional_bill_fields
+#: model:ir.model.fields,field_description:infomineo_account.field_account_move__show_additional_bill_fields
+#: model:ir.model.fields,field_description:infomineo_account.field_account_payment__show_additional_bill_fields
+#: model:ir.model.fields,field_description:infomineo_account.field_res_company__show_additional_bill_fields
+msgid "Show Additional Bill Fields"
+msgstr ""
+
+#. module: infomineo_account
+#: model:ir.model.fields,field_description:infomineo_account.field_res_config_settings__show_additional_bill_fields
+msgid "Show additional bill fields"
+msgstr ""
+
+#. module: infomineo_account
+#: model_terms:ir.ui.view,arch_db:infomineo_account.view_account_move_company_switch_wizard
+msgid "Switch"
+msgstr ""
+
+#. module: infomineo_account
+#: model_terms:ir.ui.view,arch_db:infomineo_account.view_account_move_company_switch_wizard
+msgid "Switch invoice company"
+msgstr ""
+
+#. module: infomineo_account
+#: model:ir.model.fields,field_description:infomineo_account.field_account_move_company_switch_wizard__company_id
+msgid "Switch to company"
+msgstr ""
+
+#. module: infomineo_account
+#: model:ir.model.fields,field_description:infomineo_account.field_account_move_company_switch_wizard__currency_id
+msgid "Switch to currency"
+msgstr ""
+
+#. module: infomineo_account
+#: model:ir.model,name:infomineo_account.model_account_tax_group
+msgid "Tax Group"
+msgstr ""
+
+#. module: infomineo_account
+#: model:ir.model.fields,help:infomineo_account.field_res_partner__remove_withholding_tax
+#: model:ir.model.fields,help:infomineo_account.field_res_users__remove_withholding_tax
+msgid ""
+"Technical field used to decide if retention tax should be printed on invoice"
+" PDF reports."
+msgstr ""
+
+#. module: infomineo_account
+#: code:addons/infomineo_account/models/account_move.py:0
+#, python-format
+msgid ""
+"Unable to switch to selected company. Accounts are not configured on "
+"partner."
+msgstr ""
+
+#. module: infomineo_account
+#: code:addons/infomineo_account/models/account_move.py:0
+#, python-format
+msgid ""
+"Unable to switch to selected company. Accounts are not configured on product"
+" or on product category."
+msgstr ""
+
+#. module: infomineo_account
+#: model:ir.model.fields,field_description:infomineo_account.field_account_bank_statement_line__uuid
+#: model:ir.model.fields,field_description:infomineo_account.field_account_move__uuid
+#: model:ir.model.fields,field_description:infomineo_account.field_account_payment__uuid
+msgid "Uuid"
+msgstr ""
+
+#. module: infomineo_account
+#: model:ir.model.fields,field_description:infomineo_account.field_account_bank_statement_line__tax_declared
+#: model:ir.model.fields,field_description:infomineo_account.field_account_move__tax_declared
+#: model:ir.model.fields,field_description:infomineo_account.field_account_payment__tax_declared
+msgid "VAT Declaration"
+msgstr ""
+
+#. module: infomineo_account
+#: model:ir.model.fields,field_description:infomineo_account.field_account_bank_statement_line__voucher_type
+#: model:ir.model.fields,field_description:infomineo_account.field_account_move__voucher_type
+#: model:ir.model.fields,field_description:infomineo_account.field_account_payment__voucher_type
+msgid "Voucher Type"
+msgstr "Tipo de Comprobante"
+
+#. module: infomineo_account
+#: code:addons/infomineo_account/models/account_move.py:0
+#, python-format
+msgid ""
+"We are not able to change assigned journal on invoices that has already been"
+" posted before."
+msgstr ""
+
+#. module: infomineo_account
+#: model_terms:ir.ui.view,arch_db:infomineo_account.view_partner_property_form
+msgid "Withholding tax"
+msgstr ""
+
+#. module: infomineo_account
+#: model_terms:ir.ui.view,arch_db:infomineo_account.tax_groups_totals
+#: model_terms:ir.ui.view,arch_db:infomineo_account.tax_groups_totals_retention
+msgid "on"
+msgstr ""

@@ -1,0 +1,8 @@
+<?xml version="1.0" ?>
+<odoo noupdate="1">
+    <record id="seq_internal_project_number" model="ir.sequence">
+        <field name="name">Internal project number</field>
+        <field name="code">infomineo_sale_project.internal_project_number</field>
+        <field name="padding">2</field>
+    </record>
+</odoo>

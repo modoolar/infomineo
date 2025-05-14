@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <function name="write" model="ir.model.data">
+        <function name="search" model="ir.model.data">
+            <value
+                eval="[('name', '=', 'approval_category_rule'), ('module', '=', 'approvals')]"
+            />
+        </function>
+        <value eval="{'noupdate': False}" />
+    </function>
+
+    <function name="write" model="ir.model.data">
+        <function name="search" model="ir.model.data">
+            <value
+                eval="[('name', '=', 'approval_approver_rule'), ('module', '=', 'approvals')]"
+            />
+        </function>
+        <value eval="{'noupdate': False}" />
+    </function>
+
+    <function name="write" model="ir.model.data">
+        <function name="search" model="ir.model.data">
+            <value
+                eval="[('name', '=', 'approval_request_rule'), ('module', '=', 'approvals')]"
+            />
+        </function>
+        <value eval="{'noupdate': False}" />
+    </function>
+
+    <record id="approvals.approval_category_rule" model="ir.rule">
+        <field
+            name="domain_force"
+        >['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+    </record>
+
+    <record id="approvals.approval_approver_rule" model="ir.rule">
+        <field
+            name="domain_force"
+        >['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+    </record>
+
+    <record id="approvals.approval_request_rule" model="ir.rule">
+        <field
+            name="domain_force"
+        >['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+    </record>
+
+    <function name="write" model="ir.model.data">
+        <function name="search" model="ir.model.data">
+            <value
+                eval="[('name', '=', 'approval_category_rule'), ('module', '=', 'approvals')]"
+            />
+        </function>
+        <value eval="{'noupdate': True}" />
+    </function>
+
+    <function name="write" model="ir.model.data">
+        <function name="search" model="ir.model.data">
+            <value
+                eval="[('name', '=', 'approval_approver_rule'), ('module', '=', 'approvals')]"
+            />
+        </function>
+        <value eval="{'noupdate': True}" />
+    </function>
+
+    <function name="write" model="ir.model.data">
+        <function name="search" model="ir.model.data">
+            <value
+                eval="[('name', '=', 'approval_request_rule'), ('module', '=', 'approvals')]"
+            />
+        </function>
+        <value eval="{'noupdate': True}" />
+    </function>
+</odoo>

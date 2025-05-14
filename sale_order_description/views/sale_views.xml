@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_order_tree" model="ir.ui.view">
+        <field name="name">sale.order.tree</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_tree" />
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="description" />
+            </field>
+        </field>
+    </record>
+
+    <record id="view_quotation_tree" model="ir.ui.view">
+        <field name="name">sale.order.tree</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_quotation_tree" />
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="description" />
+            </field>
+        </field>
+    </record>
+
+    <record id="view_order_form" model="ir.ui.view">
+        <field name="name">sale.order.form</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form" />
+        <field name="arch" type="xml">
+            <field name="partner_id" position="before">
+                <field name="description" />
+            </field>
+        </field>
+    </record>
+
+    <record id="view_sales_order_filter" model="ir.ui.view">
+        <field name="name">sale.order.list.select</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_sales_order_filter" />
+        <field name="arch" type="xml">
+            <field name="name" position="attributes">
+                <attribute name="filter_domain">[
+                    '|', '|', '|',
+                    ('name', 'ilike', self),
+                    ('client_order_ref', 'ilike', self),
+                    ('partner_id', 'child_of', self),
+                    ('description', 'ilike', self)
+                ]</attribute>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_order_form_auto_done_setting" model="ir.ui.view">
+        <field name="name">sale.order.form</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="view_order_form" />
+        <field name="groups_id" eval="[(4, ref('sale.group_auto_done_setting'))]" />
+        <field name="arch" type="xml">
+            <field name="description" position="attributes">
+                <attribute
+                    name="attrs"
+                >{'readonly': [('state', '=', 'done')]}</attribute>
+            </field>
+        </field>
+    </record>
+</odoo>

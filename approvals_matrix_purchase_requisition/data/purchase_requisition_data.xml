@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo noupdate="1">
+    <function name="write" model="ir.model.data">
+        <function name="search" model="ir.model.data">
+            <value
+                eval="[('module', '=', 'purchase_requisition'), ('name', '=', 'purchase_requisition_comp_rule')]"
+            />
+        </function>
+        <value eval="{'noupdate': False}" />
+    </function>
+    <function name="write" model="ir.model.data">
+        <function name="search" model="ir.model.data">
+            <value
+                eval="[('module', '=', 'purchase_requisition'), ('name', '=', 'purchase_requisition_line_comp_rule')]"
+            />
+        </function>
+        <value eval="{'noupdate': False}" />
+    </function>
+</odoo>

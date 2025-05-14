@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo noupdate="1">
+    <record model="mail.channel" id="sales_package_discuss_channel">
+        <field name="name">Sales Channel</field>
+        <field name="description">Sales discuss channel.</field>
+    </record>
+    <record model="mail.channel" id="project_discuss_channel">
+        <field name="name">Project Channel</field>
+        <field name="description">Project discuss channel.</field>
+    </record>
+</odoo>

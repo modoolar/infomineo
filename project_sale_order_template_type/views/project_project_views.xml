@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_project_kanban" model="ir.ui.view">
+        <field name="name">view.project.kanban</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.view_project_kanban" />
+        <field name="priority">300</field>
+        <field name="arch" type="xml">
+            <xpath expr="/kanban" position="inside">
+                <field name="order_type" />
+            </xpath>
+            <xpath expr="//t[@t-esc='record.name.value']/parent::span" position="after">
+               <span class="o_text_overflow"><t
+                        t-esc="record.order_type.value"
+                    /></span>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="edit_project" model="ir.ui.view">
+        <field name="name">edit.project</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='label_tasks']" position="after">
+                <field name="order_type" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_project" model="ir.ui.view">
+        <field name="name">view.project</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.view_project" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="order_type" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_project_project_filter" model="ir.ui.view">
+        <field name="name">view.project.project.filter</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.view_project_project_filter" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="order_type" />
+            </xpath>
+            <xpath expr="//filter[@name='groupby_stage']" position="after">
+                <filter
+                    string="Order Type"
+                    name="groupby_order_type"
+                    context="{'group_by': 'order_type'}"
+                />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="edit_project_group_admin" model="ir.ui.view">
+        <field name="name">edit.project</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project_sale_order_template_type.edit_project" />
+        <field name="groups_id" eval="[(4, ref('base.group_system'))]" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='order_type']" position="attributes">
+                <attribute
+                    name="attrs"
+                >{'readonly': [('sale_order_id', '!=', False)]}</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

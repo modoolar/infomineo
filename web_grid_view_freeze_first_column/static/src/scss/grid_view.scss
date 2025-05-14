@@ -1,0 +1,20 @@
+.o_view_grid {
+    tbody {
+        th {
+            position: -webkit-sticky;
+            position: sticky;
+            background-color: white;
+            left: 0;
+            z-index: 1;
+        }
+    }
+    thead {
+        .o_grid_title_header {
+            position: -webkit-sticky;
+            position: sticky;
+            background-color: white;
+            left: 0;
+            z-index: 1;
+        }
+    }
+}

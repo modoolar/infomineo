@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo noupdate="1">
+    <record id="mail_activity_data_approval_reminder" model="mail.activity.type">
+        <field name="name">Approval Reminder</field>
+        <field name="icon">fa fa-clock-o</field>
+        <field name="sequence">4</field>
+        <field name="res_model">approval.request</field>
+    </record>
+</odoo>

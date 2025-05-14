@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_purchase_requisition_form" model="ir.ui.view">
+        <field name="name">purchase.requisition.form</field>
+        <field name="model">purchase.requisition</field>
+        <field
+            name="inherit_id"
+            ref="purchase_requisition.view_purchase_requisition_form"
+        />
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button
+                    type="object"
+                    name="action_view_approvals"
+                    class="oe_stat_button"
+                    icon="fa-thumbs-up"
+                    attrs="{'invisible': [('active_request_count', '=', 0)]}"
+                >
+                    <div class="o_field_widget o_stat_info">
+                        <span class="o_stat_text">Approvals: <field
+                                name="active_request_count"
+                            />
+                        </span>
+                    </div>
+                </button>
+            </xpath>
+            <xpath expr="//field[@name='user_id']" position="after">
+                <field name="approval_request_ids" invisible="1" />
+                <field name="request_status" invisible="1" />
+            </xpath>
+            <xpath expr="//header" position="after">
+                <field
+                    name="request_status_banner"
+                    widget="html"
+                    class="d-block"
+                    attrs="{'invisible': [('request_status', '!=', 'pending')]}"
+                />
+            </xpath>
+        </field>
+    </record>
+</odoo>

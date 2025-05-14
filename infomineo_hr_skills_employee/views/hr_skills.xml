@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record model="ir.ui.menu" id="hr_skills.hr_skill_type_menu">
+        <field name="groups_id" eval="[(4, ref('hr.group_hr_manager'))]" />
+    </record>
+
+    <record model="ir.ui.menu" id="hr.menu_human_resources_configuration_employee">
+        <field name="groups_id" eval="[(4, ref('hr.group_hr_manager'))]" />
+    </record>
+
+</odoo>

@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<odoo>
+
+    <record id="helpdesk_team_view_form" model="ir.ui.view">
+        <field name="name">helpdesk.team.form</field>
+        <field name="model">helpdesk.team</field>
+        <field name="inherit_id" ref="helpdesk.helpdesk_team_view_form" />
+        <field name="arch" type="xml">
+            <field name="visibility_member_ids" position="after">
+                <div>
+                    <label for="helpdesk_team_manager_id" />
+                    <div>
+                        <field name="helpdesk_team_manager_id" />
+                    </div>
+                </div>
+            </field>
+        </field>
+    </record>
+
+</odoo>
