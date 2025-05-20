@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="send_timeoff_remainder_cron" model="ir.cron">
+            <field name="name">Send Remainder E-mail for Pending Time-Off Request</field>
+            <field name="model_id" ref="model_hr_leave"/>
+            <field name="state">code</field>
+            <field name="code">model.send_timeoff_remainder_action()</field>
+            <field name="active" eval="True"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+        </record>
+
+    </data>
+</odoo>

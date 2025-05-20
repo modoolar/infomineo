@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_hr_access_manager_form_inherit" model="ir.ui.view">
+            <field name="name">hr.employee.access.manager.form</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="infomineo_hr.view_employee_form"/>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//header/button[@name='%(infomineo_hr.change_coach_action)d']" position="attributes">
+                    <attribute name="groups">hr.group_hr_manager</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
