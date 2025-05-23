@@ -8,7 +8,7 @@
     "website": "https://infomineo.com",
 
     'category': 'Human Resources/Time Off',
-    'version': '15.0.0.1.0',
+    'version': '15.0.0.1.1',
 
     'depends': ['hr_holidays'],
     'data': [

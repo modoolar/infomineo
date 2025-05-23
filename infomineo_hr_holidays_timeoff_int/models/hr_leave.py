@@ -18,6 +18,6 @@ class HrLeave(models.Model):
             # _logger.info(f"record_url: {record_url}")
 
             # Send a reminder email to the manager for each pending request
-            template_id = self.env.ref('infomineo_hr_holidays_int.email_template_pending_timeoff_reminder').id
+            template_id = self.env.ref('infomineo_hr_holidays_timeoff_int.email_template_pending_timeoff_reminder').id
             # request.with_context(url=record_url).env['mail.template'].browse(template_id).send_mail(request.id, force_send=True)
             request.env['mail.template'].browse(template_id).send_mail(request.id, force_send=True)
