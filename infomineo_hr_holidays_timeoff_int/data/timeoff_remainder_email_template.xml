@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="email_template_pending_timeoff_reminder" model="mail.template">
+            <field name="name">Reminder: Pending Time-Off Request for Approval</field>
+            <field name="model_id" ref="hr_holidays.model_hr_leave"/>
+            <field name="subject">Reminder: Pending Time-Off Request for Approval</field>
+            <field name="email_from">hrteam@infomineo.com</field>
+            <field name="email_to">{{ object.manager_id.work_email }}</field>
+            <field name="body_html">
+                <![CDATA[
+                    <p>Dear <b><t t-out="object.manager_id.name or ''"></t></b>,</p>
+
+                    <p>This is a reminder to review the following time-off request:</p>
+                    <ul>
+                        <li><b>Employee:</b><t t-out="object.employee_id.name or ''"></t></li>
+                        <li><b>Start Date:</b><t t-out="object.date_from or ''"></t></li>
+                        <li><b>End Date:</b><t t-out="object.date_to or ''"></t></li>
+                        <li><b>Leave Type:</b><t t-out="object.holiday_status_id.name or ''"></t></li>
+                        <li><b>Reason:</b><t t-out="object.name or ''"></t></li>
+                    </ul>
+
+                    <p>You can approve or reject this request by clicking <a t-attf-href="/web?#id={{ object.id }}&amp;view_type=form&amp;model=hr.leave"" >here</a>.</p>
+
+                    <p>Thank you,</p>
+                ]]>
+            </field>
+            <field name="email_to">{{ object.manager_id.work_email }}</field>
+        </record>
+    </data>
+</odoo>
