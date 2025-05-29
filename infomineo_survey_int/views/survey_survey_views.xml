@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="survey_auto_share_form_inherit" model="ir.ui.view">
+            <field name="name">survey.auto.share.form.inherit</field>
+            <field name="model">survey.survey</field>
+            <field name="inherit_id" ref="survey.survey_form"/>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='options']" position="inside">
+                    <group string="Auto Share Options">
+                        <field name="survey_type"/>
+                        <field name="share_type"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
