@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="rating_rating_view_tree_input_line_inherit" model="ir.ui.view">
+            <field name="name">rating.rating.tree.project</field>
+            <field name="model">survey.user_input.line</field>
+            <field name="inherit_id" ref="infomineo_rating_survey.rating_rating_view_tree_input_line"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="category_id" optional="show" widget="many2many_tags"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
