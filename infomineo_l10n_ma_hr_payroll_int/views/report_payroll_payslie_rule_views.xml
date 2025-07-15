@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="report_payroll_payslip_rule_form_view_inherit" model="ir.ui.view">
+        <field name="name">report.payroll.payslip.rule.form.view.inherit</field>
+        <field name="model">report.payroll.payslip.rule</field>
+        <field name="inherit_id" ref="infomineo_l10n_ma_hr_payroll.report_payroll_payslip_rule_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='base_value']" position="attributes">
+                <attribute name="attrs">{'invisible':[('base_type', 'not in', ['python_code', 'contract_amount', 'payslip_amount'])]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='salarie_taux_value']" position="attributes">
+                <attribute name="attrs">{'invisible':[('salarie_taux_type', 'not in', ['python_code', 'contract_amount', 'payslip_amount'])]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='salarie_gains_value']" position="attributes">
+                <attribute name="attrs">{'invisible':[('salarie_gains_type', 'not in', ['python_code', 'contract_amount', 'payslip_amount'])]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='salarie_retenue_value']" position="attributes">
+                <attribute name="attrs">{'invisible':[('salarie_retenue_type', 'not in', ['python_code', 'contract_amount', 'payslip_amount'])]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='employeur_taux_value']" position="attributes">
+                <attribute name="attrs">{'invisible':[('employeur_taux_type', 'not in', ['python_code', 'contract_amount', 'payslip_amount'])]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='employeur_charge_value']" position="attributes">
+                <attribute name="attrs">{'invisible':[('employeur_charge_type', 'not in', ['python_code', 'contract_amount', 'payslip_amount'])]}</attribute>
+            </xpath>
+        </field>
+    </record>
+
+=
+</odoo>
