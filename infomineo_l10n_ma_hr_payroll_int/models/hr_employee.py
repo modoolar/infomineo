@@ -4,7 +4,7 @@ from odoo import fields, models, api
 class HrEmployee(models.Model):
     _inherit = 'hr.employee'
 
-    start_date = fields.Date('Start Date', compute='_compute_start_date', store=True)
+    start_date = fields.Date('Start Date', compute='_compute_start_date', store=True, groups="hr.group_hr_user")
 
     @api.depends('contract_ids', 'contract_ids.date_start')
     def _compute_start_date(self):
