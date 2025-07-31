@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="report_payslip_ma_custom_date" inherit_id="infomineo_l10n_ma_hr_payroll.report_payslip_ma">
+        <xpath expr="//span[@t-field='o.contract_id.date_start']" position="replace">
+            <span
+                t-field="o.start_date"
+                t-options="{'widget': 'date', 'format': 'd-MMM-YYYY'}"
+            />
+        </xpath>
+    </template>
+</odoo>
