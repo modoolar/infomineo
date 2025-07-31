@@ -4,7 +4,7 @@
 {
     "name": "Infomineo Rating Survey",
     "summary": "Functional extensions for rating by survey functionality",
-    "version": "15.0.0.19.1",
+    "version": "15.0.0.19.2",
     "category": "Hidden",
     "license": "LGPL-3",
     "author": "Modoolar",

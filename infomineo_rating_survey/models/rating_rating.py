@@ -35,7 +35,7 @@ class Rating(models.Model):
 
     def _compute_rated_partner_ids(self):
         for r in self:
-            if r.resource_ref._name == "project.task":
+            if r.resource_ref and r.resource_ref._name == "project.task":
                 r.rated_partner_ids = (
                     r.resource_ref
                     and r.resource_ref.user_ids.mapped("partner_id")
