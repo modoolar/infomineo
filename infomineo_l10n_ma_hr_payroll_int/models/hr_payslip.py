@@ -11,7 +11,5 @@ class HrPayslip(models.Model):
         for r in self:
             if r.employee_id:
                 r.start_date = r.employee_id.start_date
-                print('testtt')
             else:
                 r.start_date = None
-                print('heeey')
